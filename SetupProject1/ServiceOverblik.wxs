@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="23E9D260-36FB-44BA-8377-D8CFC91430ED" Name="ServiceOverblik" Language="1033" Version="1.0.0.0" Manufacturer="NetConn" UpgradeCode="450F04A5-2F5A-461F-835C-2BF4C8EE0CAB">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="ServiceIverblik" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
+		</Feature>
+	</Product>
+  
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="DesktopFolder" Name="Desktop"/>
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="ServiceOverblik" />
+			</Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="ServiceOverblik"/>
+      </Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="ENTITYFRAMEWORK.DLL" DiskId="1" Guid="AA54F005-3CF3-430F-B1DC-701C5209A25B">
+        <File Id="ENTITYFRAMEWORK.DLL" Name="EntityFramework.dll" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\EntityFramework.dll" />
+      </Component>
+      <Component Id="ENTITYFRAMEWORK.XML" DiskId="1" Guid="93917615-ED51-4868-998F-E187BF59C759">
+        <File Id="ENTITYFRAMEWORK.XML" Name="EntityFramework.xml" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\EntityFramework.xml" />
+      </Component>
+      <Component Id="MYSQL.DATA.DLL" DiskId="1" Guid="DF2A5C6F-053E-4DFC-A7B3-A390749E15A6">
+        <File Id="MYSQL.DATA.DLL" Name="MySql.Data.dll" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\MySql.Data.dll" />
+      </Component>
+      <Component Id="MYSQL.DATA.ENTITY.DLL" DiskId="1" Guid="32A89363-4C70-493B-972F-624E3A7B0AA0">
+        <File Id="MYSQL.DATA.ENTITY.DLL" Name="MySql.Data.Entity.dll" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\MySql.Data.Entity.dll" />
+      </Component>
+      <Component Id="MYSQL.WEB.DLL" DiskId="1" Guid="9420CE41-47C8-4001-A8A7-323BD2663DA1">
+        <File Id="MYSQL.WEB.DLL" Name="MySql.Web.dll" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\MySql.Web.dll" />
+      </Component>
+      <Component Id="SERVICEOVERBLIK.EXE" DiskId="1" Guid="68753AE6-2073-41C5-845F-597062D10E9A">
+        <File Id="SERVICEOVERBLIK.EXE" Name="ServiceOverblik.exe" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\ServiceOverblik.exe" />
+      </Component>
+      <Component Id="SERVICEOVERBLIK.EXE.CONFIG" DiskId="1" Guid="B4ADC679-1E28-43A6-8FEC-A67AD0074114">
+        <File Id="SERVICEOVERBLIK.EXE.CONFIG" Name="ServiceOverblik.exe.config" Source="C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\ServiceOverblik.exe.config" />
+      </Component>
+		</ComponentGroup>
+    
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="E790B541-DE2F-47F5-8446-0C1FA8768D95">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="ServiceOverblik"
+                  Description="ServiceOverblik"
+                  Target="[INSTALLFOLDER]SERVICEOVERBLIK.EXE"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\ServiceOverblik" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="ApplicationShortcutDesktop" Guid="E80100FD-2524-419B-BF1C-C668F4964B69">
+        <Shortcut Id="ApplicationDesktopShortcut"
+                  Name="ServiceOverblik"
+                  Description="ServiceOverblik"
+                  Target="[INSTALLFOLDER]SERVICEOVERBLIK.EXE"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\ServiceOverblik" Name="installed" Type="integer" Value="2" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>
