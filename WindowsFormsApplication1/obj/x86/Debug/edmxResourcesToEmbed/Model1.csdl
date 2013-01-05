@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CustomerDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="customers" EntityType="CustomerDataModel.customers" />
+    <EntitySet Name="servicecontracts" EntityType="CustomerDataModel.servicecontracts" />
+    <EntitySet Name="servicetypes" EntityType="CustomerDataModel.servicetypes" />
+    <AssociationSet Name="sid" Association="CustomerDataModel.sid">
+      <End Role="servicecontracts" EntitySet="servicecontracts" />
+      <End Role="customers" EntitySet="customers" />
+    </AssociationSet>
+    <AssociationSet Name="tid" Association="CustomerDataModel.tid">
+      <End Role="servicetypes" EntitySet="servicetypes" />
+      <End Role="servicecontracts" EntitySet="servicecontracts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="customers">
+    <Key>
+      <PropertyRef Name="uId" />
+    </Key>
+    <Property Type="Int32" Name="uId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="postcode" Nullable="false" />
+    <Property Type="String" Name="city" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="street" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="cname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="panelcount" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="color" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="inverter" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="warehouseid" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="serviceno" />
+    <Property Type="Boolean" Name="hasservice" Nullable="false" />
+    <Property Type="Boolean" Name="isprivate" Nullable="false" />
+    <NavigationProperty Name="servicecontracts" Relationship="CustomerDataModel.sid" FromRole="customers" ToRole="servicecontracts" />
+  </EntityType>
+  <EntityType Name="servicecontracts">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Type="Int32" Name="sid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="servicetype" Nullable="false" />
+    <Property Type="DateTime" Name="startdate" Nullable="false" />
+    <Property Type="DateTime" Name="enddate" Nullable="false" />
+    <Property Type="String" Name="soldby" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="timestamp" Nullable="false" />
+    <NavigationProperty Name="customers" Relationship="CustomerDataModel.sid" FromRole="servicecontracts" ToRole="customers" />
+    <NavigationProperty Name="servicetypes" Relationship="CustomerDataModel.tid" FromRole="servicecontracts" ToRole="servicetypes" />
+  </EntityType>
+  <EntityType Name="servicetypes">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Type="Int32" Name="tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="sname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="price" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="period" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="servicecontracts" Relationship="CustomerDataModel.tid" FromRole="servicetypes" ToRole="servicecontracts" />
+  </EntityType>
+  <Association Name="sid">
+    <End Type="CustomerDataModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CustomerDataModel.customers" Role="customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicecontracts">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="customers">
+        <PropertyRef Name="serviceno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tid">
+    <End Type="CustomerDataModel.servicetypes" Role="servicetypes" Multiplicity="1" />
+    <End Type="CustomerDataModel.servicecontracts" Role="servicecontracts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicetypes">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="servicecontracts">
+        <PropertyRef Name="servicetype" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

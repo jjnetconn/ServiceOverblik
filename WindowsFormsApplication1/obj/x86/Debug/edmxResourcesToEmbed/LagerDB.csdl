@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="lagermanModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="lagermanEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="inverterbase" EntityType="lagermanModel.inverterbase" />
+    <EntitySet Name="prodcat" EntityType="lagermanModel.prodcat" />
+  </EntityContainer>
+  <EntityType Name="inverterbase">
+    <Key>
+      <PropertyRef Name="uid" />
+    </Key>
+    <Property Name="uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Nullable="false" />
+    <Property Name="serial_no" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="manefacture" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="cname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="supplier_id" Type="Int32" Nullable="false" />
+    <Property Name="extended_warenty" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="prodcat">
+    <Key>
+      <PropertyRef Name="prod_no" />
+    </Key>
+    <Property Name="group_id" Type="Int32" Nullable="false" />
+    <Property Name="supplier_id" Type="Int32" Nullable="false" />
+    <Property Name="prod_no" Type="Int32" Nullable="false" />
+    <Property Name="cname_prod" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="supplierName" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+  </EntityType>
+</Schema>

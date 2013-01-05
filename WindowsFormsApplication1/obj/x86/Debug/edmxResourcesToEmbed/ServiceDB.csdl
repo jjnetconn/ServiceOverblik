@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="servicebaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="servicebaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="paneltypes" EntityType="servicebaseModel.paneltypes" />
+    <EntitySet Name="salesreps" EntityType="servicebaseModel.salesreps" />
+    <EntitySet Name="customers" EntityType="servicebaseModel.customers" />
+    <EntitySet Name="servicecontracts" EntityType="servicebaseModel.servicecontracts" />
+    <EntitySet Name="servicetypes" EntityType="servicebaseModel.servicetypes" />
+    <AssociationSet Name="sid" Association="servicebaseModel.sid">
+      <End Role="servicecontracts" EntitySet="servicecontracts" />
+      <End Role="customers" EntitySet="customers" />
+    </AssociationSet>
+    <AssociationSet Name="tid" Association="servicebaseModel.tid">
+      <End Role="servicetypes" EntitySet="servicetypes" />
+      <End Role="servicecontracts" EntitySet="servicecontracts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="paneltypes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="name" MaxLength="128" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="salesreps">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="init" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="name" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="customers">
+    <Key>
+      <PropertyRef Name="uId" />
+    </Key>
+    <Property Type="Int32" Name="uId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="postcode" Nullable="false" />
+    <Property Type="String" Name="city" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="street" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="cname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phone" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="panelcount" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="color" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="inverter" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="paneltype" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="warehouseid" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="serviceno" />
+    <Property Type="Boolean" Name="hasservice" Nullable="false" />
+    <Property Type="Boolean" Name="isprivate" Nullable="false" />
+    <Property Type="Binary" Name="serviceblog" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="servicecontracts" Relationship="servicebaseModel.sid" FromRole="customers" ToRole="servicecontracts" />
+  </EntityType>
+  <EntityType Name="servicecontracts">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Type="Int32" Name="sid" Nullable="false" />
+    <Property Type="Int32" Name="servicetype" />
+    <Property Type="DateTime" Name="startdate" Nullable="false" />
+    <Property Type="DateTime" Name="enddate" Nullable="false" />
+    <Property Type="String" Name="soldby" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="timestamp" Nullable="false" />
+    <NavigationProperty Name="customers" Relationship="servicebaseModel.sid" FromRole="servicecontracts" ToRole="customers" />
+    <NavigationProperty Name="servicetypes" Relationship="servicebaseModel.tid" FromRole="servicecontracts" ToRole="servicetypes" />
+  </EntityType>
+  <EntityType Name="servicetypes">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Type="Int32" Name="tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="sname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="price" />
+    <Property Type="Int32" Name="period" Nullable="false" />
+    <Property Type="Double" Name="startupfee" />
+    <NavigationProperty Name="servicecontracts" Relationship="servicebaseModel.tid" FromRole="servicetypes" ToRole="servicecontracts" />
+  </EntityType>
+  <Association Name="sid">
+    <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="servicebaseModel.customers" Role="customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicecontracts">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="customers">
+        <PropertyRef Name="serviceno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tid">
+    <End Type="servicebaseModel.servicetypes" Role="servicetypes" Multiplicity="1" />
+    <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="servicetypes">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="servicecontracts">
+        <PropertyRef Name="sid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

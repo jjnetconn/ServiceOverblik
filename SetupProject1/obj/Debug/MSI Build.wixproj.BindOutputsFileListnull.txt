@@ -1,0 +1,3 @@
+C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\SetupProject1\bin\Debug\cab1.cab
+C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\SetupProject1\bin\Debug\ServiceOverblik.msi
+C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\SetupProject1\bin\Debug\ServiceOverblik.wixpdb

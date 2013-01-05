@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="lagermanModelStoreContainer" CdmEntityContainer="lagermanEntities">
+    <EntitySetMapping Name="inverterbase">
+      <EntityTypeMapping TypeName="lagermanModel.inverterbase">
+        <MappingFragment StoreEntitySet="inverterbase">
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="serial_no" ColumnName="serial_no" />
+          <ScalarProperty Name="manefacture" ColumnName="manefacture" />
+          <ScalarProperty Name="cname" ColumnName="cname" />
+          <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+          <ScalarProperty Name="extended_warenty" ColumnName="extended_warenty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="prodcat">
+      <EntityTypeMapping TypeName="lagermanModel.prodcat">
+        <MappingFragment StoreEntitySet="prodcat">
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+          <ScalarProperty Name="prod_no" ColumnName="prod_no" />
+          <ScalarProperty Name="cname_prod" ColumnName="cname_prod" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

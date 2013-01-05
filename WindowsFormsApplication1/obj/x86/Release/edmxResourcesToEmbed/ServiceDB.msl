@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="servicebaseModelStoreContainer" CdmEntityContainer="servicebaseEntities">
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="servicebaseModel.customers">
+        <MappingFragment StoreEntitySet="customers">
+          <ScalarProperty Name="uId" ColumnName="uId" />
+          <ScalarProperty Name="postcode" ColumnName="postcode" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="street" ColumnName="street" />
+          <ScalarProperty Name="cname" ColumnName="cname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="panelcount" ColumnName="panelcount" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="inverter" ColumnName="inverter" />
+          <ScalarProperty Name="warehouseid" ColumnName="warehouseid" />
+          <ScalarProperty Name="serviceno" ColumnName="serviceno" />
+          <ScalarProperty Name="hasservice" ColumnName="hasservice" />
+          <ScalarProperty Name="isprivate" ColumnName="isprivate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicecontracts">
+      <EntityTypeMapping TypeName="servicebaseModel.servicecontracts">
+        <MappingFragment StoreEntitySet="servicecontracts">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="servicetype" ColumnName="servicetype" />
+          <ScalarProperty Name="startdate" ColumnName="startdate" />
+          <ScalarProperty Name="enddate" ColumnName="enddate" />
+          <ScalarProperty Name="soldby" ColumnName="soldby" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="servicetypes">
+      <EntityTypeMapping TypeName="servicebaseModel.servicetypes">
+        <MappingFragment StoreEntitySet="servicetypes">
+          <ScalarProperty Name="tid" ColumnName="tid" />
+          <ScalarProperty Name="sname" ColumnName="sname" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="period" ColumnName="period" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

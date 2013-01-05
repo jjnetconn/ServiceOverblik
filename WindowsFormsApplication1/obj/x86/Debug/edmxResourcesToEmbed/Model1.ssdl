@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CustomerDataModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="CustomerDataModelStoreContainer">
+    <EntitySet Name="customers" EntityType="CustomerDataModel.Store.customers" store:Type="Tables" Schema="servicebase" />
+    <EntitySet Name="servicecontracts" EntityType="CustomerDataModel.Store.servicecontracts" store:Type="Tables" Schema="servicebase" />
+    <EntitySet Name="servicetypes" EntityType="CustomerDataModel.Store.servicetypes" store:Type="Tables" Schema="servicebase" />
+    <AssociationSet Name="sid" Association="CustomerDataModel.Store.sid">
+      <End Role="servicecontracts" EntitySet="servicecontracts" />
+      <End Role="customers" EntitySet="customers" />
+    </AssociationSet>
+    <AssociationSet Name="tid" Association="CustomerDataModel.Store.tid">
+      <End Role="servicetypes" EntitySet="servicetypes" />
+      <End Role="servicecontracts" EntitySet="servicecontracts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="customers">
+    <Key>
+      <PropertyRef Name="uId" />
+    </Key>
+    <Property Name="uId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="postcode" Type="int" Nullable="false" />
+    <Property Name="city" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="street" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="cname" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="email" Type="varchar" MaxLength="45" />
+    <Property Name="phone" Type="varchar" MaxLength="45" />
+    <Property Name="panelcount" Type="varchar" MaxLength="45" />
+    <Property Name="color" Type="varchar" MaxLength="45" />
+    <Property Name="inverter" Type="varchar" MaxLength="45" />
+    <Property Name="warehouseid" Type="varchar" MaxLength="45" />
+    <Property Name="serviceno" Type="int" />
+    <Property Name="hasservice" Type="bool" Nullable="false" />
+    <Property Name="isprivate" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="servicecontracts">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="servicetype" Type="int" Nullable="false" />
+    <Property Name="startdate" Type="date" Nullable="false" />
+    <Property Name="enddate" Type="date" Nullable="false" />
+    <Property Name="soldby" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="timestamp" Type="timestamp" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="servicetypes">
+    <Key>
+      <PropertyRef Name="tid" />
+    </Key>
+    <Property Name="tid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="sname" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="price" Type="varchar" MaxLength="45" />
+    <Property Name="period" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <Association Name="sid">
+    <End Role="servicecontracts" Type="CustomerDataModel.Store.servicecontracts" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="customers" Type="CustomerDataModel.Store.customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicecontracts">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="customers">
+        <PropertyRef Name="serviceno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tid">
+    <End Role="servicetypes" Type="CustomerDataModel.Store.servicetypes" Multiplicity="1" />
+    <End Role="servicecontracts" Type="CustomerDataModel.Store.servicecontracts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="servicetypes">
+        <PropertyRef Name="tid" />
+      </Principal>
+      <Dependent Role="servicecontracts">
+        <PropertyRef Name="servicetype" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

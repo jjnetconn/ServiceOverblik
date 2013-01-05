@@ -1,0 +1,7 @@
+obj\Debug\ServiceOverblik.wixobj
+C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\SetupProject1\bin\Debug\cab1.cab
+C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\SetupProject1\bin\Debug\ServiceOverblik.msi
+C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\SetupProject1\bin\Debug\ServiceOverblik.wixpdb
+obj\Debug\MSI Build.wixproj.BindContentsFileListnull.txt
+obj\Debug\MSI Build.wixproj.BindOutputsFileListnull.txt
+obj\Debug\MSI Build.wixproj.BindBuiltOutputsFileListnull.txt
