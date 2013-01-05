@@ -11,3 +11,6 @@ C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1
 C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\SolcelleSpecialisten - Service overblik.csproj.GenerateResource.Cache
 C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\ServiceOverblik.exe
 C:\Users\Je\Dropbox\NetConn\Visual Studio 2010\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\ServiceOverblik.pdb
+C:\Users\Je\Documents\GitHub\ServiceOverblik\WindowsFormsApplication1\bin\Debug\ServiceOverblik.exe.config
+C:\Users\Je\Documents\GitHub\ServiceOverblik\WindowsFormsApplication1\obj\x86\Debug\ServiceOverblik.exe
+C:\Users\Je\Documents\GitHub\ServiceOverblik\WindowsFormsApplication1\obj\x86\Debug\ServiceOverblik.pdb
