@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolcelleSpecialisten - Service overblik", "WindowsFormsApplication1\SolcelleSpecialisten - Service overblik.csproj", "{9D42373A-7055-4CCD-AB43-566ADAC5913E}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MSI Build", "SetupProject1\MSI Build.wixproj", "{333D844C-4336-4018-98DD-0FFBECB9F84E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D42373A-7055-4CCD-AB43-566ADAC5913E}.Debug|x86.ActiveCfg = Debug|x86
+		{9D42373A-7055-4CCD-AB43-566ADAC5913E}.Debug|x86.Build.0 = Debug|x86
+		{9D42373A-7055-4CCD-AB43-566ADAC5913E}.Release|x86.ActiveCfg = Release|x86
+		{9D42373A-7055-4CCD-AB43-566ADAC5913E}.Release|x86.Build.0 = Release|x86
+		{333D844C-4336-4018-98DD-0FFBECB9F84E}.Debug|x86.ActiveCfg = Debug|x86
+		{333D844C-4336-4018-98DD-0FFBECB9F84E}.Debug|x86.Build.0 = Debug|x86
+		{333D844C-4336-4018-98DD-0FFBECB9F84E}.Release|x86.ActiveCfg = Release|x86
+		{333D844C-4336-4018-98DD-0FFBECB9F84E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

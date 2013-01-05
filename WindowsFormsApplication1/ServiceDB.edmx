@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="servicebaseModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="servicebaseModelStoreContainer">
+          <EntitySet Name="customers" EntityType="servicebaseModel.Store.customers" store:Type="Tables" Schema="servicebase" />
+          <EntitySet Name="paneltypes" EntityType="servicebaseModel.Store.paneltypes" store:Type="Tables" Schema="servicebase" />
+          <EntitySet Name="salesreps" EntityType="servicebaseModel.Store.salesreps" store:Type="Tables" Schema="servicebase" />
+          <EntitySet Name="servicecontracts" EntityType="servicebaseModel.Store.servicecontracts" store:Type="Tables" Schema="servicebase" />
+          <EntitySet Name="servicetypes" EntityType="servicebaseModel.Store.servicetypes" store:Type="Tables" Schema="servicebase" />
+          <AssociationSet Name="sid" Association="servicebaseModel.Store.sid">
+            <End Role="servicecontracts" EntitySet="servicecontracts" />
+            <End Role="customers" EntitySet="customers" />
+          </AssociationSet>
+          <AssociationSet Name="tid" Association="servicebaseModel.Store.tid">
+            <End Role="servicetypes" EntitySet="servicetypes" />
+            <End Role="servicecontracts" EntitySet="servicecontracts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="uId" />
+          </Key>
+          <Property Name="uId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="postcode" Type="int" Nullable="false" />
+          <Property Name="city" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="street" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="cname" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="phone" Type="varchar" MaxLength="45" />
+          <Property Name="panelcount" Type="varchar" MaxLength="45" />
+          <Property Name="color" Type="varchar" MaxLength="45" />
+          <Property Name="inverter" Type="varchar" MaxLength="45" />
+          <Property Name="paneltype" Type="varchar" MaxLength="128" />
+          <Property Name="warehouseid" Type="varchar" MaxLength="45" />
+          <Property Name="serviceno" Type="int" />
+          <Property Name="hasservice" Type="bool" Nullable="false" />
+          <Property Name="isprivate" Type="bool" Nullable="false" />
+          <Property Name="serviceblog" Type="blob" />
+        </EntityType>
+        <EntityType Name="paneltypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="salesreps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="init" Type="varchar" MaxLength="45" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="phone" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="servicecontracts">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Name="sid" Type="int" Nullable="false" />
+          <Property Name="servicetype" Type="int" />
+          <Property Name="startdate" Type="date" Nullable="false" />
+          <Property Name="enddate" Type="date" Nullable="false" />
+          <Property Name="soldby" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="timestamp" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="servicetypes">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Name="tid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="sname" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="price" Type="double" />
+          <Property Name="period" Type="int" Nullable="false" />
+          <Property Name="startupfee" Type="double" />
+        </EntityType>
+        <Association Name="sid">
+          <End Role="servicecontracts" Type="servicebaseModel.Store.servicecontracts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="customers" Type="servicebaseModel.Store.customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicecontracts">
+              <PropertyRef Name="sid" />
+            </Principal>
+            <Dependent Role="customers">
+              <PropertyRef Name="serviceno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tid">
+          <End Role="servicetypes" Type="servicebaseModel.Store.servicetypes" Multiplicity="1" />
+          <End Role="servicecontracts" Type="servicebaseModel.Store.servicecontracts" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="servicetypes">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="servicecontracts">
+              <PropertyRef Name="sid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="servicebaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="servicebaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="paneltypes" EntityType="servicebaseModel.paneltypes" />
+          <EntitySet Name="salesreps" EntityType="servicebaseModel.salesreps" />
+          <EntitySet Name="customers" EntityType="servicebaseModel.customers" />
+          <EntitySet Name="servicecontracts" EntityType="servicebaseModel.servicecontracts" />
+          <EntitySet Name="servicetypes" EntityType="servicebaseModel.servicetypes" />
+          <AssociationSet Name="sid" Association="servicebaseModel.sid">
+            <End Role="servicecontracts" EntitySet="servicecontracts" />
+            <End Role="customers" EntitySet="customers" />
+          </AssociationSet>
+          <AssociationSet Name="tid" Association="servicebaseModel.tid">
+            <End Role="servicetypes" EntitySet="servicetypes" />
+            <End Role="servicecontracts" EntitySet="servicecontracts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="paneltypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="salesreps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="init" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="name" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="email" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="phone" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="uId" />
+          </Key>
+          <Property Type="Int32" Name="uId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="postcode" Nullable="false" />
+          <Property Type="String" Name="city" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="street" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="email" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="phone" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="panelcount" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="color" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="inverter" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="paneltype" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="warehouseid" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="serviceno" />
+          <Property Type="Boolean" Name="hasservice" Nullable="false" />
+          <Property Type="Boolean" Name="isprivate" Nullable="false" />
+          <Property Type="Binary" Name="serviceblog" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="servicecontracts" Relationship="servicebaseModel.sid" FromRole="customers" ToRole="servicecontracts" />
+        </EntityType>
+        <EntityType Name="servicecontracts">
+          <Key>
+            <PropertyRef Name="sid" />
+          </Key>
+          <Property Type="Int32" Name="sid" Nullable="false" />
+          <Property Type="Int32" Name="servicetype" />
+          <Property Type="DateTime" Name="startdate" Nullable="false" />
+          <Property Type="DateTime" Name="enddate" Nullable="false" />
+          <Property Type="String" Name="soldby" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="timestamp" Nullable="false" />
+          <NavigationProperty Name="customers" Relationship="servicebaseModel.sid" FromRole="servicecontracts" ToRole="customers" />
+          <NavigationProperty Name="servicetypes" Relationship="servicebaseModel.tid" FromRole="servicecontracts" ToRole="servicetypes" />
+        </EntityType>
+        <EntityType Name="servicetypes">
+          <Key>
+            <PropertyRef Name="tid" />
+          </Key>
+          <Property Type="Int32" Name="tid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="sname" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="price" />
+          <Property Type="Int32" Name="period" Nullable="false" />
+          <Property Type="Double" Name="startupfee" />
+          <NavigationProperty Name="servicecontracts" Relationship="servicebaseModel.tid" FromRole="servicetypes" ToRole="servicecontracts" />
+        </EntityType>
+        <Association Name="sid">
+          <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="servicebaseModel.customers" Role="customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicecontracts">
+              <PropertyRef Name="sid" />
+            </Principal>
+            <Dependent Role="customers">
+              <PropertyRef Name="serviceno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tid">
+          <End Type="servicebaseModel.servicetypes" Role="servicetypes" Multiplicity="1" />
+          <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="servicetypes">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="servicecontracts">
+              <PropertyRef Name="sid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="servicebaseModelStoreContainer" CdmEntityContainer="servicebaseEntities">
+          <EntitySetMapping Name="paneltypes">
+            <EntityTypeMapping TypeName="servicebaseModel.paneltypes">
+              <MappingFragment StoreEntitySet="paneltypes">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salesreps">
+            <EntityTypeMapping TypeName="servicebaseModel.salesreps">
+              <MappingFragment StoreEntitySet="salesreps">
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="init" ColumnName="init" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="servicebaseModel.customers">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="serviceblog" ColumnName="serviceblog" />
+                <ScalarProperty Name="isprivate" ColumnName="isprivate" />
+                <ScalarProperty Name="hasservice" ColumnName="hasservice" />
+                <ScalarProperty Name="serviceno" ColumnName="serviceno" />
+                <ScalarProperty Name="warehouseid" ColumnName="warehouseid" />
+                <ScalarProperty Name="paneltype" ColumnName="paneltype" />
+                <ScalarProperty Name="inverter" ColumnName="inverter" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="panelcount" ColumnName="panelcount" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cname" ColumnName="cname" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postcode" ColumnName="postcode" />
+                <ScalarProperty Name="uId" ColumnName="uId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servicecontracts">
+            <EntityTypeMapping TypeName="servicebaseModel.servicecontracts">
+              <MappingFragment StoreEntitySet="servicecontracts">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="soldby" ColumnName="soldby" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="servicetype" ColumnName="servicetype" />
+                <ScalarProperty Name="sid" ColumnName="sid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="servicetypes">
+            <EntityTypeMapping TypeName="servicebaseModel.servicetypes">
+              <MappingFragment StoreEntitySet="servicetypes">
+                <ScalarProperty Name="startupfee" ColumnName="startupfee" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="sname" ColumnName="sname" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
