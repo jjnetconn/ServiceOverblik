@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nyKundeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,9 +56,9 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.createSalesRep = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
             this.createPaneltype = new System.Windows.Forms.ComboBox();
-            this.createSalesRep = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -125,26 +124,20 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            /*this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();*/
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(28, 263);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1236, 387);
-            this.dataGridView1.TabIndex = 19;
-            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
             // 
             // menuStrip1
             // 
@@ -393,9 +386,9 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.createSalesRep);
             this.tabPage2.Controls.Add(this.label36);
             this.tabPage2.Controls.Add(this.createPaneltype);
-            this.tabPage2.Controls.Add(this.createSalesRep);
             this.tabPage2.Controls.Add(this.label33);
             this.tabPage2.Controls.Add(this.label20);
             this.tabPage2.Controls.Add(this.label21);
@@ -431,6 +424,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Opret kunde";
             // 
+            // createSalesRep
+            // 
+            this.createSalesRep.Location = new System.Drawing.Point(396, 60);
+            this.createSalesRep.Name = "createSalesRep";
+            this.createSalesRep.ReadOnly = true;
+            this.createSalesRep.Size = new System.Drawing.Size(100, 20);
+            this.createSalesRep.TabIndex = 78;
+            // 
             // label36
             // 
             this.label36.AutoSize = true;
@@ -447,14 +448,6 @@
             this.createPaneltype.Name = "createPaneltype";
             this.createPaneltype.Size = new System.Drawing.Size(246, 21);
             this.createPaneltype.TabIndex = 76;
-            // 
-            // createSalesRep
-            // 
-            this.createSalesRep.FormattingEnabled = true;
-            this.createSalesRep.Location = new System.Drawing.Point(396, 60);
-            this.createSalesRep.Name = "createSalesRep";
-            this.createSalesRep.Size = new System.Drawing.Size(121, 21);
-            this.createSalesRep.TabIndex = 75;
             // 
             // label33
             // 
@@ -736,7 +729,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(520, 42);
+            this.label37.Location = new System.Drawing.Point(517, 44);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(54, 13);
             this.label37.TabIndex = 85;
@@ -761,7 +754,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(399, 44);
+            this.label35.Location = new System.Drawing.Point(396, 44);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(41, 13);
             this.label35.TabIndex = 82;
@@ -1050,12 +1043,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1276, 662);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Service Overblik";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1072,7 +1063,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem filerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nyKundeToolStripMenuItem;
@@ -1164,11 +1154,18 @@
         private System.Windows.Forms.DateTimePicker editServiceEndDate;
         private System.Windows.Forms.TextBox editSalesRep;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.ComboBox createSalesRep;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ComboBox createPaneltype;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.TextBox editPaneltype;
+        private System.Windows.Forms.TextBox createSalesRep;
+        /*private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button4;
+         */
     }
 }
 

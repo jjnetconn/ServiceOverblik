@@ -15,6 +15,20 @@ namespace ServiceOverblik
     {
         private ServiceManager runstate;
         private DataTable CustomerView;
+        private DataGridView dataGridView1;
+        private GroupBox editGrpBx;
+        private Label label39;
+        private Label label38;
+        private RichTextBox richTextBox1;
+        private RichTextBox richTextBox2;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private CheckBox checkBox3;
+        private Button button4;
+        private Button button6;
+        private Button button7;
+
+        private static string activeSalesRep;
         //private List<prodcat> Inverters;
         private int selUserId;
         private string selectedService;
@@ -24,6 +38,13 @@ namespace ServiceOverblik
             InitializeComponent();
 
             runstate = new ServiceManager();
+            Form2 loginForm = new Form2();
+
+            loginForm.ShowDialog();
+            createSalesRep.Text = ActiveSalesRep;
+            
+            createDataGridSearch();
+
             CustomerView = new DataTable();
 
             CustomerView.Columns.Add("UID", typeof(int));
@@ -56,15 +77,139 @@ namespace ServiceOverblik
                 editService.Items.Add(stp.sname);
                 createService.Items.Add(stp.sname);
             }
-            foreach (salesreps srp in runstate.getSalesReps())
+            /*foreach (salesreps srp in runstate.getSalesReps())
             {
                 createSalesRep.Items.Add(srp.init);
-            }
+            }*/
             foreach (paneltypes ptp in runstate.getPaneltypes())
             {
                 createPaneltype.Items.Add(ptp.name);
             }
 
+        }
+
+        public static string ActiveSalesRep
+        {
+            get { return activeSalesRep; }
+            set { activeSalesRep = value; }
+        }
+
+        private void createDataGridSearch()
+        {
+            dataGridView1 = new DataGridView();
+            dataGridView1.Location = new Point(28, 263);
+            dataGridView1.Size = new Size(1236, 387);
+            dataGridView1.MouseClick += dataGridView1_MouseClick;
+            this.Controls.Add(this.dataGridView1);
+        }
+
+        private void createEditGroupBox()
+        {
+            //Create items to populate groupbox
+            label39 = new Label();
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(521, 16);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(42, 13);
+            this.label39.TabIndex = 2;
+            this.label39.Text = "Historik";
+
+            label38 = new Label();
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(10, 161);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(33, 13);
+            this.label38.TabIndex = 1;
+            this.label38.Text = "Noter";
+
+            richTextBox1 = new RichTextBox();
+            this.richTextBox1.Location = new System.Drawing.Point(13, 177);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(391, 193);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+
+            richTextBox2 = new RichTextBox();
+            this.richTextBox2.Location = new System.Drawing.Point(521, 33);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
+            this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox2.Size = new System.Drawing.Size(347, 369);
+            this.richTextBox2.TabIndex = 3;
+            this.richTextBox2.Text = "";
+
+            checkBox1 = new CheckBox();
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(13, 35);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(122, 17);
+            this.checkBox1.TabIndex = 5;
+            this.checkBox1.Text = "Aktiv service aftale?";
+            this.checkBox1.UseVisualStyleBackColor = true;
+
+            checkBox2 = new CheckBox();
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(13, 57);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(59, 17);
+            this.checkBox2.TabIndex = 6;
+            this.checkBox2.Text = "Betalt?";
+            this.checkBox2.UseVisualStyleBackColor = true;
+
+            checkBox3 = new CheckBox();
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(13, 80);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(156, 17);
+            this.checkBox3.TabIndex = 7;
+            this.checkBox3.Text = "Igangværende servicesag?";
+            this.checkBox3.UseVisualStyleBackColor = true;
+
+            button4 = new Button();
+            this.button4.Location = new System.Drawing.Point(13, 379);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Tilføj note";
+            this.button4.UseVisualStyleBackColor = true;
+
+            button6 = new Button();
+            this.button6.Location = new System.Drawing.Point(13, 115);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(122, 32);
+            this.button6.TabIndex = 8;
+            this.button6.Text = "Start Servicesag";
+            this.button6.UseVisualStyleBackColor = true;
+
+            button7 = new Button();
+            this.button7.Location = new System.Drawing.Point(160, 115);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(126, 32);
+            this.button7.TabIndex = 9;
+            this.button7.Text = "Afslut Servicesag";
+            this.button7.UseVisualStyleBackColor = true;
+
+
+            //Create GroupBox and populate
+            editGrpBx = new GroupBox(); 
+            editGrpBx.Controls.Add(this.button7);
+            editGrpBx.Controls.Add(this.button6);
+            editGrpBx.Controls.Add(this.checkBox3);
+            editGrpBx.Controls.Add(this.checkBox2);
+            editGrpBx.Controls.Add(this.checkBox1);
+            editGrpBx.Controls.Add(this.button4);
+            editGrpBx.Controls.Add(this.richTextBox2);
+            editGrpBx.Controls.Add(this.label39);
+            editGrpBx.Controls.Add(this.label38);
+            editGrpBx.Controls.Add(this.richTextBox1);
+            editGrpBx.Location = new System.Drawing.Point(28, 230);
+            editGrpBx.Name = "customerInfo";
+            editGrpBx.Size = new System.Drawing.Size(1236, 420);
+            editGrpBx.TabIndex = 23;
+            editGrpBx.TabStop = false;
+            editGrpBx.Text = "Kunde information";
+
+            this.Controls.Add(this.editGrpBx);
         }
 
         private void searchCustomer()
@@ -182,6 +327,11 @@ namespace ServiceOverblik
         private void editCustomer(DataGridViewRow selectedRow)
         {
             selUserId = Int32.Parse(selectedRow.Cells[0].Value.ToString());
+
+            //Dispose dataGridView1 to make room for customer information
+            dataGridView1.Dispose();
+            createEditGroupBox();
+
             tabControl1.SelectedTab = tabPage3;
             setFieldsRO();
             int servicetypeID = new int();
@@ -220,6 +370,7 @@ namespace ServiceOverblik
                 {
                     sdb.Dispose();
                 }
+
             }
         }
 
@@ -281,12 +432,6 @@ namespace ServiceOverblik
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (this.createSalesRep.Text.Length < 2)
-            {
-                MessageBox.Show("Sælger initialer mangler!", "Manger data", MessageBoxButtons.OK);
-            }
-            else
-            {
                 object[] inData = new object[15];
                 inData[0] = createName.Text;
                 inData[1] = createStreet.Text;
@@ -306,7 +451,7 @@ namespace ServiceOverblik
                  * inData[12] = createInverterSw;
                  * 
                  */
-                inData[13] = createSalesRep.SelectedItem;
+                inData[13] = createSalesRep.Text;
                 inData[14] = createPaneltype.SelectedItem;
 
 
@@ -334,7 +479,7 @@ namespace ServiceOverblik
                         resetCreateFields();
                     }
                 }
-            }
+            
         }
 
         private void resetCreateFields()
@@ -350,7 +495,7 @@ namespace ServiceOverblik
             createInverter.Text = "";
             createService.Text = "";
             createPaneltype.Text = "";
-            createSalesRep.Text = "";
+            //createSalesRep.Text = "";
 
         }
 
