@@ -449,7 +449,6 @@ namespace ServiceOverblik
                 strHistory.Append(str + "%NL");
             }
 
-
             using (servicebaseEntities sdb = new servicebaseEntities())
             {
                 try
