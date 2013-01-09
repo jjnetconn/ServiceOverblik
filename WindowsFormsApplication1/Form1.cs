@@ -43,7 +43,7 @@ namespace ServiceOverblik
             loginForm.ShowDialog();
             createSalesRep.Text = ActiveSalesRep;
             
-            createDataGridSearch();
+            //createDataGridSearch();
 
             CustomerView = new DataTable();
 
@@ -220,11 +220,13 @@ namespace ServiceOverblik
         private void button7_Click(object sender, EventArgs e)
         {
             runstate.endServiceCase(selUserId);
+            this.checkBox3.Checked = false;
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             runstate.startServiceCase(selUserId);
+            this.checkBox3.Checked = true;
         }
 
        private void addCustomerHistory(object sender, EventArgs e)
@@ -249,69 +251,77 @@ namespace ServiceOverblik
         }
 
         private void searchCustomer()
-        {
-            CustomerView.Clear();
+         {
+             if (this.dataGridView1 == null)
+             {
+                 createDataGridSearch();
+             }
+             if (this.dataGridView1.IsDisposed)
+             {
+                 createDataGridSearch();
+             }
+             CustomerView.Clear();
 
-            //Get filter input
-            List<List<customers>> searchresults = new List<List<customers>>();
+             //Get filter input
+             List<List<customers>> searchresults = new List<List<customers>>();
 
-            if (textBox1.TextLength != 0)
-            {
-                searchresults.Add(runstate.searchCustomerByName(textBox1.Text));
-            }
+             if (textBox1.TextLength != 0)
+             {
+                 searchresults.Add(runstate.searchCustomerByName(textBox1.Text));
+             }
 
-            if (textBox2.TextLength != 0)
-            {
-                searchresults.Add(runstate.searchCustomerByStreet(textBox2.Text));
-            }
+             if (textBox2.TextLength != 0)
+             {
+                 searchresults.Add(runstate.searchCustomerByStreet(textBox2.Text));
+             }
 
-            if (textBox5.TextLength != 0)
-            {
-                searchresults.Add(runstate.searchCustomerByCity(textBox5.Text));
-            }
+             if (textBox5.TextLength != 0)
+             {
+                 searchresults.Add(runstate.searchCustomerByCity(textBox5.Text));
+             }
 
-            if (textBox4.TextLength != 0)
-            {
-                searchresults.Add(runstate.searchCustomerByPostcode(textBox4.Text));
-            }
+             if (textBox4.TextLength != 0)
+             {
+                 searchresults.Add(runstate.searchCustomerByPostcode(textBox4.Text));
+             }
 
-            var lengths = from element in searchresults
-                          orderby element.Count
-                          select element;
+             var lengths = from element in searchresults
+                           orderby element.Count
+                           select element;
 
-            foreach (List<customers> lst in lengths)
-            {
-                foreach (customers current in lst)
-                {
-                    CustomerView.Rows.Add(current.uId,
-                                          current.postcode,
-                                          current.city,
-                                          current.street,
-                                          current.cname,
-                                          current.email,
-                                          current.phone,
-                                          current.panelcount,
-                                          current.color,
-                                          current.inverter,
-                                          //current.warehouseid,
-                                          current.serviceno,
-                                          //current.servicecontracts.startdate,
-                                          current.hasservice
-                                          //current.servicecontracts.servicetypes.sname
-                                          //current.isprivate
-                                          );
-                }
-            }
+             foreach (List<customers> lst in lengths)
+             {
+                 foreach (customers current in lst)
+                 {
+                     CustomerView.Rows.Add(current.uId,
+                                           current.postcode,
+                                           current.city,
+                                           current.street,
+                                           current.cname,
+                                           current.email,
+                                           current.phone,
+                                           current.panelcount,
+                                           current.color,
+                                           current.inverter,
+                                           //current.warehouseid,
+                                           current.serviceno,
+                                           //current.servicecontracts.startdate,
+                                           current.hasservice
+                                           //current.servicecontracts.servicetypes.sname
+                                           //current.isprivate
+                                           );
+                 }
+             }
 
-            dataGridView1.DataSource = CustomerView;
-            dataGridView1.Columns[0].Visible = false;
-            //dataGridView1.Columns[10].Visible = false;
-            //dataGridView1.Columns[12].Visible = false;
-            //dataGridView1.Columns[13].Visible = false;
-            //dataGridView1.Columns[14].Visible = false;
-            //dataGridView1.Columns[15].Visible = false;
-            dataGridView1.Invalidate();
-        }
+             dataGridView1.DataSource = CustomerView;
+             dataGridView1.Columns[0].Visible = false;
+             //dataGridView1.Columns[10].Visible = false;
+             //dataGridView1.Columns[12].Visible = false;
+             //dataGridView1.Columns[13].Visible = false;
+             //dataGridView1.Columns[14].Visible = false;
+             //dataGridView1.Columns[15].Visible = false;
+             dataGridView1.Invalidate();
+         }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -364,8 +374,8 @@ namespace ServiceOverblik
             selUserId = Int32.Parse(selectedRow.Cells[0].Value.ToString());
 
             //Dispose dataGridView1 to make room for customer information
-            dataGridView1.Dispose();
-            createEditGroupBox();
+            //dataGridView1.Dispose();
+            //createEditGroupBox();
 
             tabControl1.SelectedTab = tabPage3;
             setFieldsRO();
@@ -395,9 +405,9 @@ namespace ServiceOverblik
                     servicetypeID = (int)query.servicecontracts.servicetype;
                     editService.SelectedIndex = (int)query.servicecontracts.servicetype - 1;
                     selectedService = editService.SelectedItem.ToString();
-                    this.checkBox1.Checked = runstate.hasActiveServiceCase(selUserId);
+                    this.checkBox1.Checked = runstate.isServiceContractActive(selUserId);
                     this.checkBox2.Checked = runstate.isServiceInvoicePaid(selUserId);
-                    this.checkBox3.Checked = runstate.isServiceContractActive(selUserId);
+                    this.checkBox3.Checked = runstate.hasActiveServiceCase(selUserId);
 
                 }
                 catch
@@ -617,6 +627,31 @@ namespace ServiceOverblik
                 this.Cursor = Cursors.Default;
             }
             
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedIndex)
+            {
+                case 0:
+                    this.editGrpBx.Dispose();
+                    createDataGridSearch();
+                    this.textBox1.Clear();
+                    this.textBox2.Clear();
+                    this.textBox4.Clear();
+                    this.textBox5.Clear();
+                    break;
+
+                case 1:
+                    this.editGrpBx.Dispose();
+                    this.dataGridView1.Dispose();
+                    break;
+
+                case 2:
+                    this.dataGridView1.Dispose();
+                    createEditGroupBox();
+                    break;
+            }
         }
     }
 }

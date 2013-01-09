@@ -472,6 +472,28 @@ namespace ServiceOverblik
             }
         }
 
+        public int getServiceContractId(int userId)
+        {
+            int contractId = 0;
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c.serviceno).FirstOrDefault();
+
+                   contractId =  query.GetValueOrDefault();
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return contractId;
+        }
+
         public void startServiceCase(int userId)
         {
             using (servicebaseEntities sdb = new servicebaseEntities())
@@ -485,10 +507,6 @@ namespace ServiceOverblik
                     query.servicecontracts.activeServiceCase = true;
 
                     sdb.SaveChanges();
-                }
-                catch
-                {
-
                 }
                 finally
                 {
@@ -510,10 +528,6 @@ namespace ServiceOverblik
                     query.servicecontracts.activeServiceCase = false;
 
                     sdb.SaveChanges();
-                }
-                catch
-                {
-
                 }
                 finally
                 {
