@@ -153,6 +153,8 @@ namespace ServiceOverblik
         }
         }
 
+        //tilføj searchCustomerBySalesRep(string searchFilter)
+
         public List<servicetypes> getServicetypes()
         {
             List<servicetypes> rtnServicetypes = new List<servicetypes>();
@@ -416,6 +418,59 @@ namespace ServiceOverblik
 
             }
 
+        }
+
+        public String loadCustomerHistory(int userId)
+        {
+            String ServiceBlog = null;
+
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+                    ServiceBlog = query.serviceblog;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return ServiceBlog;
+        }
+
+        public void addCustomerHistory(string[] newHistory, int userId)
+        {
+            StringBuilder strHistory = new StringBuilder();
+            foreach (string str in newHistory)
+            {
+                strHistory.Append(str + "%NL");
+            }
+
+
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+
+                    query.serviceblog = query.serviceblog + strHistory.ToString();
+
+                    sdb.SaveChanges();
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
         }
     }
 }

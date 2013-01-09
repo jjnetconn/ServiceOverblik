@@ -27,8 +27,8 @@ namespace ServiceOverblik
     
         public DbSet<paneltypes> paneltypes { get; set; }
         public DbSet<salesreps> salesreps { get; set; }
-        public DbSet<customers> customers { get; set; }
         public DbSet<servicecontracts> servicecontracts { get; set; }
         public DbSet<servicetypes> servicetypes { get; set; }
+        public DbSet<customers> customers { get; set; }
     }
 }

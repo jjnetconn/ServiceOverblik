@@ -128,6 +128,7 @@ namespace ServiceOverblik
             this.richTextBox1.Size = new System.Drawing.Size(391, 193);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            this.richTextBox1.Click += richTextBox1_Click;
 
             richTextBox2 = new RichTextBox();
             this.richTextBox2.Location = new System.Drawing.Point(521, 33);
@@ -172,6 +173,7 @@ namespace ServiceOverblik
             this.button4.TabIndex = 4;
             this.button4.Text = "Tilføj note";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += addCustomerHistory;
 
             button6 = new Button();
             this.button6.Location = new System.Drawing.Point(13, 115);
@@ -210,11 +212,32 @@ namespace ServiceOverblik
             editGrpBx.Text = "Kunde information";
 
             this.Controls.Add(this.editGrpBx);
+            fillEditHistory(selUserId);
+        }
+
+       private void addCustomerHistory(object sender, EventArgs e)
+        {
+            string[] strArr = richTextBox1.Lines;
+            richTextBox2.AppendText(richTextBox1.Text + "\n");
+            runstate.addCustomerHistory(strArr, selUserId);
+            richTextBox1.Clear();
+
+        }
+
+        private void richTextBox1_Click(object sender, EventArgs e)
+        {
+            StringBuilder headerStr = new StringBuilder();
+            headerStr.Append("--- Note ");
+            headerStr.Append(DateTime.Now.ToShortDateString() + ",");
+            headerStr.Append(" " + DateTime.Now.ToLongTimeString() + " af:");
+            headerStr.Append(" " + activeSalesRep + " ---");
+            headerStr.Append("\n");
+
+            richTextBox1.AppendText(headerStr.ToString());
         }
 
         private void searchCustomer()
         {
-
             CustomerView.Clear();
 
             //Get filter input
@@ -374,6 +397,14 @@ namespace ServiceOverblik
             }
         }
 
+        private void fillEditHistory(int selUserId)
+        {
+            String[] history = runstate.loadCustomerHistory(selUserId).Split(new string[] { "%NL" }, StringSplitOptions.None);
+            richTextBox2.Lines = history;
+            richTextBox2.SelectionStart = richTextBox2.Text.Length;
+            richTextBox2.ScrollToCaret();
+        }
+
         private void editSave_Click(object sender, EventArgs e)
         {
             object[] updateData = new object[14];
@@ -387,26 +418,6 @@ namespace ServiceOverblik
             updateData[9] = editService.FindString(editService.SelectedItem.ToString(), 0);
             updateData[10] = editServiceDate.Value;
 
-            /*
-             * inData[0] = createName.Text;
-                inData[1] = createStreet.Text;
-                inData[2] = createCity.Text;
-                inData[3] = Convert.ToInt32(createPostcode.Text);
-                inData[4] = createEmail.Text;
-                inData[5] = createPhone.Text;
-                inData[6] = Convert.ToInt32(createPanelcount.Text);
-                inData[7] = createColor.Text;
-                inData[8] = (string)createInverter.SelectedItem;
-                inData[9] = createService.SelectedIndex + 1;
-                inData[10] = createServiceDate.Value.Date;
-                inData[11] = "";
-                inData[12] = "";
-                //Implementeres i kommende version
-                inData[11] = createInverterSerial;
-                inData[12] = createInverterSw;
-                inData[13] = createSalesRep.SelectedItem;
-                inData[14] = createPaneltype.SelectedItem;
-                */
             if( selectedService.Equals(this.editService.SelectedItem.ToString()))
             {
                 serviceChanged = true;
@@ -581,25 +592,6 @@ namespace ServiceOverblik
                      */
                     inData[13] = "autoimport";
 
-                    /*
-                     * inData[0] = createName.Text;
-                    inData[1] = createStreet.Text;
-                    inData[2] = createCity.Text;
-                    inData[3] = Convert.ToInt32(createPostcode.Text);
-                    inData[4] = createEmail.Text;
-                    inData[5] = createPhone.Text;
-                    inData[6] = Convert.ToInt32(createPanelcount.Text);
-                    inData[7] = createColor.Text;
-                    inData[8] = (string)createInverter.SelectedItem;
-                    inData[9] = createService.SelectedIndex;
-                    inData[10] = createServiceDate.Value.Date;
-                    inData[11] = "";
-                    inData[12] = "";
-                    /* Implementeres i kommende version
-                     * inData[11] = createInverterSerial;
-                     * inData[12] = createInverterSw;
-                    inData[13] = createSalesRep.Text;
-                     */
                     runstate.createCustomer(inData);
                 }
                 else

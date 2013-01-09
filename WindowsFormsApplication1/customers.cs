@@ -29,7 +29,7 @@ namespace ServiceOverblik
         public Nullable<int> serviceno { get; set; }
         public bool hasservice { get; set; }
         public bool isprivate { get; set; }
-        public byte[] serviceblog { get; set; }
+        public string serviceblog { get; set; }
     
         public virtual servicecontracts servicecontracts { get; set; }
     }

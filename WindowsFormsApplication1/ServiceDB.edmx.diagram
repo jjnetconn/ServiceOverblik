@@ -7,11 +7,11 @@
       <Diagram DiagramId="2ccd10098c7245c182d802843196ae04" Name="Diagram1">
         <EntityTypeShape EntityType="servicebaseModel.paneltypes" Width="1.5" PointX="0.5" PointY="8.375" />
         <EntityTypeShape EntityType="servicebaseModel.salesreps" Width="1.5" PointX="2.375" PointY="8.375" />
-        <EntityTypeShape EntityType="servicebaseModel.customers" Width="1.5" PointX="0.5" PointY="10.75" />
         <EntityTypeShape EntityType="servicebaseModel.servicecontracts" Width="1.5" PointX="2.875" PointY="10.75" />
         <EntityTypeShape EntityType="servicebaseModel.servicetypes" Width="1.5" PointX="5.25" PointY="10.75" />
-        <AssociationConnector Association="servicebaseModel.sid" />
         <AssociationConnector Association="servicebaseModel.tid" />
+        <EntityTypeShape EntityType="servicebaseModel.customers" Width="1.5" PointX="4.6783614701956333" PointY="13.729855305389433" />
+        <AssociationConnector Association="servicebaseModel.sid" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

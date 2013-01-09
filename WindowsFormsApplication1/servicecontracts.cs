@@ -26,7 +26,7 @@ namespace ServiceOverblik
         public string soldby { get; set; }
         public System.DateTime timestamp { get; set; }
     
-        public virtual ICollection<customers> customers { get; set; }
         public virtual servicetypes servicetypes { get; set; }
+        public virtual ICollection<customers> customers { get; set; }
     }
 }
