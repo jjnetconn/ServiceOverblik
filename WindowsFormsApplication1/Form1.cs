@@ -40,10 +40,16 @@ namespace ServiceOverblik
             runstate = new ServiceManager();
             Form2 loginForm = new Form2();
 
-            loginForm.ShowDialog();
+            //loginForm.ShowDialog();
+
+            while (ActiveSalesRep == null)
+            {
+                loginForm = new Form2();
+                loginForm.ShowDialog();
+            }
+
+            loginForm.Dispose();
             createSalesRep.Text = ActiveSalesRep;
-            
-            //createDataGridSearch();
 
             CustomerView = new DataTable();
 
@@ -634,8 +640,14 @@ namespace ServiceOverblik
             switch (tabControl1.SelectedIndex)
             {
                 case 0:
-                    this.editGrpBx.Dispose();
-                    createDataGridSearch();
+                    if (this.editGrpBx != null)
+                    {
+                        this.editGrpBx.Dispose();
+                    }
+                    if (this.dataGridView1 == null)
+                    {
+                        createDataGridSearch();
+                    }
                     this.textBox1.Clear();
                     this.textBox2.Clear();
                     this.textBox4.Clear();
@@ -643,15 +655,32 @@ namespace ServiceOverblik
                     break;
 
                 case 1:
-                    this.editGrpBx.Dispose();
-                    this.dataGridView1.Dispose();
+                    if (this.editGrpBx != null)
+                    {
+                        this.editGrpBx.Dispose();
+                    }
+                    if (this.dataGridView1 != null)
+                    {
+                        this.dataGridView1.Dispose();
+                    }
                     break;
 
                 case 2:
-                    this.dataGridView1.Dispose();
-                    createEditGroupBox();
+                    if (this.dataGridView1 != null)
+                    {
+                        this.dataGridView1.Dispose();
+                    }
+                    if (this.editGrpBx == null)
+                    {
+                        createEditGroupBox();
+                    }
                     break;
             }
+        }
+
+        private void lukToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
