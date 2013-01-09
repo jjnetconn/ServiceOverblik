@@ -182,6 +182,7 @@ namespace ServiceOverblik
             this.button6.TabIndex = 8;
             this.button6.Text = "Start Servicesag";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += button6_Click;
 
             button7 = new Button();
             this.button7.Location = new System.Drawing.Point(160, 115);
@@ -190,6 +191,7 @@ namespace ServiceOverblik
             this.button7.TabIndex = 9;
             this.button7.Text = "Afslut Servicesag";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += button7_Click;
 
 
             //Create GroupBox and populate
@@ -213,6 +215,16 @@ namespace ServiceOverblik
 
             this.Controls.Add(this.editGrpBx);
             fillEditHistory(selUserId);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            runstate.endServiceCase(selUserId);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            runstate.startServiceCase(selUserId);
         }
 
        private void addCustomerHistory(object sender, EventArgs e)
@@ -383,6 +395,9 @@ namespace ServiceOverblik
                     servicetypeID = (int)query.servicecontracts.servicetype;
                     editService.SelectedIndex = (int)query.servicecontracts.servicetype - 1;
                     selectedService = editService.SelectedItem.ToString();
+                    this.checkBox1.Checked = runstate.hasActiveServiceCase(selUserId);
+                    this.checkBox2.Checked = runstate.isServiceInvoicePaid(selUserId);
+                    this.checkBox3.Checked = runstate.isServiceContractActive(selUserId);
 
                 }
                 catch

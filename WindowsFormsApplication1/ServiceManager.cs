@@ -471,5 +471,115 @@ namespace ServiceOverblik
                 }
             }
         }
+
+        public void startServiceCase(int userId)
+        {
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+
+                    query.servicecontracts.activeServiceCase = true;
+
+                    sdb.SaveChanges();
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+        }
+
+        public void endServiceCase(int userId)
+        {
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+
+                    query.servicecontracts.activeServiceCase = false;
+
+                    sdb.SaveChanges();
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+        }
+
+        public bool hasActiveServiceCase(int userId)
+        {
+            bool hasActiveService = false;
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+                    hasActiveService = query.servicecontracts.activeServiceCase;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return hasActiveService;
+        }
+
+        public bool isServiceInvoicePaid(int userId)
+        {
+            bool isServicePaid = false;
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+                    isServicePaid = query.servicecontracts.invoicePaid;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return isServicePaid;
+        }
+
+        public bool isServiceContractActive(int userId)
+        {
+            bool isContractActive = false;
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+                    isContractActive = query.hasservice;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return isContractActive;
+        }
     }
 }

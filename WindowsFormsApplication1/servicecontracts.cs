@@ -25,8 +25,9 @@ namespace ServiceOverblik
         public System.DateTime enddate { get; set; }
         public string soldby { get; set; }
         public System.DateTime timestamp { get; set; }
+        public bool activeServiceCase { get; set; }
+        public bool invoicePaid { get; set; }
     
-        public virtual servicetypes servicetypes { get; set; }
         public virtual ICollection<customers> customers { get; set; }
     }
 }

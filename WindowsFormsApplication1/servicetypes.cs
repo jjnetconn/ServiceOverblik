@@ -19,7 +19,5 @@ namespace ServiceOverblik
         public Nullable<double> price { get; set; }
         public int period { get; set; }
         public Nullable<double> startupfee { get; set; }
-    
-        public virtual servicecontracts servicecontracts { get; set; }
     }
 }
