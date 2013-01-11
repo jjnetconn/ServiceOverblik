@@ -362,29 +362,9 @@ namespace ServiceOverblik
             return true;
         }
 
-        public bool updateCustomer(int userId, object[] newData, bool serviceChanged)
+        public bool updateCustomer(int userId, object[] newData)
         {
-            //int serviceNo = 0;
-            //bool hasService = false;
-
-            /*
-            if (serviceChanged)
-            {
-                //prepare inputdata for ServiceContract creation
-                object[] serviceInput = new object[3];
-                serviceInput[0] = newData[9];
-                serviceInput[1] = newData[13];
-                serviceInput[2] = newData[10];
-
-                serviceNo = createServiceContract(serviceInput);
-
-                hasService = true;
-
-                //serviceNo++;
-
-            }
-            */
-
+            int serviceType = (int)newData[9] + 1;
             using (servicebaseEntities sdb = new servicebaseEntities())
             {
                 try
@@ -392,6 +372,10 @@ namespace ServiceOverblik
                     var query = (from c in sdb.customers
                                  where c.uId == userId
                                  select c).FirstOrDefault();
+                    
+                    var query2 = (from d in sdb.servicetypes
+                                  where d.tid == serviceType
+                                  select d).FirstOrDefault();
 
                     query.cname = newData[0].ToString();
                     query.email = newData[4].ToString();
@@ -400,8 +384,16 @@ namespace ServiceOverblik
                     query.inverter = newData[8].ToString();
                     //query.serviceno = serviceNo;
                     //query.hasservice = hasService;
-                    //query.servicecontracts.servicetype = Int32.Parse(newData[5].ToString()) + 1;
-                    //query.servicecontracts.soldby = newData[7].ToString();
+                    
+
+                    DateTime startDate = (DateTime)newData[10];
+                    DateTime endDate = startDate.AddMonths(query2.period);
+
+                    query.servicecontracts.servicetype = serviceType;
+                    query.servicecontracts.startdate = startDate;
+                    query.servicecontracts.enddate = endDate;
+                    
+                        //query.servicecontracts.soldby = newData[7].ToString();
 
                     sdb.SaveChanges();
                 }
@@ -536,6 +528,29 @@ namespace ServiceOverblik
             }
         }
 
+        public object[] getEditCheckBoxes(int userId)
+        {
+            object[] rObject = new object[3];
+
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+                    rObject[0] = query.servicecontracts.activeServiceCase;
+                    rObject[1] = query.servicecontracts.invoicePaid;
+                    rObject[2] = query.hasservice;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return rObject;
+        }
+/*
         public bool hasActiveServiceCase(int userId)
         {
             bool hasActiveService = false;
@@ -594,6 +609,52 @@ namespace ServiceOverblik
                 }
             }
             return isContractActive;
+        }
+        */
+        public object[] findServiceContractByNo(int serviceNo)
+        {
+            object[] cObjects = new object[3];
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.servicecontracts.sid == serviceNo
+                                 select c).FirstOrDefault();
+
+                    cObjects[0] = query.uId;
+                    cObjects[1] = query.cname;
+                    cObjects[2] = query.servicecontracts.invoicePaid;
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return cObjects;
+        }
+
+        public bool setServiceContractPaid(int userId)
+        {
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == userId
+                                 select c).FirstOrDefault();
+
+                    query.servicecontracts.invoicePaid = true;
+                    sdb.SaveChanges();
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return true;
         }
     }
 }

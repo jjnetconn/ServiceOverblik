@@ -36,6 +36,8 @@ namespace ServiceOverblik
         public Form1()
         {
             InitializeComponent();
+            createEditGroupBox();
+            this.editGrpBx.Hide();
 
             runstate = new ServiceManager();
             Form2 loginForm = new Form2();
@@ -44,7 +46,7 @@ namespace ServiceOverblik
 
             while (ActiveSalesRep == null)
             {
-                loginForm = new Form2();
+                //loginForm = new Form2();
                 loginForm.ShowDialog();
             }
 
@@ -220,9 +222,8 @@ namespace ServiceOverblik
             editGrpBx.Text = "Kunde information";
 
             this.Controls.Add(this.editGrpBx);
-            fillEditHistory(selUserId);
         }
-
+       
         private void button7_Click(object sender, EventArgs e)
         {
             runstate.endServiceCase(selUserId);
@@ -235,7 +236,7 @@ namespace ServiceOverblik
             this.checkBox3.Checked = true;
         }
 
-       private void addCustomerHistory(object sender, EventArgs e)
+        private void addCustomerHistory(object sender, EventArgs e)
         {
             string[] strArr = richTextBox1.Lines;
             richTextBox2.AppendText(richTextBox1.Text + "\n");
@@ -258,14 +259,11 @@ namespace ServiceOverblik
 
         private void searchCustomer()
          {
-             if (this.dataGridView1 == null)
+             if (this.dataGridView1 == null || this.dataGridView1.IsDisposed )
              {
                  createDataGridSearch();
              }
-             if (this.dataGridView1.IsDisposed)
-             {
-                 createDataGridSearch();
-             }
+             
              CustomerView.Clear();
 
              //Get filter input
@@ -379,10 +377,53 @@ namespace ServiceOverblik
         {
             selUserId = Int32.Parse(selectedRow.Cells[0].Value.ToString());
 
-            //Dispose dataGridView1 to make room for customer information
-            //dataGridView1.Dispose();
-            //createEditGroupBox();
+            tabControl1.SelectedTab = tabPage3;
+            setFieldsRO();
+            fillEditHistory(selUserId);
+            int servicetypeID = new int();
 
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.customers
+                                 where c.uId == selUserId
+                                 select c).FirstOrDefault();
+
+                    editName.Text = query.cname;
+                    editStreet.Text = query.street;
+                    editCity.Text = query.city;
+                    editPostcode.Text = query.postcode.ToString();
+                    editColor.Text = query.color;
+                    editPanels.Text = query.panelcount;
+                    editPhone.Text = query.phone;
+                    editEmail.Text = query.email;
+                    editSalesRep.Text = query.servicecontracts.soldby;
+                    editPaneltype.Text = query.paneltype;
+                    editServiceDate.Value = query.servicecontracts.startdate;
+                    editServiceEndDate.Value = query.servicecontracts.enddate;
+                    editInverter.SelectedIndex = runstate.customerInverter(runstate.listInverters(), query.inverter);
+                    servicetypeID = (int)query.servicecontracts.servicetype;
+                    editService.SelectedIndex = (int)query.servicecontracts.servicetype - 1;
+                    selectedService = editService.SelectedItem.ToString();
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            object[] rObject = runstate.getEditCheckBoxes(selUserId);
+            this.checkBox1.Checked = (bool)rObject[2];
+            this.checkBox2.Checked = (bool)rObject[1];
+            this.checkBox3.Checked = (bool)rObject[0];
+        }
+
+        private void editCustomer()
+        {
             tabControl1.SelectedTab = tabPage3;
             setFieldsRO();
             int servicetypeID = new int();
@@ -411,10 +452,6 @@ namespace ServiceOverblik
                     servicetypeID = (int)query.servicecontracts.servicetype;
                     editService.SelectedIndex = (int)query.servicecontracts.servicetype - 1;
                     selectedService = editService.SelectedItem.ToString();
-                    this.checkBox1.Checked = runstate.isServiceContractActive(selUserId);
-                    this.checkBox2.Checked = runstate.isServiceInvoicePaid(selUserId);
-                    this.checkBox3.Checked = runstate.hasActiveServiceCase(selUserId);
-
                 }
                 catch
                 {
@@ -424,8 +461,11 @@ namespace ServiceOverblik
                 {
                     sdb.Dispose();
                 }
-
             }
+            object[] rObject = runstate.getEditCheckBoxes(selUserId);
+            this.checkBox1.Checked = (bool)rObject[2];
+            this.checkBox2.Checked = (bool)rObject[1];
+            this.checkBox3.Checked = (bool)rObject[0];
         }
 
         private void fillEditHistory(int selUserId)
@@ -439,7 +479,6 @@ namespace ServiceOverblik
         private void editSave_Click(object sender, EventArgs e)
         {
             object[] updateData = new object[14];
-            bool serviceChanged = false;
 
             updateData[0] = editName.Text;
             updateData[4] = editEmail.Text;
@@ -449,17 +488,13 @@ namespace ServiceOverblik
             updateData[9] = editService.FindString(editService.SelectedItem.ToString(), 0);
             updateData[10] = editServiceDate.Value;
 
-            if( selectedService.Equals(this.editService.SelectedItem.ToString()))
-            {
-                serviceChanged = true;
-            }
-
-            if (runstate.updateCustomer(this.selUserId, updateData, serviceChanged))
+            if (runstate.updateCustomer(this.selUserId, updateData))
             {
                 MessageBox.Show("Kunde info opdateret");
+                editCustomer();
             }
 
-            searchCustomer();
+            //searchCustomer();
             doEdit.Checked = false;
         }
 
@@ -495,7 +530,6 @@ namespace ServiceOverblik
                  */
                 inData[13] = createSalesRep.Text;
                 inData[14] = createPaneltype.SelectedItem;
-
 
                 bool blankFields = false;
 
@@ -640,11 +674,11 @@ namespace ServiceOverblik
             switch (tabControl1.SelectedIndex)
             {
                 case 0:
-                    if (this.editGrpBx != null)
+                    if (this.editGrpBx != null || this.editGrpBx.IsDisposed)
                     {
-                        this.editGrpBx.Dispose();
+                        this.editGrpBx.Hide();
                     }
-                    if (this.dataGridView1 == null)
+                    if (this.dataGridView1 == null || this.dataGridView1.IsDisposed)
                     {
                         createDataGridSearch();
                     }
@@ -655,11 +689,11 @@ namespace ServiceOverblik
                     break;
 
                 case 1:
-                    if (this.editGrpBx != null)
+                    if (this.editGrpBx != null || this.editGrpBx.IsDisposed)
                     {
-                        this.editGrpBx.Dispose();
+                        this.editGrpBx.Hide();
                     }
-                    if (this.dataGridView1 != null)
+                    if (this.dataGridView1 != null || this.dataGridView1.IsDisposed)
                     {
                         this.dataGridView1.Dispose();
                     }
@@ -670,17 +704,29 @@ namespace ServiceOverblik
                     {
                         this.dataGridView1.Dispose();
                     }
-                    if (this.editGrpBx == null)
+                    if (this.editGrpBx == null || this.editGrpBx.IsDisposed)
                     {
                         createEditGroupBox();
                     }
+                    else
+                    {
+                        this.editGrpBx.Show();
+                    }
                     break;
+
+                default: break;
             }
         }
 
         private void lukToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void registrerBetalingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegPayment regPayForm = new RegPayment();
+            regPayForm.ShowDialog();
         }
     }
 }

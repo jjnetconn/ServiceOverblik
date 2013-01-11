@@ -125,6 +125,7 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
+            this.registrerBetalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -157,13 +158,13 @@
             // nyKundeToolStripMenuItem
             // 
             this.nyKundeToolStripMenuItem.Name = "nyKundeToolStripMenuItem";
-            this.nyKundeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nyKundeToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.nyKundeToolStripMenuItem.Text = "Ny kunde";
             // 
             // lukToolStripMenuItem
             // 
             this.lukToolStripMenuItem.Name = "lukToolStripMenuItem";
-            this.lukToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lukToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.lukToolStripMenuItem.Text = "Luk";
             this.lukToolStripMenuItem.Click += new System.EventHandler(this.lukToolStripMenuItem_Click);
             // 
@@ -185,15 +186,16 @@
             // indstillingerToolStripMenuItem
             // 
             this.indstillingerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.retServiceTyperToolStripMenuItem});
+            this.retServiceTyperToolStripMenuItem,
+            this.registrerBetalingToolStripMenuItem});
             this.indstillingerToolStripMenuItem.Name = "indstillingerToolStripMenuItem";
-            this.indstillingerToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.indstillingerToolStripMenuItem.Text = "Indstillinger";
+            this.indstillingerToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.indstillingerToolStripMenuItem.Text = "Funktioner";
             // 
             // retServiceTyperToolStripMenuItem
             // 
             this.retServiceTyperToolStripMenuItem.Name = "retServiceTyperToolStripMenuItem";
-            this.retServiceTyperToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.retServiceTyperToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.retServiceTyperToolStripMenuItem.Text = "Ret Service typer";
             // 
             // hjælpToolStripMenuItem
@@ -1032,6 +1034,13 @@
             this.editSave.UseVisualStyleBackColor = true;
             this.editSave.Click += new System.EventHandler(this.editSave_Click);
             // 
+            // registrerBetalingToolStripMenuItem
+            // 
+            this.registrerBetalingToolStripMenuItem.Name = "registrerBetalingToolStripMenuItem";
+            this.registrerBetalingToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.registrerBetalingToolStripMenuItem.Text = "Registrer betaling";
+            this.registrerBetalingToolStripMenuItem.Click += new System.EventHandler(this.registrerBetalingToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1155,6 +1164,7 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.TextBox editPaneltype;
         private System.Windows.Forms.TextBox createSalesRep;
+        private System.Windows.Forms.ToolStripMenuItem registrerBetalingToolStripMenuItem;
         /*private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox checkBox3;
