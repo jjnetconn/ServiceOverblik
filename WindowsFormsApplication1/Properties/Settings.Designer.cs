@@ -51,5 +51,113 @@ namespace ServiceOverblik.Properties {
                 return ((int)(this["excelStartRow"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("jj@netconn.dk")]
+        public string fakturaEmail {
+            get {
+                return ((string)(this["fakturaEmail"]));
+            }
+            set {
+                this["fakturaEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("support@solcellespecialisten.dk")]
+        public string fraEmail {
+            get {
+                return ((string)(this["fraEmail"]));
+            }
+            set {
+                this["fraEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isMailTest {
+            get {
+                return ((bool)(this["isMailTest"]));
+            }
+            set {
+                this["isMailTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" mail.netconn.dk ")]
+        public string smptServer {
+            get {
+                return ((string)(this["smptServer"]));
+            }
+            set {
+                this["smptServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("26")]
+        public int smtpPort {
+            get {
+                return ((int)(this["smtpPort"]));
+            }
+            set {
+                this["smtpPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("jj@netconn.dk")]
+        public string smptUser {
+            get {
+                return ((string)(this["smptUser"]));
+            }
+            set {
+                this["smptUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("buDs76Cs!")]
+        public string smtpPass {
+            get {
+                return ((string)(this["smtpPass"]));
+            }
+            set {
+                this["smtpPass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool smtpSSL {
+            get {
+                return ((bool)(this["smtpSSL"]));
+            }
+            set {
+                this["smtpSSL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.25")]
+        public double salesTax {
+            get {
+                return ((double)(this["salesTax"]));
+            }
+            set {
+                this["salesTax"] = value;
+            }
+        }
     }
 }

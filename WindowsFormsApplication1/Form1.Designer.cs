@@ -87,7 +87,7 @@
             this.label31 = new System.Windows.Forms.Label();
             this.createName = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.createCustomer = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label37 = new System.Windows.Forms.Label();
             this.editPaneltype = new System.Windows.Forms.TextBox();
@@ -413,7 +413,7 @@
             this.tabPage2.Controls.Add(this.label31);
             this.tabPage2.Controls.Add(this.createName);
             this.tabPage2.Controls.Add(this.label32);
-            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.createCustomer);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -667,15 +667,15 @@
             this.label32.TabIndex = 47;
             this.label32.Text = "Navn";
             // 
-            // button5
+            // createCustomer
             // 
-            this.button5.Location = new System.Drawing.Point(255, 137);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 46;
-            this.button5.Text = "Opret";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.createCustomer.Location = new System.Drawing.Point(255, 137);
+            this.createCustomer.Name = "createCustomer";
+            this.createCustomer.Size = new System.Drawing.Size(75, 23);
+            this.createCustomer.TabIndex = 46;
+            this.createCustomer.Text = "Opret";
+            this.createCustomer.UseVisualStyleBackColor = true;
+            this.createCustomer.Click += new System.EventHandler(this.createCustomer_Click);
             // 
             // tabPage3
             // 
@@ -1150,7 +1150,7 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox createName;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button createCustomer;
         private System.Windows.Forms.Button contractPrint;
         private System.Windows.Forms.Button contractView;
         private System.Windows.Forms.CheckBox doEdit;

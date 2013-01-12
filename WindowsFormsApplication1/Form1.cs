@@ -507,7 +507,7 @@ namespace ServiceOverblik
             editVersion.Visible = true;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void createCustomer_Click(object sender, EventArgs e)
         {
                 object[] inData = new object[15];
                 inData[0] = createName.Text;
@@ -533,7 +533,6 @@ namespace ServiceOverblik
 
                 bool blankFields = false;
 
-
                 foreach (object obj in inData)
                 {
                     if (obj.Equals(null))
@@ -555,7 +554,6 @@ namespace ServiceOverblik
                         resetCreateFields();
                     }
                 }
-            
         }
 
         private void resetCreateFields()
@@ -689,11 +687,11 @@ namespace ServiceOverblik
                     break;
 
                 case 1:
-                    if (this.editGrpBx != null || this.editGrpBx.IsDisposed)
+                    if (this.editGrpBx != null)
                     {
                         this.editGrpBx.Hide();
                     }
-                    if (this.dataGridView1 != null || this.dataGridView1.IsDisposed)
+                    if (this.dataGridView1 != null)
                     {
                         this.dataGridView1.Dispose();
                     }

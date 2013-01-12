@@ -357,9 +357,21 @@ namespace ServiceOverblik
                 {
 
                 }
-                cc.SaveChanges();
+                //cc.SaveChanges();
+
+                EmailSender send = new EmailSender();
+                object[] rObject = getServiceInfo((int)newData[9]);
+                object[] rObject2 = getSalesReps((string)newData[13]);
+                send.sendToInvoice((string)newData[0], (double)rObject[0], (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13]);
+                send.sendToCustomer((string)newData[4], serviceNo, (string)newData[0], (string)newData[13], (string)rObject2[0], (string)rObject2[1]);
             }
             return true;
+        }
+
+        public double calcServicePrice(int serviceNo)
+        {
+            //not implemented
+            return 0.0;
         }
 
         public bool updateCustomer(int userId, object[] newData)
@@ -550,67 +562,31 @@ namespace ServiceOverblik
             }
             return rObject;
         }
-/*
-        public bool hasActiveServiceCase(int userId)
+
+        public object[] getServiceInfo(int tId)
         {
-            bool hasActiveService = false;
+            object[] rObject = new object[4];
+
             using (servicebaseEntities sdb = new servicebaseEntities())
             {
                 try
                 {
-                    var query = (from c in sdb.customers
-                                 where c.uId == userId
+                    var query = (from c in sdb.servicetypes
+                                 where c.tid == tId
                                  select c).FirstOrDefault();
-                    hasActiveService = query.servicecontracts.activeServiceCase;
+                    rObject[0] = (double)query.price;
+                    rObject[1] = (string)query.sname;
+                    rObject[2] = (int)query.period;
+                    rObject[3] = (int)query.startupfee;
                 }
                 finally
                 {
                     sdb.Dispose();
                 }
             }
-            return hasActiveService;
+            return rObject;
         }
 
-        public bool isServiceInvoicePaid(int userId)
-        {
-            bool isServicePaid = false;
-            using (servicebaseEntities sdb = new servicebaseEntities())
-            {
-                try
-                {
-                    var query = (from c in sdb.customers
-                                 where c.uId == userId
-                                 select c).FirstOrDefault();
-                    isServicePaid = query.servicecontracts.invoicePaid;
-                }
-                finally
-                {
-                    sdb.Dispose();
-                }
-            }
-            return isServicePaid;
-        }
-
-        public bool isServiceContractActive(int userId)
-        {
-            bool isContractActive = false;
-            using (servicebaseEntities sdb = new servicebaseEntities())
-            {
-                try
-                {
-                    var query = (from c in sdb.customers
-                                 where c.uId == userId
-                                 select c).FirstOrDefault();
-                    isContractActive = query.hasservice;
-                }
-                finally
-                {
-                    sdb.Dispose();
-                }
-            }
-            return isContractActive;
-        }
-        */
         public object[] findServiceContractByNo(int serviceNo)
         {
             object[] cObjects = new object[3];
@@ -655,6 +631,27 @@ namespace ServiceOverblik
                 }
             }
             return true;
+        }
+        public object[] getSalesReps(string init)
+        {
+            object[] rObject = new object[2];
+
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.salesreps
+                                 where c.init == init
+                                 select c).FirstOrDefault();
+                    rObject[0] = (string)query.name;
+                    rObject[1] = (string)query.phone;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return rObject;
         }
     }
 }
