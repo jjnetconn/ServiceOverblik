@@ -152,6 +152,28 @@ namespace ServiceOverblik
             return tmp6;
         }
         }
+        public List<customers> searchCustomerBySalesRep(string searchFilter)
+        {
+            List<customers> tmp7 = new List<customers>();
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = from c in serviceDB.customers
+                                where c.servicecontracts.soldby == searchFilter
+                                select c;
+                    tmp7 = query.ToList();
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+                return tmp7;
+            }
+        }
 
         //tilføj searchCustomerBySalesRep(string searchFilter)
 
@@ -344,6 +366,7 @@ namespace ServiceOverblik
                     c.email = newData[4].ToString();
                     c.phone = newData[5].ToString();
                     c.panelcount = newData[6].ToString();
+                    c.kwp = (double)newData[15];
                     c.color = newData[7].ToString();
                     c.inverter = newData[8].ToString();
                     c.paneltype = (String)newData[14];
@@ -362,13 +385,17 @@ namespace ServiceOverblik
                 EmailSender send = new EmailSender();
                 object[] rObject = getServiceInfo((int)newData[9]);
                 object[] rObject2 = getSalesReps((string)newData[13]);
-                send.sendToInvoice((string)newData[0], (double)rObject[0], (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13]);
+
+                double servicePrice = calcServicePrice((int)newData[9], rObject);
+
+
+                send.sendToInvoice((int)newData[9], (string)newData[0], servicePrice, (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13], (string)newData[1], (int)newData[3], (string)newData[2], (string)newData[5], (string)newData[4]);
                 send.sendToCustomer((string)newData[4], serviceNo, (string)newData[0], (string)newData[13], (string)rObject2[0], (string)rObject2[1]);
             }
             return true;
         }
 
-        public double calcServicePrice(int serviceNo)
+        public double calcServicePrice(int serviceTypeId, object[] rObject)
         {
             //not implemented
             return 0.0;
@@ -393,6 +420,7 @@ namespace ServiceOverblik
                     query.email = newData[4].ToString();
                     query.phone = newData[5].ToString();
                     query.panelcount = newData[6].ToString();
+                    query.kwp = Double.Parse(newData[14].ToString());
                     query.inverter = newData[8].ToString();
                     //query.serviceno = serviceNo;
                     //query.hasservice = hasService;
@@ -632,6 +660,7 @@ namespace ServiceOverblik
             }
             return true;
         }
+
         public object[] getSalesReps(string init)
         {
             object[] rObject = new object[2];

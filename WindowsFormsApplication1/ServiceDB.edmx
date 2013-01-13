@@ -28,6 +28,7 @@
           <Property Name="email" Type="varchar" MaxLength="45" />
           <Property Name="phone" Type="varchar" MaxLength="45" />
           <Property Name="panelcount" Type="varchar" MaxLength="45" />
+          <Property Name="kwp" Type="double" />
           <Property Name="color" Type="varchar" MaxLength="45" />
           <Property Name="inverter" Type="varchar" MaxLength="45" />
           <Property Name="paneltype" Type="varchar" MaxLength="128" />
@@ -154,6 +155,7 @@
           <Property Type="Boolean" Name="isprivate" Nullable="false" />
           <Property Type="String" Name="serviceblog" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="servicecontracts" Relationship="servicebaseModel.sid" FromRole="customers" ToRole="servicecontracts" />
+          <Property Type="Double" Name="kwp" />
         </EntityType>
         <EntityType Name="servicecontracts">
           <Key>
@@ -222,6 +224,7 @@
           <EntitySetMapping Name="customers">
             <EntityTypeMapping TypeName="servicebaseModel.customers">
               <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="kwp" ColumnName="kwp" />
                 <ScalarProperty Name="serviceblog" ColumnName="serviceblog" />
                 <ScalarProperty Name="isprivate" ColumnName="isprivate" />
                 <ScalarProperty Name="hasservice" ColumnName="hasservice" />

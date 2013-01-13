@@ -30,6 +30,7 @@ namespace ServiceOverblik
         public bool hasservice { get; set; }
         public bool isprivate { get; set; }
         public string serviceblog { get; set; }
+        public Nullable<double> kwp { get; set; }
     
         public virtual servicecontracts servicecontracts { get; set; }
     }

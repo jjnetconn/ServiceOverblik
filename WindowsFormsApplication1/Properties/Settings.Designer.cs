@@ -90,7 +90,7 @@ namespace ServiceOverblik.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" mail.netconn.dk ")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mail.netconn.dk ")]
         public string smptServer {
             get {
                 return ((string)(this["smptServer"]));
@@ -157,6 +157,66 @@ namespace ServiceOverblik.Properties {
             }
             set {
                 this["salesTax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("support@solcellespecialisten.dk")]
+        public string supportEmail {
+            get {
+                return ((string)(this["supportEmail"]));
+            }
+            set {
+                this["supportEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int specialPriceCalc {
+            get {
+                return ((int)(this["specialPriceCalc"]));
+            }
+            set {
+                this["specialPriceCalc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Images/logo.png")]
+        public string logoPath {
+            get {
+                return ((string)(this["logoPath"]));
+            }
+            set {
+                this["logoPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("+45 2043 9925")]
+        public string supportPhone {
+            get {
+                return ((string)(this["supportPhone"]));
+            }
+            set {
+                this["supportPhone"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\temp\\")]
+        public string pdfSavePath {
+            get {
+                return ((string)(this["pdfSavePath"]));
+            }
+            set {
+                this["pdfSavePath"] = value;
             }
         }
     }

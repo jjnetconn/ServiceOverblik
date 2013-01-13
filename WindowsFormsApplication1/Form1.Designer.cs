@@ -37,6 +37,7 @@
             this.excelImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indstillingerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.retServiceTyperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrerBetalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hjælpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.omProgrammetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -44,17 +45,13 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.createSalesRep = new System.Windows.Forms.TextBox();
@@ -95,7 +92,7 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.editServiceEndDate = new System.Windows.Forms.DateTimePicker();
-            this.contractPrint = new System.Windows.Forms.Button();
+            this.contractSend = new System.Windows.Forms.Button();
             this.contractView = new System.Windows.Forms.Button();
             this.doEdit = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -125,7 +122,12 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
-            this.registrerBetalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createkWp = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.editkWp = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.searchSalesReps = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -198,6 +200,13 @@
             this.retServiceTyperToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.retServiceTyperToolStripMenuItem.Text = "Ret Service typer";
             // 
+            // registrerBetalingToolStripMenuItem
+            // 
+            this.registrerBetalingToolStripMenuItem.Name = "registrerBetalingToolStripMenuItem";
+            this.registrerBetalingToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.registrerBetalingToolStripMenuItem.Text = "Registrer betaling";
+            this.registrerBetalingToolStripMenuItem.Click += new System.EventHandler(this.registrerBetalingToolStripMenuItem_Click);
+            // 
             // hjælpToolStripMenuItem
             // 
             this.hjælpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -227,20 +236,18 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.searchSalesReps);
+            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.textBox5);
             this.tabPage1.Controls.Add(this.textBox4);
             this.tabPage1.Controls.Add(this.textBox2);
             this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.comboBox1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -279,24 +286,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(129, 44);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 13);
-            this.label7.TabIndex = 33;
-            this.label7.Text = "Service Dato";
-            this.label7.Visible = false;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(132, 60);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 32;
-            this.dateTimePicker1.Visible = false;
-            // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(9, 98);
@@ -325,16 +314,6 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 28;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(129, 3);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 27;
-            this.label5.Text = "Service";
-            this.label5.Visible = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -362,15 +341,6 @@
             this.label2.TabIndex = 24;
             this.label2.Text = "Gade";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(132, 19);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 23;
-            this.comboBox1.Visible = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -383,6 +353,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.createkWp);
             this.tabPage2.Controls.Add(this.createSalesRep);
             this.tabPage2.Controls.Add(this.label36);
             this.tabPage2.Controls.Add(this.createPaneltype);
@@ -432,7 +404,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(536, 42);
+            this.label36.Location = new System.Drawing.Point(533, 42);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(54, 13);
             this.label36.TabIndex = 77;
@@ -680,13 +652,15 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.editkWp);
+            this.tabPage3.Controls.Add(this.label40);
             this.tabPage3.Controls.Add(this.label37);
             this.tabPage3.Controls.Add(this.editPaneltype);
             this.tabPage3.Controls.Add(this.editSalesRep);
             this.tabPage3.Controls.Add(this.label35);
             this.tabPage3.Controls.Add(this.label34);
             this.tabPage3.Controls.Add(this.editServiceEndDate);
-            this.tabPage3.Controls.Add(this.contractPrint);
+            this.tabPage3.Controls.Add(this.contractSend);
             this.tabPage3.Controls.Add(this.contractView);
             this.tabPage3.Controls.Add(this.doEdit);
             this.tabPage3.Controls.Add(this.label19);
@@ -773,15 +747,15 @@
             this.editServiceEndDate.Size = new System.Drawing.Size(200, 20);
             this.editServiceEndDate.TabIndex = 80;
             // 
-            // contractPrint
+            // contractSend
             // 
-            this.contractPrint.Location = new System.Drawing.Point(443, 138);
-            this.contractPrint.Name = "contractPrint";
-            this.contractPrint.Size = new System.Drawing.Size(75, 23);
-            this.contractPrint.TabIndex = 79;
-            this.contractPrint.Text = "Print kontrakt";
-            this.contractPrint.UseVisualStyleBackColor = true;
-            this.contractPrint.Visible = false;
+            this.contractSend.Location = new System.Drawing.Point(443, 138);
+            this.contractSend.Name = "contractSend";
+            this.contractSend.Size = new System.Drawing.Size(93, 23);
+            this.contractSend.TabIndex = 79;
+            this.contractSend.Text = "Send kontrakt";
+            this.contractSend.UseVisualStyleBackColor = true;
+            this.contractSend.Visible = false;
             // 
             // contractView
             // 
@@ -792,6 +766,7 @@
             this.contractView.Text = "Se kontrakt";
             this.contractView.UseVisualStyleBackColor = true;
             this.contractView.Visible = false;
+            this.contractView.Click += new System.EventHandler(this.contractView_Click);
             // 
             // doEdit
             // 
@@ -1026,7 +1001,7 @@
             // 
             // editSave
             // 
-            this.editSave.Location = new System.Drawing.Point(542, 138);
+            this.editSave.Location = new System.Drawing.Point(564, 138);
             this.editSave.Name = "editSave";
             this.editSave.Size = new System.Drawing.Size(75, 23);
             this.editSave.TabIndex = 0;
@@ -1034,12 +1009,54 @@
             this.editSave.UseVisualStyleBackColor = true;
             this.editSave.Click += new System.EventHandler(this.editSave_Click);
             // 
-            // registrerBetalingToolStripMenuItem
+            // createkWp
             // 
-            this.registrerBetalingToolStripMenuItem.Name = "registrerBetalingToolStripMenuItem";
-            this.registrerBetalingToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.registrerBetalingToolStripMenuItem.Text = "Registrer betaling";
-            this.registrerBetalingToolStripMenuItem.Click += new System.EventHandler(this.registrerBetalingToolStripMenuItem_Click);
+            this.createkWp.AutoSize = true;
+            this.createkWp.Location = new System.Drawing.Point(533, 83);
+            this.createkWp.Name = "createkWp";
+            this.createkWp.Size = new System.Drawing.Size(78, 13);
+            this.createkWp.TabIndex = 79;
+            this.createkWp.Text = "Installeret kWp";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(536, 99);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 80;
+            // 
+            // editkWp
+            // 
+            this.editkWp.Location = new System.Drawing.Point(639, 19);
+            this.editkWp.Name = "editkWp";
+            this.editkWp.Size = new System.Drawing.Size(100, 20);
+            this.editkWp.TabIndex = 87;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(636, 3);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(78, 13);
+            this.label40.TabIndex = 86;
+            this.label40.Text = "Installeret kWp";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(132, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "Sælger";
+            // 
+            // searchSalesReps
+            // 
+            this.searchSalesReps.FormattingEnabled = true;
+            this.searchSalesReps.Location = new System.Drawing.Point(135, 20);
+            this.searchSalesReps.Name = "searchSalesReps";
+            this.searchSalesReps.Size = new System.Drawing.Size(121, 21);
+            this.searchSalesReps.TabIndex = 38;
             // 
             // Form1
             // 
@@ -1081,16 +1098,12 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
@@ -1151,7 +1164,7 @@
         private System.Windows.Forms.TextBox createName;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Button createCustomer;
-        private System.Windows.Forms.Button contractPrint;
+        private System.Windows.Forms.Button contractSend;
         private System.Windows.Forms.Button contractView;
         private System.Windows.Forms.CheckBox doEdit;
         private System.Windows.Forms.Label label33;
@@ -1165,6 +1178,12 @@
         private System.Windows.Forms.TextBox editPaneltype;
         private System.Windows.Forms.TextBox createSalesRep;
         private System.Windows.Forms.ToolStripMenuItem registrerBetalingToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label createkWp;
+        private System.Windows.Forms.TextBox editkWp;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.ComboBox searchSalesReps;
+        private System.Windows.Forms.Label label5;
         /*private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox checkBox3;

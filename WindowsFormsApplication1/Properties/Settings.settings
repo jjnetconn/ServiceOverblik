@@ -26,7 +26,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="smptServer" Type="System.String" Scope="User">
-      <Value Profile="(Default)"> mail.netconn.dk </Value>
+      <Value Profile="(Default)">mail.netconn.dk </Value>
     </Setting>
     <Setting Name="smtpPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">26</Value>
@@ -42,6 +42,21 @@
     </Setting>
     <Setting Name="salesTax" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1.25</Value>
+    </Setting>
+    <Setting Name="supportEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)">support@solcellespecialisten.dk</Value>
+    </Setting>
+    <Setting Name="specialPriceCalc" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="logoPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Images/logo.png</Value>
+    </Setting>
+    <Setting Name="supportPhone" Type="System.String" Scope="User">
+      <Value Profile="(Default)">+45 2043 9925</Value>
+    </Setting>
+    <Setting Name="pdfSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\temp\</Value>
     </Setting>
   </Settings>
 </SettingsFile>

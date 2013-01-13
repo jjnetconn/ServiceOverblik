@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using System.Diagnostics;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
+using MigraDoc.DocumentObjectModel.Shapes;
+using MigraDoc.Rendering;
 
 
 namespace ServiceOverblik
@@ -29,7 +34,6 @@ namespace ServiceOverblik
         private Button button7;
 
         private static string activeSalesRep;
-        //private List<prodcat> Inverters;
         private int selUserId;
         private string selectedService;
        
@@ -81,14 +85,15 @@ namespace ServiceOverblik
 
             foreach (servicetypes stp in runstate.getServicetypes())
             {
-                comboBox1.Items.Add(stp.sname);
                 editService.Items.Add(stp.sname);
                 createService.Items.Add(stp.sname);
             }
-            /*foreach (salesreps srp in runstate.getSalesReps())
+
+            foreach (salesreps srp in runstate.getSalesReps())
             {
-                createSalesRep.Items.Add(srp.init);
-            }*/
+                searchSalesReps.Items.Add(srp.init);
+            }
+
             foreach (paneltypes ptp in runstate.getPaneltypes())
             {
                 createPaneltype.Items.Add(ptp.name);
@@ -288,6 +293,10 @@ namespace ServiceOverblik
              {
                  searchresults.Add(runstate.searchCustomerByPostcode(textBox4.Text));
              }
+            if (searchSalesReps.SelectedIndex >= 0)
+            {
+                searchresults.Add(runstate.searchCustomerBySalesRep(searchSalesReps.SelectedItem.ToString()));
+            }
 
              var lengths = from element in searchresults
                            orderby element.Count
@@ -338,6 +347,7 @@ namespace ServiceOverblik
             this.textBox2.Clear();
             this.textBox4.Clear();
             this.textBox5.Clear();
+            this.searchSalesReps.SelectedIndex = -1;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -396,6 +406,7 @@ namespace ServiceOverblik
                     editPostcode.Text = query.postcode.ToString();
                     editColor.Text = query.color;
                     editPanels.Text = query.panelcount;
+                    editkWp.Text = query.kwp.ToString();
                     editPhone.Text = query.phone;
                     editEmail.Text = query.email;
                     editSalesRep.Text = query.servicecontracts.soldby;
@@ -442,6 +453,7 @@ namespace ServiceOverblik
                     editPostcode.Text = query.postcode.ToString();
                     editColor.Text = query.color;
                     editPanels.Text = query.panelcount;
+                    editkWp.Text = query.kwp.ToString();
                     editPhone.Text = query.phone;
                     editEmail.Text = query.email;
                     editSalesRep.Text = query.servicecontracts.soldby;
@@ -478,7 +490,7 @@ namespace ServiceOverblik
 
         private void editSave_Click(object sender, EventArgs e)
         {
-            object[] updateData = new object[14];
+            object[] updateData = new object[15];
 
             updateData[0] = editName.Text;
             updateData[4] = editEmail.Text;
@@ -487,6 +499,7 @@ namespace ServiceOverblik
             updateData[8] = editInverter.SelectedItem;
             updateData[9] = editService.FindString(editService.SelectedItem.ToString(), 0);
             updateData[10] = editServiceDate.Value;
+            updateData[14] = editkWp.Text;
 
             if (runstate.updateCustomer(this.selUserId, updateData))
             {
@@ -509,7 +522,7 @@ namespace ServiceOverblik
 
         private void createCustomer_Click(object sender, EventArgs e)
         {
-                object[] inData = new object[15];
+                object[] inData = new object[16];
                 inData[0] = createName.Text;
                 inData[1] = createStreet.Text;
                 inData[2] = createCity.Text;
@@ -530,6 +543,7 @@ namespace ServiceOverblik
                  */
                 inData[13] = createSalesRep.Text;
                 inData[14] = createPaneltype.SelectedItem;
+                inData[15] = createkWp.Text;
 
                 bool blankFields = false;
 
@@ -569,6 +583,7 @@ namespace ServiceOverblik
             createInverter.Text = "";
             createService.Text = "";
             createPaneltype.Text = "";
+            createkWp.Text = "";
             //createSalesRep.Text = "";
 
         }
@@ -600,6 +615,7 @@ namespace ServiceOverblik
             editPhone.ReadOnly = true;
             editEmail.ReadOnly = true;
             editSalesRep.ReadOnly = true;
+            editkWp.ReadOnly = true;
             editSave.Visible = false;
         }
 
@@ -617,6 +633,7 @@ namespace ServiceOverblik
             editPanels.ReadOnly = false;
             editPhone.ReadOnly = false;
             editEmail.ReadOnly = false;
+            editkWp.ReadOnly = false;
             editSave.Visible = true;
 
         }
@@ -725,6 +742,58 @@ namespace ServiceOverblik
         {
             RegPayment regPayForm = new RegPayment();
             regPayForm.ShowDialog();
+        }
+
+        private void contractView_Click(object sender, EventArgs e)
+        {
+            object[] pdfData = new object[16];
+
+            pdfData[0] = editName.Text;
+            pdfData[1] = editStreet.Text;
+            pdfData[2] = editCity.Text;
+            pdfData[3] = editPostcode.Text;
+            pdfData[4] = editColor.Text;
+            pdfData[5] = editPanels.Text;
+            pdfData[5] = editkWp.Text;
+            pdfData[6] = editPhone.Text;
+            pdfData[7] = editEmail.Text;
+            pdfData[8] = editSalesRep.Text;
+            pdfData[9] = editPaneltype.Text;
+            pdfData[10] = editServiceDate.Value;
+            pdfData[11] = editServiceEndDate.Value;
+            pdfData[12] = editInverter.SelectedIndex;
+            pdfData[13] = "";
+            pdfData[14] = editService.SelectedIndex;
+            pdfData[15] = selectedService;
+
+            CreatePDF(pdfData);
+
+        }
+
+        private void CreatePDF(object[] pdfData)
+        {
+            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
+            int serviceNo = runstate.getServiceContractId(selUserId);
+            
+            // Create a MigraDoc document
+            Document document = pdfForm.CreateDocument(serviceNo, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            document.UseCmykColor = true;
+
+            // Create a renderer for PDF that uses Unicode font encoding
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+
+            // Set the MigraDoc document
+            pdfRenderer.Document = document;
+
+            // Create the PDF document
+            pdfRenderer.RenderDocument();
+
+            // Save the PDF document...
+            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + ".pdf";
+
+            pdfRenderer.Save(filename);
+            // ...and start a viewer.
+            Process.Start(filename);
         }
     }
 }
