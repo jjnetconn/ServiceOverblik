@@ -5,6 +5,11 @@ using System.Text;
 using System.Collections;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
+using MigraDoc.DocumentObjectModel.Shapes;
+using MigraDoc.Rendering;
 
 
 namespace ServiceOverblik
@@ -342,7 +347,7 @@ namespace ServiceOverblik
         {
             int serviceNo = 9999;
             bool hasService = false;
-
+            int selUserId = 0;
 
                 //prepare inputdata for ServiceContract creation
                 object[] serviceInput = new object[3];
@@ -374,31 +379,63 @@ namespace ServiceOverblik
                     c.hasservice = hasService;
 
                     cc.customers.Add(c);
+                    selUserId = c.uId;
 
                 }
                 catch
                 {
 
                 }
-                //cc.SaveChanges();
 
-                EmailSender send = new EmailSender();
+                cc.SaveChanges();
+
                 object[] rObject = getServiceInfo((int)newData[9]);
                 object[] rObject2 = getSalesReps((string)newData[13]);
+                double servicePrice = calcServicePrice((int)newData[9], rObject, (double)newData[15]);
+                object[] pdfData = new object[16];
 
-                double servicePrice = calcServicePrice((int)newData[9], rObject);
+                pdfData[0] = newData[0];
+                pdfData[1] = newData[1];
+                pdfData[2] = newData[2];
+                pdfData[3] = newData[3].ToString();
+                pdfData[4] = newData[7];
+                pdfData[5] = newData[6];
+                pdfData[5] = newData[15];
+                pdfData[6] = newData[5];
+                pdfData[7] = newData[4];
+                pdfData[8] = newData[13];
+                pdfData[9] = newData[14];
+                pdfData[10] = ((DateTime)newData[10]).ToLongDateString();
+                pdfData[12] = (((DateTime)newData[10]).AddMonths((int)rObject[2])).ToLongDateString();
+                pdfData[13] = "";
+                pdfData[14] = rObject[1];
+                pdfData[15] = "";
 
+                string fileName = sendPDF(pdfData, selUserId, servicePrice);
+
+                EmailSender send = new EmailSender();
 
                 send.sendToInvoice((int)newData[9], (string)newData[0], servicePrice, (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13], (string)newData[1], (int)newData[3], (string)newData[2], (string)newData[5], (string)newData[4]);
-                send.sendToCustomer((string)newData[4], serviceNo, (string)newData[0], (string)newData[13], (string)rObject2[0], (string)rObject2[1]);
+                send.sendToCustomer((string)newData[4], serviceNo, (string)newData[0], (string)newData[13], (string)rObject2[0], (string)rObject2[1], fileName);
             }
             return true;
         }
 
-        public double calcServicePrice(int serviceTypeId, object[] rObject)
+        public double calcServicePrice(int serviceTypeId, object[] rObject, double installPwr)
         {
-            //not implemented
-            return 0.0;
+            double rPrice = 0.0;
+            if (serviceTypeId > Properties.Settings.Default.specialPriceCalc)
+            {
+                //Calc price on large plants
+                rPrice = (((double)rObject[0] * (installPwr * 1000)) + (int)rObject[3]) * Properties.Settings.Default.salesTax;
+            }
+            else
+            {
+                rPrice = ((double)rObject[0] + (int)rObject[3]) * Properties.Settings.Default.salesTax;
+            }
+            //(servicePrice + startFee)*Properties.Settings.Default.salesTax);
+
+            return rPrice;
         }
 
         public bool updateCustomer(int userId, object[] newData)
@@ -682,5 +719,59 @@ namespace ServiceOverblik
             }
             return rObject;
         }
+
+        public void createPDF(object[] pdfData, int selUserId, double servicePrice)
+        {
+            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
+            int serviceNo = getServiceContractId(selUserId);
+
+            // Create a MigraDoc document
+            Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            document.UseCmykColor = true;
+
+            // Create a renderer for PDF that uses Unicode font encoding
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+
+            // Set the MigraDoc document
+            pdfRenderer.Document = document;
+
+            // Create the PDF document
+            pdfRenderer.RenderDocument();
+
+            // Save the PDF document...
+            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + DateTime.Now.Second + ".pdf";
+
+            pdfRenderer.Save(filename);
+            // ...and start a viewer.
+            Process.Start(filename);
+        }
+
+        public string sendPDF(object[] pdfData, int selUserId, double servicePrice)
+        {
+            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
+            int serviceNo = getServiceContractId(selUserId);
+
+            // Create a MigraDoc document
+            Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            document.UseCmykColor = true;
+
+            // Create a renderer for PDF that uses Unicode font encoding
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+
+            // Set the MigraDoc document
+            pdfRenderer.Document = document;
+
+            // Create the PDF document
+            pdfRenderer.RenderDocument();
+
+            // Save the PDF document...
+            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + DateTime.Now.Second + ".pdf";
+
+            pdfRenderer.Save(filename);
+            // ...and return the filename.
+            return filename;
+
+        }
+
     }
 }

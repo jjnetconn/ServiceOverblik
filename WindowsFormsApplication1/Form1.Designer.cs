@@ -42,6 +42,8 @@
             this.omProgrammetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.searchSalesReps = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -54,6 +56,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.createkWp = new System.Windows.Forms.TextBox();
+            this.LabelCreatekWp = new System.Windows.Forms.Label();
             this.createSalesRep = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
             this.createPaneltype = new System.Windows.Forms.ComboBox();
@@ -86,6 +90,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.createCustomer = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.editkWp = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.editPaneltype = new System.Windows.Forms.TextBox();
             this.editSalesRep = new System.Windows.Forms.TextBox();
@@ -122,12 +128,6 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
-            this.createkWp = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.editkWp = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.searchSalesReps = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -256,6 +256,23 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Søg kunde";
             // 
+            // searchSalesReps
+            // 
+            this.searchSalesReps.FormattingEnabled = true;
+            this.searchSalesReps.Location = new System.Drawing.Point(135, 20);
+            this.searchSalesReps.Name = "searchSalesReps";
+            this.searchSalesReps.Size = new System.Drawing.Size(121, 21);
+            this.searchSalesReps.TabIndex = 38;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(132, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "Sælger";
+            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(257, 134);
@@ -353,8 +370,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.textBox3);
             this.tabPage2.Controls.Add(this.createkWp);
+            this.tabPage2.Controls.Add(this.LabelCreatekWp);
             this.tabPage2.Controls.Add(this.createSalesRep);
             this.tabPage2.Controls.Add(this.label36);
             this.tabPage2.Controls.Add(this.createPaneltype);
@@ -392,6 +409,22 @@
             this.tabPage2.Size = new System.Drawing.Size(1228, 171);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Opret kunde";
+            // 
+            // createkWp
+            // 
+            this.createkWp.Location = new System.Drawing.Point(536, 99);
+            this.createkWp.Name = "createkWp";
+            this.createkWp.Size = new System.Drawing.Size(100, 20);
+            this.createkWp.TabIndex = 80;
+            // 
+            // LabelCreatekWp
+            // 
+            this.LabelCreatekWp.AutoSize = true;
+            this.LabelCreatekWp.Location = new System.Drawing.Point(533, 83);
+            this.LabelCreatekWp.Name = "LabelCreatekWp";
+            this.LabelCreatekWp.Size = new System.Drawing.Size(78, 13);
+            this.LabelCreatekWp.TabIndex = 79;
+            this.LabelCreatekWp.Text = "Installeret kWp";
             // 
             // createSalesRep
             // 
@@ -697,6 +730,22 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Valgte kunde";
             // 
+            // editkWp
+            // 
+            this.editkWp.Location = new System.Drawing.Point(639, 19);
+            this.editkWp.Name = "editkWp";
+            this.editkWp.Size = new System.Drawing.Size(100, 20);
+            this.editkWp.TabIndex = 87;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(636, 3);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(78, 13);
+            this.label40.TabIndex = 86;
+            this.label40.Text = "Installeret kWp";
+            // 
             // label37
             // 
             this.label37.AutoSize = true;
@@ -755,7 +804,7 @@
             this.contractSend.TabIndex = 79;
             this.contractSend.Text = "Send kontrakt";
             this.contractSend.UseVisualStyleBackColor = true;
-            this.contractSend.Visible = false;
+            this.contractSend.Click += new System.EventHandler(this.contractSend_Click);
             // 
             // contractView
             // 
@@ -765,7 +814,6 @@
             this.contractView.TabIndex = 78;
             this.contractView.Text = "Se kontrakt";
             this.contractView.UseVisualStyleBackColor = true;
-            this.contractView.Visible = false;
             this.contractView.Click += new System.EventHandler(this.contractView_Click);
             // 
             // doEdit
@@ -1009,55 +1057,6 @@
             this.editSave.UseVisualStyleBackColor = true;
             this.editSave.Click += new System.EventHandler(this.editSave_Click);
             // 
-            // createkWp
-            // 
-            this.createkWp.AutoSize = true;
-            this.createkWp.Location = new System.Drawing.Point(533, 83);
-            this.createkWp.Name = "createkWp";
-            this.createkWp.Size = new System.Drawing.Size(78, 13);
-            this.createkWp.TabIndex = 79;
-            this.createkWp.Text = "Installeret kWp";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(536, 99);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 80;
-            // 
-            // editkWp
-            // 
-            this.editkWp.Location = new System.Drawing.Point(639, 19);
-            this.editkWp.Name = "editkWp";
-            this.editkWp.Size = new System.Drawing.Size(100, 20);
-            this.editkWp.TabIndex = 87;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(636, 3);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(78, 13);
-            this.label40.TabIndex = 86;
-            this.label40.Text = "Installeret kWp";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(132, 2);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 37;
-            this.label5.Text = "Sælger";
-            // 
-            // searchSalesReps
-            // 
-            this.searchSalesReps.FormattingEnabled = true;
-            this.searchSalesReps.Location = new System.Drawing.Point(135, 20);
-            this.searchSalesReps.Name = "searchSalesReps";
-            this.searchSalesReps.Size = new System.Drawing.Size(121, 21);
-            this.searchSalesReps.TabIndex = 38;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1178,8 +1177,8 @@
         private System.Windows.Forms.TextBox editPaneltype;
         private System.Windows.Forms.TextBox createSalesRep;
         private System.Windows.Forms.ToolStripMenuItem registrerBetalingToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label createkWp;
+        private System.Windows.Forms.TextBox createkWp;
+        private System.Windows.Forms.Label LabelCreatekWp;
         private System.Windows.Forms.TextBox editkWp;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.ComboBox searchSalesReps;

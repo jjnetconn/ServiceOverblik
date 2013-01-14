@@ -61,7 +61,7 @@ namespace ServiceOverblik
             return true;
         }
 
-        public bool sendToCustomer(string customerEmail, int serviceNo, string customerName, string salesRep, string salesRepName, string salesRepPhone)
+        public bool sendToCustomer(string customerEmail, int serviceNo, string customerName, string salesRep, string salesRepName, string salesRepPhone, string fileName)
         {
             Cursor.Current = Cursors.WaitCursor;
             try
@@ -81,11 +81,11 @@ namespace ServiceOverblik
                 }
 
                 StringBuilder bodyTxt = new StringBuilder();
-                bodyTxt.AppendFormat("Hej, {0},\n", customerName);
+                bodyTxt.AppendFormat("Hej {0},\n", customerName);
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("Vedhæftet denne mail er:");
                 bodyTxt.AppendLine("");
-                bodyTxt.AppendLine(" -Dit service certifikat\n -Betingelser vedr. serviceaftale\n");
+                bodyTxt.AppendLine(" -Din servicekontrakt\n -Betingelser vedr. serviceaftale\n");
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925");
                 bodyTxt.AppendLine("eller via e-mail på: support@solcellespecialisten.dk");
@@ -95,13 +95,11 @@ namespace ServiceOverblik
                 bodyTxt.AppendFormat("{0}", salesRepName);
 
                 mail.Body = bodyTxt.ToString();
-                StringBuilder serviceContract = new StringBuilder();
-                serviceContract.AppendFormat("serviceKontrakt_{0}.pdf", serviceNo);
 
-                //System.Net.Mail.Attachment attachment1 = new System.Net.Mail.Attachment(@"tmp\" + serviceContract.ToString()});
+                System.Net.Mail.Attachment attachment1 = new System.Net.Mail.Attachment(@fileName);
                 System.Net.Mail.Attachment attachment2 = new System.Net.Mail.Attachment(@"PDF\betingelser_vedr_serviceaftale.pdf");
                 
-                mail.Attachments.Add(attachment2);
+                mail.Attachments.Add(attachment1);
                 mail.Attachments.Add(attachment2);
 
                 smtpServer.Port = Properties.Settings.Default.smtpPort;

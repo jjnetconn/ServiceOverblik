@@ -60,7 +60,7 @@ namespace ServiceOverblik
         /// <summary>
         /// Creates the invoice document.
         /// </summary>
-        public Document CreateDocument(int serviceNo, string customer, string street, string postcode, string city)
+        public Document CreateDocument(int serviceNo, string serviceName, string serviceStart, string serviceEnd, double servicePrice, string customer, string street, string postcode, string city)
         {
             // Create a new MigraDoc document
             this.document = new Document();
@@ -70,7 +70,7 @@ namespace ServiceOverblik
 
             DefineStyles();
 
-            CreatePage(serviceNo);
+            CreatePage(serviceNo, serviceName, serviceStart, serviceEnd, servicePrice);
 
             FillContent(customer, street, postcode, city, Properties.Settings.Default.supportPhone, Properties.Settings.Default.supportEmail);
 
@@ -112,7 +112,7 @@ namespace ServiceOverblik
         /// Creates the static parts of the invoice.
         /// </summary>
 
-        void CreatePage(int serviceNo)
+        void CreatePage(int serviceNo, string serviceName, string serviceStart, string serviceEnd, double servicePrice)
         {
             // Each MigraDoc document needs at least one section.
             Section section = this.document.AddSection();
@@ -150,11 +150,22 @@ namespace ServiceOverblik
             paragraph = section.AddParagraph();
             paragraph.Format.SpaceBefore = "8cm";
             paragraph.Style = "Reference";
-            paragraph.AddFormattedText("Vare pakket fra lager", TextFormat.Bold);
+            paragraph.AddFormattedText("Servicekontrakt:", TextFormat.Bold);
             paragraph.AddTab();
             paragraph.AddText("Dato, ");
             paragraph.AddDateField("dd.MM.yyyy");
-
+            
+            paragraph = section.AddParagraph();
+            paragraph.Format.SpaceBefore = "1cm";
+            paragraph.Style = "Reference";
+            paragraph.AddFormattedText("Aftale: " + serviceName, TextFormat.Bold);
+            paragraph.AddLineBreak();
+            paragraph.AddFormattedText("Aftale start: " + serviceStart, TextFormat.NotBold);
+            paragraph.AddLineBreak();
+            paragraph.AddFormattedText("Aftale ophør: " + serviceEnd, TextFormat.NotBold);
+            paragraph.AddLineBreak();
+            paragraph.AddFormattedText("Pris: " + servicePrice + " DKr, inkl. Moms", TextFormat.Underline);
+            paragraph.AddLineBreak();
             /*
             // Create the item table
             this.table = section.AddTable();
@@ -208,7 +219,7 @@ namespace ServiceOverblik
             paragraph.AddLineBreak();
             paragraph.AddText("DK-" + postcode + " " + city);
 
-            Row row1;
+            //Row row1;
             /*for (int i = 0; i < dt.Rows.Count; i++)
             {
                 row1 = this.table.AddRow();

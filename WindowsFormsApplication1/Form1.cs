@@ -7,11 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
-using System.Diagnostics;
-using MigraDoc.DocumentObjectModel;
-using MigraDoc.DocumentObjectModel.Tables;
-using MigraDoc.DocumentObjectModel.Shapes;
-using MigraDoc.Rendering;
+using System.IO;
 
 
 namespace ServiceOverblik
@@ -42,6 +38,7 @@ namespace ServiceOverblik
             InitializeComponent();
             createEditGroupBox();
             this.editGrpBx.Hide();
+            createTMPFolder();
 
             runstate = new ServiceManager();
             Form2 loginForm = new Form2();
@@ -106,6 +103,22 @@ namespace ServiceOverblik
             get { return activeSalesRep; }
             set { activeSalesRep = value; }
         }
+
+        private void createTMPFolder()
+        {
+            if (Directory.Exists(Properties.Settings.Default.pdfSavePath))
+            {
+                DirectoryInfo tmpDir = new DirectoryInfo(Properties.Settings.Default.pdfSavePath);
+                foreach (FileInfo file in tmpDir.GetFiles())
+                {
+                    file.Delete();
+                }
+
+                Directory.Delete(Properties.Settings.Default.pdfSavePath);
+            }
+            Directory.CreateDirectory(Properties.Settings.Default.pdfSavePath);
+        }
+
 
         private void createDataGridSearch()
         {
@@ -583,7 +596,7 @@ namespace ServiceOverblik
             createInverter.Text = "";
             createService.Text = "";
             createPaneltype.Text = "";
-            createkWp.Text = "";
+            LabelCreatekWp.Text = "";
             //createSalesRep.Text = "";
 
         }
@@ -746,6 +759,7 @@ namespace ServiceOverblik
 
         private void contractView_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             object[] pdfData = new object[16];
 
             pdfData[0] = editName.Text;
@@ -759,41 +773,57 @@ namespace ServiceOverblik
             pdfData[7] = editEmail.Text;
             pdfData[8] = editSalesRep.Text;
             pdfData[9] = editPaneltype.Text;
-            pdfData[10] = editServiceDate.Value;
-            pdfData[11] = editServiceEndDate.Value;
+            pdfData[10] = editServiceDate.Value.ToLongDateString();
+            pdfData[11] = editServiceEndDate.Value.ToLongDateString();
             pdfData[12] = editInverter.SelectedIndex;
             pdfData[13] = "";
-            pdfData[14] = editService.SelectedIndex;
+            pdfData[14] = editService.SelectedItem;
             pdfData[15] = selectedService;
 
-            CreatePDF(pdfData);
+            int serviceNo = runstate.getServiceContractId(selUserId);
+            object[] rObject = runstate.getServiceInfo(editService.SelectedIndex + 1);
+            object[] rObject2 = runstate.getSalesReps(editSalesRep.Text);
+
+            double servicePrice = runstate.calcServicePrice(editService.SelectedIndex + 1, rObject, Double.Parse(editkWp.Text));
+            Cursor.Current = Cursors.Default;
+            runstate.createPDF(pdfData, selUserId, servicePrice);
 
         }
-
-        private void CreatePDF(object[] pdfData)
+   
+        private void contractSend_Click(object sender, EventArgs e)
         {
-            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
-            int serviceNo = runstate.getServiceContractId(selUserId);
+            Cursor.Current = Cursors.WaitCursor;
+            object[] pdfData = new object[16];
+
+            pdfData[0] = editName.Text;
+            pdfData[1] = editStreet.Text;
+            pdfData[2] = editCity.Text;
+            pdfData[3] = editPostcode.Text;
+            pdfData[4] = editColor.Text;
+            pdfData[5] = editPanels.Text;
+            pdfData[5] = editkWp.Text;
+            pdfData[6] = editPhone.Text;
+            pdfData[7] = editEmail.Text;
+            pdfData[8] = editSalesRep.Text;
+            pdfData[9] = editPaneltype.Text;
+            pdfData[10] = editServiceDate.Value.ToLongDateString();
+            pdfData[11] = editServiceEndDate.Value.ToLongDateString();
+            pdfData[12] = editInverter.SelectedIndex;
+            pdfData[13] = "";
+            pdfData[14] = editService.SelectedItem;
+            pdfData[15] = selectedService;
             
-            // Create a MigraDoc document
-            Document document = pdfForm.CreateDocument(serviceNo, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
-            document.UseCmykColor = true;
+            int serviceNo = runstate.getServiceContractId(selUserId);
+            object[] rObject = runstate.getServiceInfo(editService.SelectedIndex + 1);
+            object[] rObject2 = runstate.getSalesReps(editSalesRep.Text);
 
-            // Create a renderer for PDF that uses Unicode font encoding
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+            double servicePrice = runstate.calcServicePrice(editService.SelectedIndex + 1, rObject, Double.Parse(editkWp.Text));
 
-            // Set the MigraDoc document
-            pdfRenderer.Document = document;
+            string fileName = runstate.sendPDF(pdfData, selUserId, servicePrice);
+            Cursor.Current = Cursors.Default;
+            EmailSender send = new EmailSender();
+            send.sendToCustomer(editEmail.Text, serviceNo, editName.Text, editSalesRep.Text, (string)rObject2[0], (string)rObject2[1], fileName);
 
-            // Create the PDF document
-            pdfRenderer.RenderDocument();
-
-            // Save the PDF document...
-            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + ".pdf";
-
-            pdfRenderer.Save(filename);
-            // ...and start a viewer.
-            Process.Start(filename);
         }
     }
 }

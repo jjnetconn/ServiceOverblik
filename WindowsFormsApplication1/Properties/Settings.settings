@@ -17,13 +17,13 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="fakturaEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">jj@netconn.dk</Value>
+      <Value Profile="(Default)">st@solcellespecialisten.dk</Value>
     </Setting>
     <Setting Name="fraEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)">support@solcellespecialisten.dk</Value>
     </Setting>
     <Setting Name="isMailTest" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="smptServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">mail.netconn.dk </Value>
@@ -50,13 +50,13 @@
       <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="logoPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Images/logo.png</Value>
+      <Value Profile="(Default)">images\logo.png</Value>
     </Setting>
     <Setting Name="supportPhone" Type="System.String" Scope="User">
       <Value Profile="(Default)">+45 2043 9925</Value>
     </Setting>
     <Setting Name="pdfSavePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\temp\</Value>
+      <Value Profile="(Default)">tmp\</Value>
     </Setting>
   </Settings>
 </SettingsFile>
