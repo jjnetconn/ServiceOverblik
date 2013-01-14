@@ -41,7 +41,7 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("Betalingen skal ske med reference nr.: {0}\n", serviceNo);
                 bodyTxt.AppendLine("");
-                bodyTxt.AppendFormat("Aftalen gælder for serviceaftalen: {0} med en løbetid på {1} måender\n", serviceType, servicePeriod);
+                bodyTxt.AppendFormat("Aftalen gælder for serviceaftalen: {0} med en løbetid på {1} måneder\n", serviceType, servicePeriod);
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("Dette er en autogeneret mail, aftalen af solgt af {0}", salesrep);
 
