@@ -535,6 +535,8 @@ namespace ServiceOverblik
 
         private void createCustomer_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
                 object[] inData = new object[16];
                 inData[0] = createName.Text;
                 inData[1] = createStreet.Text;
@@ -581,6 +583,7 @@ namespace ServiceOverblik
                         resetCreateFields();
                     }
                 }
+                Cursor.Current = Cursors.Default;
         }
 
         private void resetCreateFields()
@@ -760,7 +763,7 @@ namespace ServiceOverblik
         private void contractView_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            object[] pdfData = new object[16];
+            /*object[] pdfData = new object[16];
 
             pdfData[0] = editName.Text;
             pdfData[1] = editStreet.Text;
@@ -786,14 +789,15 @@ namespace ServiceOverblik
 
             double servicePrice = runstate.calcServicePrice(editService.SelectedIndex + 1, rObject, Double.Parse(editkWp.Text));
             Cursor.Current = Cursors.Default;
-            runstate.createPDF(pdfData, selUserId, servicePrice);
+             */ 
+            runstate.createPDF(selUserId);
 
         }
    
         private void contractSend_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            object[] pdfData = new object[16];
+            /*object[] pdfData = new object[16];
 
             pdfData[0] = editName.Text;
             pdfData[1] = editStreet.Text;
@@ -812,14 +816,14 @@ namespace ServiceOverblik
             pdfData[13] = "";
             pdfData[14] = editService.SelectedItem;
             pdfData[15] = selectedService;
-            
+            */
             int serviceNo = runstate.getServiceContractId(selUserId);
             object[] rObject = runstate.getServiceInfo(editService.SelectedIndex + 1);
             object[] rObject2 = runstate.getSalesReps(editSalesRep.Text);
 
-            double servicePrice = runstate.calcServicePrice(editService.SelectedIndex + 1, rObject, Double.Parse(editkWp.Text));
-
-            string fileName = runstate.sendPDF(pdfData, selUserId, servicePrice);
+            //double servicePrice = runstate.calcServicePrice(editService.SelectedIndex + 1, rObject, Double.Parse(editkWp.Text));
+            
+            string fileName = runstate.sendPDF(selUserId);
             Cursor.Current = Cursors.Default;
             EmailSender send = new EmailSender();
             send.sendToCustomer(editEmail.Text, serviceNo, editName.Text, editSalesRep.Text, (string)rObject2[0], (string)rObject2[1], fileName);

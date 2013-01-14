@@ -54,7 +54,7 @@ namespace ServiceOverblik.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("st@solcellespecialisten.dk")]
+        [global::System.Configuration.DefaultSettingValueAttribute("jj@netconn.dk")]
         public string fakturaEmail {
             get {
                 return ((string)(this["fakturaEmail"]));

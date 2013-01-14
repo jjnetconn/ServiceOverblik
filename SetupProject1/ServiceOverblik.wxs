@@ -79,6 +79,18 @@
           <util:PermissionEx User="Users" GenericAll="yes" />
         </CreateFolder>
       </Component>
+      <Component Id="gold.png" Guid="0A592A2B-0E32-41BE-A9D2-0FEAA02B8D2D">
+        <File Id="gold.png" Source="../WindowsFormsApplication1/bin/Debug/images/gold.png"></File>
+      </Component>
+      <Component Id="silver.png" Guid="D093A341-ABED-4C86-8700-DC052B659ED6">
+        <File Id="silver.png" Source="../WindowsFormsApplication1/bin/Debug/images/silver.png"></File>
+      </Component>
+      <Component Id="bronze.png" Guid="DA2AE981-4E5C-433E-8B8D-2DF2C40D9ED0">
+        <File Id="bronze.png" Source="../WindowsFormsApplication1/bin/Debug/images/bronze.png"></File>
+      </Component>
+      <Component Id="industry.png" Guid="66762731-CEF6-4CFE-A2B1-4E4B8E920AD6">
+        <File Id="industry.png" Source="../WindowsFormsApplication1/bin/Debug/images/industry.png"></File>
+      </Component>
     </ComponentGroup>
     <ComponentGroup Id="Pdf" Directory="PDFFolder">
       <Component Id="betingelser_vedr_serviceaftale.pdf" Guid="6CDED082-C6F9-4AA2-864A-38DDAA4AE4DA">
@@ -88,7 +100,6 @@
         <File Id="betingelser_vedr_serviceaftale.pdf" Source="../WindowsFormsApplication1/bin/Debug/PDF/betingelser_vedr_serviceaftale.pdf"></File>
       </Component>
     </ComponentGroup>
-    
     
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="E790B541-DE2F-47F5-8446-0C1FA8768D95">

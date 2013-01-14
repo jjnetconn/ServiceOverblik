@@ -17,7 +17,7 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="fakturaEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">st@solcellespecialisten.dk</Value>
+      <Value Profile="(Default)">jj@netconn.dk</Value>
     </Setting>
     <Setting Name="fraEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)">support@solcellespecialisten.dk</Value>

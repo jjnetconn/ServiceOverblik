@@ -7,10 +7,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Diagnostics;
 using MigraDoc.DocumentObjectModel;
-using MigraDoc.DocumentObjectModel.Tables;
-using MigraDoc.DocumentObjectModel.Shapes;
+//using MigraDoc.DocumentObjectModel.Tables;
+//using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.Rendering;
-
+using System.Globalization;
 
 namespace ServiceOverblik
 {
@@ -20,7 +20,7 @@ namespace ServiceOverblik
 
         public ServiceManager()
         {
-
+            
         }
 
         public List<customers> searchCustomerByName(string searchFilter)
@@ -358,42 +358,65 @@ namespace ServiceOverblik
                 serviceNo = createServiceContract(serviceInput);
 
                 hasService = true;
-            
-            using (servicebaseEntities cc = new servicebaseEntities())
-            {
-                try
+
+                using (servicebaseEntities cc = new servicebaseEntities())
                 {
-                    customers c = new customers();
-                    c.cname = newData[0].ToString();
-                    c.street = newData[1].ToString();
-                    c.city = newData[2].ToString();
-                    c.postcode = (int)newData[3];
-                    c.email = newData[4].ToString();
-                    c.phone = newData[5].ToString();
-                    c.panelcount = newData[6].ToString();
-                    c.kwp = (double)newData[15];
-                    c.color = newData[7].ToString();
-                    c.inverter = newData[8].ToString();
-                    c.paneltype = (String)newData[14];
-                    c.serviceno = serviceNo;
-                    c.hasservice = hasService;
+                    try
+                    {
+                        customers c = new customers();
+                        c.cname = newData[0].ToString();
+                        c.street = newData[1].ToString();
+                        c.city = newData[2].ToString();
+                        c.postcode = (int)newData[3];
+                        c.email = newData[4].ToString();
+                        c.phone = newData[5].ToString();
+                        c.panelcount = newData[6].ToString();
+                        c.kwp = Double.Parse(newData[15].ToString(), CultureInfo.CurrentCulture);
+                        c.color = newData[7].ToString();
+                        c.inverter = newData[8].ToString();
+                        c.paneltype = (String)newData[14];
+                        c.serviceno = serviceNo;
+                        c.hasservice = hasService;
+                        c.serviceblog = "";
 
-                    cc.customers.Add(c);
-                    selUserId = c.uId;
+                        cc.customers.Add(c);
+                        cc.SaveChanges();
 
+                        selUserId = c.uId;
+                    }
+                    catch
+                    {
+
+                    }
+                    finally
+                    {
+                        cc.Dispose();
+                    }
                 }
-                catch
+                /*using (servicebaseEntities sdb = new servicebaseEntities())
                 {
-
+                    try
+                    {
+                        var query = (from c in sdb.customers
+                                 where c.serviceno == serviceNo
+                                 select c).FirstOrDefault();
+                        selUserId = query.uId;
+                    }
+                    catch
+                    {
+                    }
+                    finally
+                    {
+                        sdb.Dispose();
+                    }
                 }
-
-                cc.SaveChanges();
-
+            */
                 object[] rObject = getServiceInfo((int)newData[9]);
                 object[] rObject2 = getSalesReps((string)newData[13]);
-                double servicePrice = calcServicePrice((int)newData[9], rObject, (double)newData[15]);
+                double servicePrice = calcServicePrice((int)newData[9], rObject, Double.Parse(newData[15].ToString(), CultureInfo.CurrentCulture));
                 object[] pdfData = new object[16];
 
+                /*
                 pdfData[0] = newData[0];
                 pdfData[1] = newData[1];
                 pdfData[2] = newData[2];
@@ -410,14 +433,15 @@ namespace ServiceOverblik
                 pdfData[13] = "";
                 pdfData[14] = rObject[1];
                 pdfData[15] = "";
+                */
 
-                string fileName = sendPDF(pdfData, selUserId, servicePrice);
+                string fileName = sendPDF(selUserId);
 
                 EmailSender send = new EmailSender();
 
                 send.sendToInvoice((int)newData[9], (string)newData[0], servicePrice, (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13], (string)newData[1], (int)newData[3], (string)newData[2], (string)newData[5], (string)newData[4]);
                 send.sendToCustomer((string)newData[4], serviceNo, (string)newData[0], (string)newData[13], (string)rObject2[0], (string)rObject2[1], fileName);
-            }
+            
             return true;
         }
 
@@ -719,14 +743,15 @@ namespace ServiceOverblik
             }
             return rObject;
         }
-
+        /*
         public void createPDF(object[] pdfData, int selUserId, double servicePrice)
         {
             ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
             int serviceNo = getServiceContractId(selUserId);
 
             // Create a MigraDoc document
-            Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            //Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            Document document = pdfForm.CreateDocument(selUserId, serviceNo);
             document.UseCmykColor = true;
 
             // Create a renderer for PDF that uses Unicode font encoding
@@ -745,14 +770,69 @@ namespace ServiceOverblik
             // ...and start a viewer.
             Process.Start(filename);
         }
+        */
+        public void createPDF(int selUserId)
+        {
+            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
+            int serviceNo = getServiceContractId(selUserId);
 
+            // Create a MigraDoc document
+            Document document = pdfForm.CreateDocument(selUserId, serviceNo);
+            document.UseCmykColor = true;
+
+            // Create a renderer for PDF that uses Unicode font encoding
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+
+            // Set the MigraDoc document
+            pdfRenderer.Document = document;
+
+            // Create the PDF document
+            pdfRenderer.RenderDocument();
+
+            // Save the PDF document...
+            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + "_" + DateTime.Now.Second + ".pdf";
+
+            pdfRenderer.Save(filename);
+            // ...and start a viewer.
+            Process.Start(filename);
+        }
+
+        public string sendPDF(int selUserId)
+        {
+            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
+            int serviceNo = getServiceContractId(selUserId);
+
+            // Create a MigraDoc document
+            //Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            Document document = pdfForm.CreateDocument(selUserId, serviceNo);
+            document.UseCmykColor = true;
+
+            // Create a renderer for PDF that uses Unicode font encoding
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
+
+            // Set the MigraDoc document
+            pdfRenderer.Document = document;
+
+            // Create the PDF document
+            pdfRenderer.RenderDocument();
+
+            // Save the PDF document...
+            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + "_" + DateTime.Now.Second + ".pdf";
+
+            pdfRenderer.Save(filename);
+            // ...and return the filename.
+            return filename;
+        }
+
+        /*
         public string sendPDF(object[] pdfData, int selUserId, double servicePrice)
         {
             ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
             int serviceNo = getServiceContractId(selUserId);
 
             // Create a MigraDoc document
-            Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            //Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
+            Document document = pdfForm.CreateDocument(selUserId, serviceNo); 
             document.UseCmykColor = true;
 
             // Create a renderer for PDF that uses Unicode font encoding
@@ -772,6 +852,6 @@ namespace ServiceOverblik
             return filename;
 
         }
-
+        */
     }
 }

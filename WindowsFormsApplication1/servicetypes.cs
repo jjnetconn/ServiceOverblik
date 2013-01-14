@@ -19,5 +19,7 @@ namespace ServiceOverblik
         public Nullable<double> price { get; set; }
         public int period { get; set; }
         public Nullable<double> startupfee { get; set; }
+        public string servicelogo { get; set; }
+        public string details { get; set; }
     }
 }

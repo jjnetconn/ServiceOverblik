@@ -36,7 +36,7 @@ namespace ServiceOverblik
                 bodyTxt.AppendFormat("Adresse: {0}\nPost nr.: {1}\nBy: {2}\n", cAddress, cPostNo, cCity);
                 bodyTxt.AppendFormat("Telefon: {0}\n", cPhone);
                 bodyTxt.AppendFormat("E-Mail: {0}\n", cMail);
-                //bodyTxt.AppendFormat("I den forbindelse skal kunden faktureres {0} DKr inkl. moms\n", (servicePrice + startFee)*Properties.Settings.Default.salesTax);
+                bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("I den forbindelse skal kunden faktureres {0} DKr inkl. moms\n", servicePrice);
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("Betalingen skal ske med reference nr.: {0}\n", serviceNo);
@@ -87,13 +87,14 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine(" -Din servicekontrakt\n -Betingelser vedr. serviceaftale\n");
                 bodyTxt.AppendLine("");
-                bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925");
+                bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925\n");
                 bodyTxt.AppendLine("eller via e-mail på: support@solcellespecialisten.dk");
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("Venlig hilsen.");
                 bodyTxt.AppendLine("Solcellespecialisten A/S");
                 bodyTxt.AppendFormat("{0}", salesRepName);
-
+                // bodyTxt.AppendFormat("+45 {0}", salesRepPhone);
+                // bodyTxt.AppendFormat("{0}", salesRepMail);
                 mail.Body = bodyTxt.ToString();
 
                 System.Net.Mail.Attachment attachment1 = new System.Net.Mail.Attachment(@fileName);
@@ -148,7 +149,7 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("Service aftale:");
                 bodyTxt.AppendFormat("{0}\n", serviceName);
-                bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925");
+                bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925\n");
                 bodyTxt.AppendLine("eller via e-mail på: support@solcellespecialisten.dk");
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("Dette er en autogeneret mail.");

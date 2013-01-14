@@ -77,6 +77,8 @@
           <Property Name="price" Type="double" />
           <Property Name="period" Type="int" Nullable="false" />
           <Property Name="startupfee" Type="double" />
+          <Property Name="servicelogo" Type="varchar" MaxLength="45" />
+          <Property Name="details" Type="longtext" />
         </EntityType>
         <Association Name="sid">
           <End Role="servicecontracts" Type="servicebaseModel.Store.servicecontracts" Multiplicity="0..1">
@@ -133,6 +135,8 @@
           <Property Type="Double" Name="price" />
           <Property Type="Int32" Name="period" Nullable="false" />
           <Property Type="Double" Name="startupfee" />
+          <Property Type="String" Name="servicelogo" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="details" MaxLength="1073741823" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
@@ -213,6 +217,8 @@
           <EntitySetMapping Name="servicetypes">
             <EntityTypeMapping TypeName="servicebaseModel.servicetypes">
               <MappingFragment StoreEntitySet="servicetypes">
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="servicelogo" ColumnName="servicelogo" />
                 <ScalarProperty Name="startupfee" ColumnName="startupfee" />
                 <ScalarProperty Name="period" ColumnName="period" />
                 <ScalarProperty Name="price" ColumnName="price" />
