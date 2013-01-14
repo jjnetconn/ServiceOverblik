@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
 	<Product Id="23E9D260-36FB-44BA-8377-D8CFC91430ED" Name="ServiceOverblik" Language="1033" Version="1.1.0.0" Manufacturer="NetConn" UpgradeCode="450F04A5-2F5A-461F-835C-2BF4C8EE0CAB">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
@@ -10,7 +11,9 @@
 			<ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="ApplicationShortcutDesktop" />
-		</Feature>
+      <ComponentGroupRef Id="Images" />
+      <ComponentGroupRef Id="Pdf" />
+    </Feature>
 	</Product>
   
 	<Fragment>
@@ -75,7 +78,7 @@
         <File Id="logo.png" Source="../WindowsFormsApplication1/bin/Debug/images/logo.png"></File>
       </Component>
     </ComponentGroup>
-    <ComponentGroup Id="pdf" Directory="PDFFolder">
+    <ComponentGroup Id="Pdf" Directory="PDFFolder">
       <Component Id="betingelser_vedr_serviceaftale.pdf" Guid="6CDED082-C6F9-4AA2-864A-38DDAA4AE4DA">
         <CreateFolder Directory="PdfFolder">
           <util:PermissionEx User="Users" GenericAll="yes" />
