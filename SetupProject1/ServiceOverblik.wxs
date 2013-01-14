@@ -15,14 +15,16 @@
       <ComponentGroupRef Id="Pdf" />
     </Feature>
 	</Product>
-  
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="DesktopFolder" Name="Desktop"/>
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="ServiceOverblik" />
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="ServiceOverblik">
           <Directory Id="ImageFolder" Name="images"/>
           <Directory Id="PDFFolder" Name="pdf"/>
+          <Directory Id="TMPFolder" Name="tmp"/>
+        </Directory>
 			</Directory>
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="ServiceOverblik"/>
@@ -59,9 +61,6 @@
       <Component Id="MigraDoc.Rendering.dll" Guid="B303B711-61D1-4A29-87B0-B4CD315BE032">
         <File Id="MigraDoc.Rendering.dll" Source="../WindowsFormsApplication1/bin/Debug/MigraDoc.Rendering.dll"></File>
       </Component>
-      <Component Id="mysql.data.dll" Guid="36885C03-57F4-4DE4-BBCD-07889D1AFDEB">
-        <File Id="mysql.data.dll" Source="../WindowsFormsApplication1/bin/Debug/mysql.data.dll"></File>
-      </Component>
       <Component Id="PdfSharp.Charting.dll" Guid="283367E1-08C9-45CF-8B0E-02B47FF67AC5">
         <File Id="PdfSharp.Charting.dll" Source="../WindowsFormsApplication1/bin/Debug/PdfSharp.Charting.dll"></File>
       </Component>
@@ -76,16 +75,20 @@
           <util:PermissionEx User="Users" GenericAll="yes" />
         </CreateFolder>
         <File Id="logo.png" Source="../WindowsFormsApplication1/bin/Debug/images/logo.png"></File>
+        <CreateFolder Directory="TMPFolder">
+          <util:PermissionEx User="Users" GenericAll="yes" />
+        </CreateFolder>
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="Pdf" Directory="PDFFolder">
       <Component Id="betingelser_vedr_serviceaftale.pdf" Guid="6CDED082-C6F9-4AA2-864A-38DDAA4AE4DA">
-        <CreateFolder Directory="PdfFolder">
+        <CreateFolder Directory="PDFFolder">
           <util:PermissionEx User="Users" GenericAll="yes" />
         </CreateFolder>
         <File Id="betingelser_vedr_serviceaftale.pdf" Source="../WindowsFormsApplication1/bin/Debug/PDF/betingelser_vedr_serviceaftale.pdf"></File>
       </Component>
     </ComponentGroup>
+    
     
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="E790B541-DE2F-47F5-8446-0C1FA8768D95">

@@ -114,9 +114,9 @@ namespace ServiceOverblik
                     file.Delete();
                 }
 
-                Directory.Delete(Properties.Settings.Default.pdfSavePath);
+                //Directory.Delete(Properties.Settings.Default.pdfSavePath);
             }
-            Directory.CreateDirectory(Properties.Settings.Default.pdfSavePath);
+            //Directory.CreateDirectory(Properties.Settings.Default.pdfSavePath);
         }
 
 
