@@ -19,8 +19,6 @@ namespace ServiceOverblik
         {
 
         }
-
-
         /// <summary>
         /// The MigraDoc document that represents the invoice.
         /// </summary>
@@ -52,11 +50,6 @@ namespace ServiceOverblik
         /// <summary>
         /// Initializes a new instance of the class BillFrom and opens the specified XML document.
         /// </summary>
-        public ServiceContract(DataTable dtIn, string pathIn)
-        {
-            dt = dtIn;
-            path = pathIn;
-        }
         public ServiceContract(string pathIn)
         {
             path = pathIn;
@@ -65,24 +58,6 @@ namespace ServiceOverblik
         /// <summary>
         /// Creates the invoice document.
         /// </summary>
-        /*
-        public Document CreateDocument(int serviceNo, string serviceName, string serviceStart, string serviceEnd, double servicePrice, string customer, string street, string postcode, string city)
-        {
-            // Create a new MigraDoc document
-            this.document = new Document();
-            this.document.Info.Title = "ServiceKontrakt";
-            this.document.Info.Subject = "";
-            this.document.Info.Author = "ServiceOverblik - Using Migradoc";
-
-            DefineStyles();
-
-            CreatePage(serviceNo, serviceName, serviceStart, serviceEnd, servicePrice);
-
-            FillContent(customer, street, postcode, city, Properties.Settings.Default.supportPhone, Properties.Settings.Default.supportEmail);
-
-            return this.document;
-        }
-         */ 
         
         public Document CreateDocument(int selUserId, int serviceNo)
         {
@@ -175,7 +150,7 @@ namespace ServiceOverblik
             // Put sender in address frame
             paragraph = this.addressFrame.AddParagraph("Servicekontrakt nr.:" + serviceNo.ToString());
             paragraph.Format.Font.Name = "Times New Roman";
-            paragraph.Format.Font.Size = 7;
+            paragraph.Format.Font.Size = 10;
             paragraph.Format.SpaceAfter = 3;
 
             // Add the print date field
@@ -223,55 +198,6 @@ namespace ServiceOverblik
             paragraph = section.AddParagraph();
             paragraph.Format.SpaceBefore = "1cm";
 
-            /*
-            //Add the content data field
-            paragraph = this.contentFrame.AddParagraph();
-            paragraph.Format.SpaceBefore = "1cm";
-            paragraph.Style = "TextBox";
-
-            //Add the service describtion field
-            paragraph = this.serviceDescFrame.AddParagraph();
-            paragraph.Format.SpaceBefore = "1cm";
-            paragraph.Style = "TextBox";
-            */
-            /*
-            // Create the item table
-            this.table = section.AddTable();
-            this.table.Style = "Table";
-            this.table.Borders.Color = TableBorder;
-            this.table.Borders.Width = 0.25;
-            this.table.Borders.Left.Width = 0.5;
-            this.table.Borders.Right.Width = 0.5;
-            this.table.Rows.LeftIndent = 0;
-
-            // Before you can add a row, you must define the columns
-            Column column;
-            foreach (DataColumn col in dt.Columns)
-            {
-                column = this.table.AddColumn(Unit.FromCentimeter(3));
-                column.Format.Alignment = ParagraphAlignment.Center;
-                column.Width = 130;
-            }
-
-            // Create the header of the table
-            Row row = table.AddRow();
-            row.HeadingFormat = true;
-            row.Format.Alignment = ParagraphAlignment.Center;
-            row.Format.Font.Bold = true;
-            row.Shading.Color = TableBlue;
-
-
-            for (int i = 0; i < dt.Columns.Count; i++)
-            {
-                row.Cells[i].AddParagraph(dt.Columns[i].ColumnName);
-                row.Cells[i].Format.Font.Bold = false;
-                row.Cells[i].Format.Alignment = ParagraphAlignment.Left;
-                row.Cells[i].VerticalAlignment = VerticalAlignment.Bottom;
-            }
-
-            this.table.SetEdge(0, 0, dt.Columns.Count, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty);
-            */
-
         }
         /// <summary>
         /// Creates the dynamic parts of the invoice.
@@ -317,7 +243,7 @@ namespace ServiceOverblik
                     paragraph2.AddFormattedText("Aftale ophør: " + (query2.startdate.AddMonths(query3.period)).ToLongDateString(), TextFormat.NotBold);
                     paragraph2.AddLineBreak();
                     paragraph2.AddLineBreak();
-                    paragraph2.AddFormattedText("Pris: " +  runstate.calcServicePrice((int)query2.servicetype, runstate.getServiceInfo((int)query2.servicetype), (double)query.kwp) + " DKr, inkl. Moms", TextFormat.Underline);
+                    paragraph2.AddFormattedText("Pris: " + runstate.calcServicePrice((int)query2.servicetype, runstate.getServiceInfo((int)query2.servicetype), (double)query.kwp).ToString("##,###.00") + " DKr, inkl. Moms", TextFormat.Underline);
                     paragraph2.AddLineBreak();
                     paragraph2.AddLineBreak();
                     paragraph2.AddLineBreak();

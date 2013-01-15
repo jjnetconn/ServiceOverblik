@@ -93,8 +93,10 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("Venlig hilsen.");
                 bodyTxt.AppendLine("Solcellespecialisten A/S");
                 bodyTxt.AppendFormat("{0}", salesRepName);
-                // bodyTxt.AppendFormat("+45 {0}", salesRepPhone);
-                // bodyTxt.AppendFormat("{0}", salesRepMail);
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendFormat("Tlf.: +45 {0}", salesRepPhone);
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendFormat("Email: " + salesRep + "@solcellespecialisten.dk");
                 mail.Body = bodyTxt.ToString();
 
                 System.Net.Mail.Attachment attachment1 = new System.Net.Mail.Attachment(@fileName);
@@ -149,8 +151,6 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("Service aftale:");
                 bodyTxt.AppendFormat("{0}\n", serviceName);
-                bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925\n");
-                bodyTxt.AppendLine("eller via e-mail på: support@solcellespecialisten.dk");
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("Dette er en autogeneret mail.");
 
