@@ -108,6 +108,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServiceAdmin.Designer.cs">
+      <DependentUpon>ServiceAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServiceContract.cs" />
     <Compile Include="customers.cs">
       <DependentUpon>ServiceDB.tt</DependentUpon>
@@ -183,11 +195,20 @@
     <Compile Include="servicetypes.cs">
       <DependentUpon>ServiceDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserAdmin.Designer.cs">
+      <DependentUpon>UserAdmin.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -201,6 +222,12 @@
     </Compile>
     <EmbeddedResource Include="RegPayment.resx">
       <DependentUpon>RegPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServiceAdmin.resx">
+      <DependentUpon>ServiceAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAdmin.resx">
+      <DependentUpon>UserAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="LagerDB.edmx">

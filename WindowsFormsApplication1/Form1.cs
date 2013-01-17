@@ -829,5 +829,22 @@ namespace ServiceOverblik
             send.sendToCustomer(editEmail.Text, serviceNo, editName.Text, editSalesRep.Text, (string)rObject2[0], (string)rObject2[1], fileName);
 
         }
+
+        private void omProgrammetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 aboutForm = new Form3();
+            aboutForm.ShowDialog();
+        }
+
+        private void brugerAdministrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserAdmin userAdmin = new UserAdmin();
+            userAdmin.ShowDialog();
+        }
+
+        private void serviceAdministrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

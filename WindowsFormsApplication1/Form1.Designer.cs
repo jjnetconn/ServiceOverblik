@@ -38,6 +38,8 @@
             this.indstillingerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.retServiceTyperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrerBetalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brugerAdministrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceAdministrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hjælpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.omProgrammetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -189,7 +191,9 @@
             // 
             this.indstillingerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.retServiceTyperToolStripMenuItem,
-            this.registrerBetalingToolStripMenuItem});
+            this.registrerBetalingToolStripMenuItem,
+            this.brugerAdministrationToolStripMenuItem,
+            this.serviceAdministrationToolStripMenuItem});
             this.indstillingerToolStripMenuItem.Name = "indstillingerToolStripMenuItem";
             this.indstillingerToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.indstillingerToolStripMenuItem.Text = "Funktioner";
@@ -197,15 +201,29 @@
             // retServiceTyperToolStripMenuItem
             // 
             this.retServiceTyperToolStripMenuItem.Name = "retServiceTyperToolStripMenuItem";
-            this.retServiceTyperToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.retServiceTyperToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.retServiceTyperToolStripMenuItem.Text = "Ret Service typer";
             // 
             // registrerBetalingToolStripMenuItem
             // 
             this.registrerBetalingToolStripMenuItem.Name = "registrerBetalingToolStripMenuItem";
-            this.registrerBetalingToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.registrerBetalingToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.registrerBetalingToolStripMenuItem.Text = "Registrer betaling";
             this.registrerBetalingToolStripMenuItem.Click += new System.EventHandler(this.registrerBetalingToolStripMenuItem_Click);
+            // 
+            // brugerAdministrationToolStripMenuItem
+            // 
+            this.brugerAdministrationToolStripMenuItem.Name = "brugerAdministrationToolStripMenuItem";
+            this.brugerAdministrationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.brugerAdministrationToolStripMenuItem.Text = "Bruger administration";
+            this.brugerAdministrationToolStripMenuItem.Click += new System.EventHandler(this.brugerAdministrationToolStripMenuItem_Click);
+            // 
+            // serviceAdministrationToolStripMenuItem
+            // 
+            this.serviceAdministrationToolStripMenuItem.Name = "serviceAdministrationToolStripMenuItem";
+            this.serviceAdministrationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.serviceAdministrationToolStripMenuItem.Text = "Service administration";
+            this.serviceAdministrationToolStripMenuItem.Click += new System.EventHandler(this.serviceAdministrationToolStripMenuItem_Click);
             // 
             // hjælpToolStripMenuItem
             // 
@@ -220,6 +238,7 @@
             this.omProgrammetToolStripMenuItem.Name = "omProgrammetToolStripMenuItem";
             this.omProgrammetToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.omProgrammetToolStripMenuItem.Text = "Om programmet";
+            this.omProgrammetToolStripMenuItem.Click += new System.EventHandler(this.omProgrammetToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -1183,6 +1202,8 @@
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.ComboBox searchSalesReps;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem brugerAdministrationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serviceAdministrationToolStripMenuItem;
         /*private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox checkBox3;
