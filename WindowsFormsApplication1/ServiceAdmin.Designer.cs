@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServiceAdmin));
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -48,6 +49,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.button5 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.lukToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -96,18 +100,18 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(42, 134);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Pris";
+            this.label3.Text = "Pris (ekskl. Moms)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(179, 94);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.Size = new System.Drawing.Size(133, 13);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Opstarts pris";
+            this.label4.Text = "Opstarts pris (ekskl. Moms)";
             // 
             // label5
             // 
@@ -130,7 +134,7 @@
             this.textBox3.Location = new System.Drawing.Point(182, 150);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.Size = new System.Drawing.Size(142, 20);
             this.textBox3.TabIndex = 9;
             // 
             // textBox4
@@ -148,6 +152,7 @@
             this.button1.TabIndex = 11;
             this.button1.Text = "Hent aftale";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -155,8 +160,9 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 12;
-            this.button2.Text = "Gem";
+            this.button2.Text = "Opdater";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -166,6 +172,7 @@
             this.button3.TabIndex = 13;
             this.button3.Text = "Opret";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -175,6 +182,7 @@
             this.button4.TabIndex = 14;
             this.button4.Text = "Slet";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label6
             // 
@@ -197,12 +205,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(42, 172);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.Size = new System.Drawing.Size(72, 13);
             this.label7.TabIndex = 16;
-            this.label7.Text = "Periode";
-            // 
-            // folderBrowserDialog1
-            // 
+            this.label7.Text = "Periode (mdr.)";
             // 
             // button5
             // 
@@ -213,6 +218,23 @@
             this.button5.Text = "Find logo";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lukToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(708, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // lukToolStripMenuItem
+            // 
+            this.lukToolStripMenuItem.Name = "lukToolStripMenuItem";
+            this.lukToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.lukToolStripMenuItem.Text = "Luk";
+            this.lukToolStripMenuItem.Click += new System.EventHandler(this.lukToolStripMenuItem_Click);
             // 
             // ServiceAdmin
             // 
@@ -238,8 +260,13 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "ServiceAdmin";
             this.Text = "ServiceAdmin";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,5 +294,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem lukToolStripMenuItem;
     }
 }

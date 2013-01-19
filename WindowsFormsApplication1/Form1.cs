@@ -844,7 +844,8 @@ namespace ServiceOverblik
 
         private void serviceAdministrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ServiceAdmin serviceAdmin = new ServiceAdmin();
+            serviceAdmin.ShowDialog();
         }
     }
 }

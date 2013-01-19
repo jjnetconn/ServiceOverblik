@@ -219,5 +219,29 @@ namespace ServiceOverblik.Properties {
                 this["pdfSavePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ServiceOverblik")]
+        public string eventlogSource {
+            get {
+                return ((string)(this["eventlogSource"]));
+            }
+            set {
+                this["eventlogSource"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Application")]
+        public string eventlog {
+            get {
+                return ((string)(this["eventlog"]));
+            }
+            set {
+                this["eventlog"] = value;
+            }
+        }
     }
 }

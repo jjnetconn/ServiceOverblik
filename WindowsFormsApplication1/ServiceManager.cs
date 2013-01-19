@@ -17,6 +17,7 @@ namespace ServiceOverblik
     class ServiceManager : ExcelLoad
     {
         private servicebaseEntities serviceDB = new servicebaseEntities();
+        public EventlogAppender eventlog = new EventlogAppender();
 
         public ServiceManager()
         {
@@ -675,6 +676,45 @@ namespace ServiceOverblik
             }
             return rObject;
         }
+        public servicetypes getSelectedService(int tid)
+        {
+            servicetypes stl;
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.servicetypes
+                                 where c.tid == tid
+                                 select c).SingleOrDefault();
+                    stl = query;
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return stl;
+        }
+
+        public List<servicetypes> getServiceInfo()
+        {
+            List<servicetypes> stl = new List<servicetypes>();
+
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.servicetypes
+                                 select c);
+                    stl = query.ToList();
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return stl;
+        }
 
         public object[] findServiceContractByNo(int serviceNo)
         {
@@ -743,34 +783,7 @@ namespace ServiceOverblik
             }
             return rObject;
         }
-        /*
-        public void createPDF(object[] pdfData, int selUserId, double servicePrice)
-        {
-            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
-            int serviceNo = getServiceContractId(selUserId);
 
-            // Create a MigraDoc document
-            //Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
-            Document document = pdfForm.CreateDocument(selUserId, serviceNo);
-            document.UseCmykColor = true;
-
-            // Create a renderer for PDF that uses Unicode font encoding
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
-
-            // Set the MigraDoc document
-            pdfRenderer.Document = document;
-
-            // Create the PDF document
-            pdfRenderer.RenderDocument();
-
-            // Save the PDF document...
-            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + DateTime.Now.Second + ".pdf";
-
-            pdfRenderer.Save(filename);
-            // ...and start a viewer.
-            Process.Start(filename);
-        }
-        */
         public void createPDF(int selUserId)
         {
             ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
@@ -823,35 +836,5 @@ namespace ServiceOverblik
             // ...and return the filename.
             return filename;
         }
-
-        /*
-        public string sendPDF(object[] pdfData, int selUserId, double servicePrice)
-        {
-            ServiceContract pdfForm = new ServiceContract(Properties.Settings.Default.logoPath);
-            int serviceNo = getServiceContractId(selUserId);
-
-            // Create a MigraDoc document
-            //Document document = pdfForm.CreateDocument(serviceNo, pdfData[14].ToString(), (string)pdfData[10], (string)pdfData[11], servicePrice, pdfData[0].ToString(), pdfData[1].ToString(), pdfData[3].ToString(), pdfData[2].ToString());
-            Document document = pdfForm.CreateDocument(selUserId, serviceNo); 
-            document.UseCmykColor = true;
-
-            // Create a renderer for PDF that uses Unicode font encoding
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(true);
-
-            // Set the MigraDoc document
-            pdfRenderer.Document = document;
-
-            // Create the PDF document
-            pdfRenderer.RenderDocument();
-
-            // Save the PDF document...
-            string filename = Properties.Settings.Default.pdfSavePath + "Servicekontrakt_" + serviceNo + DateTime.Now.Second + ".pdf";
-
-            pdfRenderer.Save(filename);
-            // ...and return the filename.
-            return filename;
-
-        }
-        */
     }
 }

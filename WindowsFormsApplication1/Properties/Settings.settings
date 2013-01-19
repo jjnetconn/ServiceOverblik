@@ -58,5 +58,11 @@
     <Setting Name="pdfSavePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">tmp\</Value>
     </Setting>
+    <Setting Name="eventlogSource" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ServiceOverblik</Value>
+    </Setting>
+    <Setting Name="eventlog" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Application</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
