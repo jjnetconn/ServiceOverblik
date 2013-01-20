@@ -67,6 +67,7 @@
           <Property Name="timestamp" Type="date" Nullable="false" />
           <Property Name="activeServiceCase" Type="bool" Nullable="false" />
           <Property Name="invoicePaid" Type="bool" Nullable="false" />
+          <Property Name="renewmailsendt" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="servicetypes">
           <Key>
@@ -174,6 +175,7 @@
           <Property Type="Boolean" Name="activeServiceCase" Nullable="false" />
           <NavigationProperty Name="customers" Relationship="servicebaseModel.sid" FromRole="servicecontracts" ToRole="customers" />
           <Property Type="Boolean" Name="invoicePaid" Nullable="false" />
+          <Property Type="Boolean" Name="renewmailsendt" Nullable="false" />
         </EntityType>
         <Association Name="sid">
           <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1">
@@ -253,6 +255,7 @@
           <EntitySetMapping Name="servicecontracts">
             <EntityTypeMapping TypeName="servicebaseModel.servicecontracts">
               <MappingFragment StoreEntitySet="servicecontracts">
+                <ScalarProperty Name="renewmailsendt" ColumnName="renewmailsendt" />
                 <ScalarProperty Name="invoicePaid" ColumnName="invoicePaid" />
                 <ScalarProperty Name="activeServiceCase" ColumnName="activeServiceCase" />
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />

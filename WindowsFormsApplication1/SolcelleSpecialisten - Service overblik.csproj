@@ -121,6 +121,7 @@
     <Compile Include="ServiceAdmin.Designer.cs">
       <DependentUpon>ServiceAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceChecker.cs" />
     <Compile Include="ServiceContract.cs" />
     <Compile Include="customers.cs">
       <DependentUpon>ServiceDB.tt</DependentUpon>

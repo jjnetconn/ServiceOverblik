@@ -463,6 +463,53 @@ namespace ServiceOverblik
             return rPrice;
         }
 
+        public servicecontracts getServiceContract(int serviceNo)
+        {
+            servicecontracts rtn = null;
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.servicecontracts
+                                 where c.sid == serviceNo
+                                 select c).FirstOrDefault();
+                    rtn = query;
+                }
+                catch (Exception ex)
+                {
+                    eventlog.writeError(ex.Message, ex.StackTrace);
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+            return rtn;
+        }
+
+        public void setExpireMailSendt(int serviceNo)
+        {
+            using (servicebaseEntities sdb = new servicebaseEntities())
+            {
+                try
+                {
+                    var query = (from c in sdb.servicecontracts
+                                 where c.sid == serviceNo
+                                 select c).FirstOrDefault();
+                    query.renewmailsendt = true;
+                    sdb.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    eventlog.writeError(ex.Message, ex.StackTrace);
+                }
+                finally
+                {
+                    sdb.Dispose();
+                }
+            }
+        }
+
         public bool updateCustomer(int userId, object[] newData)
         {
             int serviceType = (int)newData[9] + 1;

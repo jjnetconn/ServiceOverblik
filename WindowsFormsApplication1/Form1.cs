@@ -39,6 +39,7 @@ namespace ServiceOverblik
             createEditGroupBox();
             this.editGrpBx.Hide();
             createTMPFolder();
+            ServiceChecker scs = new ServiceChecker();
 
             runstate = new ServiceManager();
             Form2 loginForm = new Form2();

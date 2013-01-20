@@ -39,7 +39,7 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("I den forbindelse skal kunden faktureres {0} DKr inkl. moms\n", servicePrice);
                 bodyTxt.AppendLine("");
-                bodyTxt.AppendFormat("Betalingen skal ske med reference nr.: {0}\n", serviceNo);
+                bodyTxt.AppendFormat("Kundes serviceaftale har nr.: {0}\n", serviceNo);
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("Aftalen gælder for serviceaftalen: {0} med en løbetid på {1} måneder\n", serviceType, servicePeriod);
                 bodyTxt.AppendLine("");
@@ -85,7 +85,10 @@ namespace ServiceOverblik
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendFormat("Vedhæftet denne mail er:");
                 bodyTxt.AppendLine("");
-                bodyTxt.AppendLine(" -Din servicekontrakt\n -Betingelser vedr. serviceaftale\n");
+                bodyTxt.AppendLine(" - Din servicekontrakt\n - Betingelser vedr. serviceaftale\n");
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendLine("Faktura for serviceaftalen sendes automatisk inden for få dage.");
+                bodyTxt.AppendLine("Bemærk at indbetaling skal mærkes med faktura nr. som reference.");
                 bodyTxt.AppendLine("");
                 bodyTxt.AppendLine("For at melde fejl på dit anlæg, kan vores serviceafdeling kontaktes på: +45 2043 9925\n");
                 bodyTxt.AppendLine("eller via e-mail på: support@solcellespecialisten.dk");
@@ -171,5 +174,57 @@ namespace ServiceOverblik
             return true;
         }
 
+        public bool sendToSalesRep(List<customers> expiring)
+        {
+            foreach (customers c in expiring)
+            {
+                ServiceManager mainApp = new ServiceManager();
+                servicecontracts currentService = mainApp.getServiceContract((int)c.serviceno);
+                try
+                {
+                    MailMessage mail = new MailMessage();
+                    SmtpClient smtpServer = new SmtpClient(Properties.Settings.Default.smptServer);
+
+                    mail.From = new MailAddress("AutoMail@solcellespecialisten.dk");
+                    //mail.To.Add(currentService.soldby + "@solcellespecialisten.dk");
+                    mail.To.Add(currentService.soldby + "@netconn.dk");
+                    if (Properties.Settings.Default.isMailTest)
+                    {
+                        mail.Subject = "Test Mail! - Serviceaftale udløber snart!";
+                    }
+                    else
+                    {
+                        mail.Subject = "Serviceaftale udløber snart!";
+                    }
+
+                    StringBuilder bodyTxt = new StringBuilder();
+                    bodyTxt.AppendFormat("Hej,\n");
+                    bodyTxt.AppendLine("");
+                    bodyTxt.AppendLine("Flg. kundes serviceaftaler udløber om 2 måneder");
+                    bodyTxt.AppendLine("");
+                    bodyTxt.AppendLine("Kunde info:");
+                    bodyTxt.AppendFormat("Navn: {0}\n", c.cname);
+                    bodyTxt.AppendFormat("Adresse: {0}\nPost nr.: {1}\nBy: {2}\n", c.street, c.postcode, c.city);
+                    bodyTxt.AppendFormat("Telefon: {0}\n", c.phone);
+                    bodyTxt.AppendFormat("E-Mail: {0}\n", c.email);
+                    bodyTxt.AppendLine("");
+                    bodyTxt.AppendFormat("Kundes serviceaftale har nr.: {0}\n", c.serviceno);
+                    bodyTxt.AppendLine("");
+                    bodyTxt.AppendFormat("Dette er en autogeneret mail");
+
+                    mail.Body = bodyTxt.ToString();
+                    smtpServer.Port = Properties.Settings.Default.smtpPort;
+                    smtpServer.Credentials = new System.Net.NetworkCredential(Properties.Settings.Default.smptUser, Properties.Settings.Default.smtpPass);
+                    smtpServer.EnableSsl = Properties.Settings.Default.smtpSSL;
+                    smtpServer.Send(mail);
+                    mainApp.setExpireMailSendt((int)c.serviceno);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            return true;
+        }
     }
 }

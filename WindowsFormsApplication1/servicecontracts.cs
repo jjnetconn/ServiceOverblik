@@ -27,6 +27,7 @@ namespace ServiceOverblik
         public System.DateTime timestamp { get; set; }
         public bool activeServiceCase { get; set; }
         public bool invoicePaid { get; set; }
+        public bool renewmailsendt { get; set; }
     
         public virtual ICollection<customers> customers { get; set; }
     }
