@@ -186,8 +186,7 @@ namespace ServiceOverblik
                     SmtpClient smtpServer = new SmtpClient(Properties.Settings.Default.smptServer);
 
                     mail.From = new MailAddress("AutoMail@solcellespecialisten.dk");
-                    //mail.To.Add(currentService.soldby + "@solcellespecialisten.dk");
-                    mail.To.Add(currentService.soldby + "@netconn.dk");
+                    mail.To.Add(currentService.soldby + "@solcellespecialisten.dk");
                     if (Properties.Settings.Default.isMailTest)
                     {
                         mail.Subject = "Test Mail! - Serviceaftale udløber snart!";
