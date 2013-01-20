@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="23E9D260-36FB-44BA-8377-D8CFC91430ED" Name="ServiceOverblik" Language="1033" Version="2.0.0.0" Manufacturer="NetConn" UpgradeCode="450F04A5-2F5A-461F-835C-2BF4C8EE0CAB">
+  <Product Id="23E9D260-36FB-44BA-8377-D8CFC91430ED" Name="ServiceOverblik" Language="1033" Version="3.0.0.0" Manufacturer="NetConn" UpgradeCode="450F04A5-2F5A-461F-835C-2BF4C8EE0CAB">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-
+    
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate />
-
+    
     <Feature Id="ProductFeature" Title="ServiceOverblik" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="ApplicationShortcut" />
