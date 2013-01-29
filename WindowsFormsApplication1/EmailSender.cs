@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Net.Mail;
+using System.Globalization;
 
 namespace ServiceOverblik
 {
@@ -225,5 +226,99 @@ namespace ServiceOverblik
             }
             return true;
         }
+
+        public bool sendSalesReport(string toEmail, string fileName)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient smtpServer = new SmtpClient(Properties.Settings.Default.smptServer);
+
+                mail.From = new MailAddress("AutoMail@solcellespecialisten.dk");
+                mail.To.Add(toEmail);
+                if (Properties.Settings.Default.isMailTest)
+                {
+                    string monthName = (DateTime.Now.AddMonths(-1)).ToString("MMMMMMMMM",CultureInfo.CurrentCulture);
+                    mail.Subject = "TEST MAIL! - Salgstal for " + monthName + " måned";
+                }
+                else
+                {
+                    string monthName = (DateTime.Now.AddMonths(-1)).ToString("MMMMMMMMM", CultureInfo.CurrentCulture);
+                    mail.Subject = "Salgstal for " + monthName + " måned";
+                }
+
+                StringBuilder bodyTxt = new StringBuilder();
+                bodyTxt.AppendLine("Hej,");
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendLine("Se vedhæftet excelark med solgte service aftaler pr. sælger");
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendLine("Dette er en autogeneret mail.");
+
+                mail.Body = bodyTxt.ToString();
+
+                System.Net.Mail.Attachment attachment1 = new System.Net.Mail.Attachment(fileName);
+                mail.Attachments.Add(attachment1);
+
+                smtpServer.Port = Properties.Settings.Default.smtpPort;
+                smtpServer.Credentials = new System.Net.NetworkCredential(Properties.Settings.Default.smptUser, Properties.Settings.Default.smtpPass);
+                smtpServer.EnableSsl = Properties.Settings.Default.smtpSSL;
+                smtpServer.Send(mail);
+                //MessageBox.Show("Supportsag oprettet", "Mail sendt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                ServiceManager mainApp = new ServiceManager();
+                mainApp.eventlog.writeError(ex.Message, ex.StackTrace);
+            }
+
+            return true;
+        }
+
+        public bool sendSalesReport(string toEmail, string fileName, DateTime selDate)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient smtpServer = new SmtpClient(Properties.Settings.Default.smptServer);
+
+                mail.From = new MailAddress("AutoMail@solcellespecialisten.dk");
+                mail.To.Add(toEmail);
+                if (Properties.Settings.Default.isMailTest)
+                {
+                    string monthName = selDate.ToString("MMMMMMMMM", CultureInfo.CurrentCulture);
+                    mail.Subject = "TEST MAIL! - Salgstal for " + monthName + " måned";
+                }
+                else
+                {
+                    string monthName = selDate.ToString("MMMMMMMMM", CultureInfo.CurrentCulture);
+                    mail.Subject = "Salgstal for " + monthName + " måned";
+                }
+
+                StringBuilder bodyTxt = new StringBuilder();
+                bodyTxt.AppendLine("Hej,");
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendLine("Se vedhæftet excelark med solgte service aftaler pr. sælger");
+                bodyTxt.AppendLine("");
+                bodyTxt.AppendLine("Dette er en autogeneret mail.");
+
+                mail.Body = bodyTxt.ToString();
+
+                System.Net.Mail.Attachment attachment1 = new System.Net.Mail.Attachment(fileName);
+                mail.Attachments.Add(attachment1);
+
+                smtpServer.Port = Properties.Settings.Default.smtpPort;
+                smtpServer.Credentials = new System.Net.NetworkCredential(Properties.Settings.Default.smptUser, Properties.Settings.Default.smtpPass);
+                smtpServer.EnableSsl = Properties.Settings.Default.smtpSSL;
+                smtpServer.Send(mail);
+                //MessageBox.Show("Supportsag oprettet", "Mail sendt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                ServiceManager mainApp = new ServiceManager();
+                mainApp.eventlog.writeError(ex.Message, ex.StackTrace);
+            }
+            return true;
+        }
+        
     }
 }

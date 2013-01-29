@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Objects;
 using System.Text;
@@ -51,7 +50,7 @@ namespace ServiceOverblik
                 }
                 catch (Exception ex)
                 {
-
+                    mainApp.eventlog.writeError(ex.Message, ex.StackTrace);
                 }
                 finally
                 {
@@ -79,7 +78,7 @@ namespace ServiceOverblik
                 }
                 catch (Exception ex)
                 {
-
+                    mainApp.eventlog.writeError(ex.Message, ex.StackTrace);
                 }
                 finally
                 {
@@ -104,7 +103,7 @@ namespace ServiceOverblik
                     }
                     catch (Exception ex)
                     {
-
+                        mainApp.eventlog.writeError(ex.Message, ex.StackTrace);
                     }
                     finally
                     {

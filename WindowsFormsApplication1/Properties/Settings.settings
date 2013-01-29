@@ -64,5 +64,8 @@
     <Setting Name="eventlog" Type="System.String" Scope="User">
       <Value Profile="(Default)">Application</Value>
     </Setting>
+    <Setting Name="salgsRapportEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jj@netconn.dk</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

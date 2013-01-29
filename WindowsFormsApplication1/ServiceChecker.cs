@@ -28,8 +28,12 @@ namespace ServiceOverblik
 
         public void CheckServices()
         {
-            Console.WriteLine("main thread: Worker thread has terminated.");
+            SalesReportGenerator srp = new SalesReportGenerator();
 
+            if (DateTime.Now.Day >= 1 && DateTime.Now.Day < 5)
+            {
+                //SalesReportGenerator srp = new SalesReportGenerator();
+            }
             List<customers> expiring = new List<customers>(servicesNearExpire());
             callSendMail(expiring);
         }

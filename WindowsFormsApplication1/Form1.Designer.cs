@@ -130,6 +130,7 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
+            this.salgsrapportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -193,7 +194,8 @@
             this.retServiceTyperToolStripMenuItem,
             this.registrerBetalingToolStripMenuItem,
             this.brugerAdministrationToolStripMenuItem,
-            this.serviceAdministrationToolStripMenuItem});
+            this.serviceAdministrationToolStripMenuItem,
+            this.salgsrapportToolStripMenuItem});
             this.indstillingerToolStripMenuItem.Name = "indstillingerToolStripMenuItem";
             this.indstillingerToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.indstillingerToolStripMenuItem.Text = "Funktioner";
@@ -1076,6 +1078,13 @@
             this.editSave.UseVisualStyleBackColor = true;
             this.editSave.Click += new System.EventHandler(this.editSave_Click);
             // 
+            // salgsrapportToolStripMenuItem
+            // 
+            this.salgsrapportToolStripMenuItem.Name = "salgsrapportToolStripMenuItem";
+            this.salgsrapportToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.salgsrapportToolStripMenuItem.Text = "Salgsrapport";
+            this.salgsrapportToolStripMenuItem.Click += new System.EventHandler(this.salgsrapportToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1204,6 +1213,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem brugerAdministrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serviceAdministrationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salgsrapportToolStripMenuItem;
         /*private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox checkBox3;

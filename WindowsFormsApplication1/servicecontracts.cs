@@ -30,5 +30,6 @@ namespace ServiceOverblik
         public bool renewmailsendt { get; set; }
     
         public virtual ICollection<customers> customers { get; set; }
+        public virtual servicetypes servicetypes { get; set; }
     }
 }

@@ -14,6 +14,11 @@ namespace ServiceOverblik
     
     public partial class servicetypes
     {
+        public servicetypes()
+        {
+            this.servicecontracts = new HashSet<servicecontracts>();
+        }
+    
         public int tid { get; set; }
         public string sname { get; set; }
         public Nullable<double> price { get; set; }
@@ -21,5 +26,7 @@ namespace ServiceOverblik
         public Nullable<double> startupfee { get; set; }
         public string servicelogo { get; set; }
         public string details { get; set; }
+    
+        public virtual ICollection<servicecontracts> servicecontracts { get; set; }
     }
 }

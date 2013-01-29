@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="servicebaseModel.customers" Width="1.5" PointX="0.875" PointY="11.875" />
         <EntityTypeShape EntityType="servicebaseModel.servicecontracts" Width="1.5" PointX="3.375" PointY="12" />
         <AssociationConnector Association="servicebaseModel.sid" />
+        <EntityTypeShape EntityType="servicebaseModel.salesreports" Width="1.5" PointX="11.337201185215823" PointY="12.989113336889592" />
+        <AssociationConnector Association="servicebaseModel.tid" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

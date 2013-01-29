@@ -36,9 +36,10 @@ namespace ServiceOverblik
         public Form1()
         {
             InitializeComponent();
+            createTMPFolder();
             createEditGroupBox();
             this.editGrpBx.Hide();
-            createTMPFolder();
+            
             ServiceChecker scs = new ServiceChecker();
 
             runstate = new ServiceManager();
@@ -70,10 +71,10 @@ namespace ServiceOverblik
             //CustomerView.Columns.Add("Varehus id", typeof(string));
             CustomerView.Columns.Add("Servicekontrakt nr.:", typeof(int));
             //CustomerView.Columns.Add("Service start dato:", typeof(DateTime));
-            CustomerView.Columns.Add("Serviceaftale?", typeof(bool));
+            //CustomerView.Columns.Add("Serviceaftale?", typeof(bool));
             //CustomerView.Columns.Add("Service type", typeof(string));
             //CustomerView.Columns.Add("Privat kunde?", typeof(bool));
-
+            CustomerView.Columns.Add("Faktura betalt?", typeof(bool));
 
             foreach (prodcat inv in runstate.listInverters())
             {
@@ -115,9 +116,9 @@ namespace ServiceOverblik
                     file.Delete();
                 }
 
-                //Directory.Delete(Properties.Settings.Default.pdfSavePath);
+                Directory.Delete(Properties.Settings.Default.pdfSavePath);
             }
-            //Directory.CreateDirectory(Properties.Settings.Default.pdfSavePath);
+            Directory.CreateDirectory(Properties.Settings.Default.pdfSavePath);
         }
 
 
@@ -278,6 +279,7 @@ namespace ServiceOverblik
 
         private void searchCustomer()
          {
+             Cursor.Current = Cursors.WaitCursor;
              if (this.dataGridView1 == null || this.dataGridView1.IsDisposed )
              {
                  createDataGridSearch();
@@ -333,9 +335,10 @@ namespace ServiceOverblik
                                            //current.warehouseid,
                                            current.serviceno,
                                            //current.servicecontracts.startdate,
-                                           current.hasservice
+                                           //current.hasservice
                                            //current.servicecontracts.servicetypes.sname
                                            //current.isprivate
+                                           current.servicecontracts.invoicePaid
                                            );
                  }
              }
@@ -347,6 +350,7 @@ namespace ServiceOverblik
              //dataGridView1.Columns[13].Visible = false;
              //dataGridView1.Columns[14].Visible = false;
              //dataGridView1.Columns[15].Visible = false;
+             Cursor.Current = Cursors.Default;
              dataGridView1.Invalidate();
          }
 
@@ -600,7 +604,7 @@ namespace ServiceOverblik
             createInverter.Text = "";
             createService.Text = "";
             createPaneltype.Text = "";
-            LabelCreatekWp.Text = "";
+            createkWp.Text = "";
             //createSalesRep.Text = "";
 
         }
@@ -847,6 +851,12 @@ namespace ServiceOverblik
         {
             ServiceAdmin serviceAdmin = new ServiceAdmin();
             serviceAdmin.ShowDialog();
+        }
+
+        private void salgsrapportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SalesReportGenerator salesReport = new SalesReportGenerator();
+            salesReport.ShowDialog();
         }
     }
 }

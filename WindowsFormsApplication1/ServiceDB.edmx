@@ -8,12 +8,17 @@
         <EntityContainer Name="servicebaseModelStoreContainer">
           <EntitySet Name="customers" EntityType="servicebaseModel.Store.customers" store:Type="Tables" Schema="servicebase" />
           <EntitySet Name="paneltypes" EntityType="servicebaseModel.Store.paneltypes" store:Type="Tables" Schema="servicebase" />
+          <EntitySet Name="salesreports" EntityType="servicebaseModel.Store.salesreports" store:Type="Tables" Schema="servicebase" />
           <EntitySet Name="salesreps" EntityType="servicebaseModel.Store.salesreps" store:Type="Tables" Schema="servicebase" />
           <EntitySet Name="servicecontracts" EntityType="servicebaseModel.Store.servicecontracts" store:Type="Tables" Schema="servicebase" />
           <EntitySet Name="servicetypes" EntityType="servicebaseModel.Store.servicetypes" store:Type="Tables" Schema="servicebase" />
           <AssociationSet Name="sid" Association="servicebaseModel.Store.sid">
             <End Role="servicecontracts" EntitySet="servicecontracts" />
             <End Role="customers" EntitySet="customers" />
+          </AssociationSet>
+          <AssociationSet Name="tid" Association="servicebaseModel.Store.tid">
+            <End Role="servicetypes" EntitySet="servicetypes" />
+            <End Role="servicecontracts" EntitySet="servicecontracts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="customers">
@@ -44,6 +49,13 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="salesreports">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="lastGenereated" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="salesreps">
           <Key>
@@ -95,6 +107,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="tid">
+          <End Role="servicetypes" Type="servicebaseModel.Store.servicetypes" Multiplicity="0..1" />
+          <End Role="servicecontracts" Type="servicebaseModel.Store.servicecontracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicetypes">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="servicecontracts">
+              <PropertyRef Name="servicetype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -108,6 +132,11 @@
           <AssociationSet Name="sid" Association="servicebaseModel.sid">
             <End Role="servicecontracts" EntitySet="servicecontracts" />
             <End Role="customers" EntitySet="customers" />
+          </AssociationSet>
+          <EntitySet Name="salesreports" EntityType="servicebaseModel.salesreports" />
+          <AssociationSet Name="tid" Association="servicebaseModel.tid">
+            <End Role="servicetypes" EntitySet="servicetypes" />
+            <End Role="servicecontracts" EntitySet="servicecontracts" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="paneltypes">
@@ -138,6 +167,7 @@
           <Property Type="Double" Name="startupfee" />
           <Property Type="String" Name="servicelogo" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="details" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="servicecontracts" Relationship="servicebaseModel.tid" FromRole="servicetypes" ToRole="servicecontracts" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
@@ -176,6 +206,7 @@
           <NavigationProperty Name="customers" Relationship="servicebaseModel.sid" FromRole="servicecontracts" ToRole="customers" />
           <Property Type="Boolean" Name="invoicePaid" Nullable="false" />
           <Property Type="Boolean" Name="renewmailsendt" Nullable="false" />
+          <NavigationProperty Name="servicetypes" Relationship="servicebaseModel.tid" FromRole="servicecontracts" ToRole="servicetypes" />
         </EntityType>
         <Association Name="sid">
           <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="0..1">
@@ -188,6 +219,25 @@
             </Principal>
             <Dependent Role="customers">
               <PropertyRef Name="serviceno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="salesreports">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Type="Int32" Name="UID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="lastGenereated" Nullable="false" />
+        </EntityType>
+        <Association Name="tid">
+          <End Type="servicebaseModel.servicetypes" Role="servicetypes" Multiplicity="0..1" />
+          <End Type="servicebaseModel.servicecontracts" Role="servicecontracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="servicetypes">
+              <PropertyRef Name="tid" />
+            </Principal>
+            <Dependent Role="servicecontracts">
+              <PropertyRef Name="servicetype" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,6 +314,14 @@
                 <ScalarProperty Name="startdate" ColumnName="startdate" />
                 <ScalarProperty Name="servicetype" ColumnName="servicetype" />
                 <ScalarProperty Name="sid" ColumnName="sid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salesreports">
+            <EntityTypeMapping TypeName="servicebaseModel.salesreports">
+              <MappingFragment StoreEntitySet="salesreports">
+                <ScalarProperty Name="lastGenereated" ColumnName="lastGenereated" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

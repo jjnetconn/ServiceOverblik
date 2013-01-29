@@ -74,7 +74,7 @@ namespace ServiceOverblik
             {
                 try
                 {
-                    var query = from c in serviceDB.customers
+                    var query = from c in sdb.customers
                                 where c.city.Contains(searchFilter)
                                 select c;
                     tmp3 = query.ToList();

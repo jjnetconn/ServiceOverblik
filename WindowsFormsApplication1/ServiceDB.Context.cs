@@ -30,5 +30,6 @@ namespace ServiceOverblik
         public DbSet<servicetypes> servicetypes { get; set; }
         public DbSet<customers> customers { get; set; }
         public DbSet<servicecontracts> servicecontracts { get; set; }
+        public DbSet<salesreports> salesreports { get; set; }
     }
 }
