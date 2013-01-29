@@ -246,7 +246,7 @@ namespace ServiceOverblik.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("jj@netconn.dk")]
+        [global::System.Configuration.DefaultSettingValueAttribute("pmp@solcellespecialisten.dk")]
         public string salgsRapportEmail {
             get {
                 return ((string)(this["salgsRapportEmail"]));

@@ -65,7 +65,7 @@
       <Value Profile="(Default)">Application</Value>
     </Setting>
     <Setting Name="salgsRapportEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">jj@netconn.dk</Value>
+      <Value Profile="(Default)">pmp@solcellespecialisten.dk</Value>
     </Setting>
   </Settings>
 </SettingsFile>
