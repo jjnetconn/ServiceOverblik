@@ -28,11 +28,9 @@ namespace ServiceOverblik
 
         public void CheckServices()
         {
-            SalesReportGenerator srp = new SalesReportGenerator();
-
             if (DateTime.Now.Day >= 1 && DateTime.Now.Day < 5)
             {
-                //SalesReportGenerator srp = new SalesReportGenerator();
+                SalesReportGenerator srp = new SalesReportGenerator();
             }
             List<customers> expiring = new List<customers>(servicesNearExpire());
             callSendMail(expiring);
