@@ -110,15 +110,20 @@ namespace ServiceOverblik
         {
             if (Directory.Exists(Properties.Settings.Default.pdfSavePath))
             {
-                DirectoryInfo tmpDir = new DirectoryInfo(Properties.Settings.Default.pdfSavePath);
-                foreach (FileInfo file in tmpDir.GetFiles())
+                try
                 {
-                    file.Delete();
-                }
 
-                Directory.Delete(Properties.Settings.Default.pdfSavePath);
+                    DirectoryInfo tmpDir = new DirectoryInfo(Properties.Settings.Default.pdfSavePath);
+                    foreach (FileInfo file in tmpDir.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    runstate.eventlog.writeError(ex.Message, ex.StackTrace);
+                }
             }
-            Directory.CreateDirectory(Properties.Settings.Default.pdfSavePath);
         }
 
 
