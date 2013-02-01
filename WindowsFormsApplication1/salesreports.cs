@@ -16,5 +16,7 @@ namespace ServiceOverblik
     {
         public int UID { get; set; }
         public System.DateTime lastGenereated { get; set; }
+        public string generatedBy { get; set; }
+        public string machineName { get; set; }
     }
 }

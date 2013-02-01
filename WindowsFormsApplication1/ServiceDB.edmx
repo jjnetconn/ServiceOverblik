@@ -56,6 +56,8 @@
           </Key>
           <Property Name="UID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="lastGenereated" Type="date" Nullable="false" />
+          <Property Name="generatedBy" Type="varchar" MaxLength="45" />
+          <Property Name="machineName" Type="varchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="salesreps">
           <Key>
@@ -228,6 +230,8 @@
           </Key>
           <Property Type="Int32" Name="UID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="lastGenereated" Nullable="false" />
+          <Property Type="String" Name="generatedBy" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="machineName" MaxLength="128" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="tid">
           <End Type="servicebaseModel.servicetypes" Role="servicetypes" Multiplicity="0..1" />
@@ -320,6 +324,8 @@
           <EntitySetMapping Name="salesreports">
             <EntityTypeMapping TypeName="servicebaseModel.salesreports">
               <MappingFragment StoreEntitySet="salesreports">
+                <ScalarProperty Name="machineName" ColumnName="machineName" />
+                <ScalarProperty Name="generatedBy" ColumnName="generatedBy" />
                 <ScalarProperty Name="lastGenereated" ColumnName="lastGenereated" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
               </MappingFragment>

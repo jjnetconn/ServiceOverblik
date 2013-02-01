@@ -56,18 +56,21 @@ namespace ServiceOverblik
         private List<servicecontracts> getSalesNumbers()
         {
             List<servicecontracts> stm = new List<servicecontracts>();
+            int lastMonth = (DateTime.Now.AddMonths(-1)).Month;
             using (servicebaseEntities sdb = new servicebaseEntities())
             {
                 try
                 {
                     var query = from c in sdb.servicecontracts
-                                //where c.timestamp.Month.Equals(DateTime.Now.AddMonths(-1)) && c.timestamp.Year.Equals(DateTime.Now.Year)
-                                where c.timestamp.Month.Equals(DateTime.Now.Month) && c.timestamp.Year.Equals(DateTime.Now.Year) && !c.soldby.Equals("JJ")
+                                where c.timestamp.Month.Equals(lastMonth) && c.timestamp.Year.Equals(DateTime.Now.Year) && !c.soldby.Equals("JJ")
+                                //where c.timestamp.Month.Equals(DateTime.Now.Month) && c.timestamp.Year.Equals(DateTime.Now.Year) && !c.soldby.Equals("JJ")
                                 select c;
                     stm = query.ToList();
 
                     salesreports d = new salesreports();
                     d.lastGenereated = DateTime.Now;
+                    d.generatedBy = Form1.ActiveSalesRep.ToString();
+                    d.machineName = System.Environment.GetEnvironmentVariable("COMPUTERNAME");
 
                     sdb.salesreports.Add(d);
                     sdb.SaveChanges();
@@ -100,6 +103,8 @@ namespace ServiceOverblik
 
                     salesreports d = new salesreports();
                     d.lastGenereated = DateTime.Now;
+                    d.generatedBy = Form1.ActiveSalesRep;
+                    d.machineName = System.Environment.GetEnvironmentVariable("COMPUTERNAME");
 
                     sdb.salesreports.Add(d);
                     sdb.SaveChanges();
