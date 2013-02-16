@@ -40,6 +40,7 @@
             this.registrerBetalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brugerAdministrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceAdministrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salgsrapportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hjælpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.omProgrammetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -130,7 +131,8 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
-            this.salgsrapportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createSendToInv = new System.Windows.Forms.CheckBox();
+            this.createSendToInv.Checked = true;
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -226,6 +228,13 @@
             this.serviceAdministrationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.serviceAdministrationToolStripMenuItem.Text = "Service administration";
             this.serviceAdministrationToolStripMenuItem.Click += new System.EventHandler(this.serviceAdministrationToolStripMenuItem_Click);
+            // 
+            // salgsrapportToolStripMenuItem
+            // 
+            this.salgsrapportToolStripMenuItem.Name = "salgsrapportToolStripMenuItem";
+            this.salgsrapportToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.salgsrapportToolStripMenuItem.Text = "Salgsrapport";
+            this.salgsrapportToolStripMenuItem.Click += new System.EventHandler(this.salgsrapportToolStripMenuItem_Click);
             // 
             // hjælpToolStripMenuItem
             // 
@@ -391,6 +400,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.createSendToInv);
             this.tabPage2.Controls.Add(this.createkWp);
             this.tabPage2.Controls.Add(this.LabelCreatekWp);
             this.tabPage2.Controls.Add(this.createSalesRep);
@@ -1078,12 +1088,15 @@
             this.editSave.UseVisualStyleBackColor = true;
             this.editSave.Click += new System.EventHandler(this.editSave_Click);
             // 
-            // salgsrapportToolStripMenuItem
+            // createSendToInv
             // 
-            this.salgsrapportToolStripMenuItem.Name = "salgsrapportToolStripMenuItem";
-            this.salgsrapportToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.salgsrapportToolStripMenuItem.Text = "Salgsrapport";
-            this.salgsrapportToolStripMenuItem.Click += new System.EventHandler(this.salgsrapportToolStripMenuItem_Click);
+            this.createSendToInv.AutoSize = true;
+            this.createSendToInv.Location = new System.Drawing.Point(349, 141);
+            this.createSendToInv.Name = "createSendToInv";
+            this.createSendToInv.Size = new System.Drawing.Size(114, 17);
+            this.createSendToInv.TabIndex = 81;
+            this.createSendToInv.Text = "Send til fakturering";
+            this.createSendToInv.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1214,6 +1227,7 @@
         private System.Windows.Forms.ToolStripMenuItem brugerAdministrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serviceAdministrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salgsrapportToolStripMenuItem;
+        private System.Windows.Forms.CheckBox createSendToInv;
         /*private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox checkBox3;

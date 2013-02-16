@@ -586,7 +586,7 @@ namespace ServiceOverblik
                 }
                 else
                 {
-                    bool updateResult = runstate.createCustomer(inData);
+                    bool updateResult = runstate.createCustomer(inData, createSendToInv.Checked);
 
                     if (updateResult)
                     {
@@ -611,6 +611,7 @@ namespace ServiceOverblik
             createPaneltype.Text = "";
             createkWp.Text = "";
             //createSalesRep.Text = "";
+            createSendToInv.Checked = true;
 
         }
 
@@ -698,7 +699,7 @@ namespace ServiceOverblik
                      */
                     inData[13] = "autoimport";
 
-                    runstate.createCustomer(inData);
+                    runstate.createCustomer(inData, true);
                 }
                 else
                 {

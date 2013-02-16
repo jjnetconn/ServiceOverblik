@@ -344,7 +344,7 @@ namespace ServiceOverblik
                 return serviceContractID;
         }
         
-        public bool createCustomer(object[] newData)
+        public bool createCustomer(object[] newData, bool sendtToInv)
         {
             int serviceNo = 9999;
             bool hasService = false;
@@ -439,8 +439,10 @@ namespace ServiceOverblik
                 string fileName = sendPDF(selUserId);
 
                 EmailSender send = new EmailSender();
-
-                send.sendToInvoice((int)newData[9], (string)newData[0], servicePrice, (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13], (string)newData[1], (int)newData[3], (string)newData[2], (string)newData[5], (string)newData[4]);
+                if (sendtToInv)
+                {
+                    send.sendToInvoice((int)newData[9], (string)newData[0], servicePrice, (int)rObject[3], serviceNo, (string)rObject[1], (int)rObject[2], (string)newData[13], (string)newData[1], (int)newData[3], (string)newData[2], (string)newData[5], (string)newData[4]);
+                }
                 send.sendToCustomer((string)newData[4], serviceNo, (string)newData[0], (string)newData[13], (string)rObject2[0], (string)rObject2[1], fileName);
             
             return true;
