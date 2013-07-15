@@ -27,7 +27,7 @@ namespace ServiceOverblik
         /// <summary>
         /// An XML invoice based on a sample created with Microsoft InfoPath.
         /// </summary>
-        DataTable dt;
+        //DataTable dt;
         string path;
         /// <summary>
         /// The root navigator for the XML document.
@@ -39,7 +39,7 @@ namespace ServiceOverblik
         TextFrame addressFrame;
         TextFrame contentFrame;
         TextFrame serviceDescFrame;
-        TextFrame endFrame;
+        //TextFrame endFrame;
         /// <summary>
         /// The table of the MigraDoc document that contains the invoice items.
         /// </summary>

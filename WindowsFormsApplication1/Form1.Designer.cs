@@ -59,6 +59,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.createSendToInv = new System.Windows.Forms.CheckBox();
             this.createkWp = new System.Windows.Forms.TextBox();
             this.LabelCreatekWp = new System.Windows.Forms.Label();
             this.createSalesRep = new System.Windows.Forms.TextBox();
@@ -131,8 +133,8 @@
             this.editName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.editSave = new System.Windows.Forms.Button();
-            this.createSendToInv = new System.Windows.Forms.CheckBox();
-            this.createSendToInv.Checked = true;
+            this.editInverterListLbl = new System.Windows.Forms.Label();
+            this.editInverterLbx1 = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -400,6 +402,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.button5);
             this.tabPage2.Controls.Add(this.createSendToInv);
             this.tabPage2.Controls.Add(this.createkWp);
             this.tabPage2.Controls.Add(this.LabelCreatekWp);
@@ -440,6 +443,28 @@
             this.tabPage2.Size = new System.Drawing.Size(1228, 171);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Opret kunde";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(536, 137);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 23);
+            this.button5.TabIndex = 82;
+            this.button5.Text = "Flere invertere";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // createSendToInv
+            // 
+            this.createSendToInv.AutoSize = true;
+            this.createSendToInv.Checked = true;
+            this.createSendToInv.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.createSendToInv.Location = new System.Drawing.Point(349, 141);
+            this.createSendToInv.Name = "createSendToInv";
+            this.createSendToInv.Size = new System.Drawing.Size(114, 17);
+            this.createSendToInv.TabIndex = 81;
+            this.createSendToInv.Text = "Send til fakturering";
+            this.createSendToInv.UseVisualStyleBackColor = true;
             // 
             // createkWp
             // 
@@ -716,6 +741,8 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.editInverterLbx1);
+            this.tabPage3.Controls.Add(this.editInverterListLbl);
             this.tabPage3.Controls.Add(this.editkWp);
             this.tabPage3.Controls.Add(this.label40);
             this.tabPage3.Controls.Add(this.label37);
@@ -1088,15 +1115,24 @@
             this.editSave.UseVisualStyleBackColor = true;
             this.editSave.Click += new System.EventHandler(this.editSave_Click);
             // 
-            // createSendToInv
+            // editInverterListLbl
             // 
-            this.createSendToInv.AutoSize = true;
-            this.createSendToInv.Location = new System.Drawing.Point(349, 141);
-            this.createSendToInv.Name = "createSendToInv";
-            this.createSendToInv.Size = new System.Drawing.Size(114, 17);
-            this.createSendToInv.TabIndex = 81;
-            this.createSendToInv.Text = "Send til fakturering";
-            this.createSendToInv.UseVisualStyleBackColor = true;
+            this.editInverterListLbl.AutoSize = true;
+            this.editInverterListLbl.Location = new System.Drawing.Point(771, 3);
+            this.editInverterListLbl.Name = "editInverterListLbl";
+            this.editInverterListLbl.Size = new System.Drawing.Size(68, 13);
+            this.editInverterListLbl.TabIndex = 89;
+            this.editInverterListLbl.Text = "Inverter Liste";
+            this.editInverterListLbl.Visible = false;
+            // 
+            // editInverterLbx1
+            // 
+            this.editInverterLbx1.FormattingEnabled = true;
+            this.editInverterLbx1.Location = new System.Drawing.Point(774, 26);
+            this.editInverterLbx1.Name = "editInverterLbx1";
+            this.editInverterLbx1.Size = new System.Drawing.Size(120, 95);
+            this.editInverterLbx1.TabIndex = 90;
+            this.editInverterLbx1.Visible = false;
             // 
             // Form1
             // 
@@ -1228,6 +1264,9 @@
         private System.Windows.Forms.ToolStripMenuItem serviceAdministrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salgsrapportToolStripMenuItem;
         private System.Windows.Forms.CheckBox createSendToInv;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label editInverterListLbl;
+        private System.Windows.Forms.ListBox editInverterLbx1;
         /*private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.CheckBox checkBox3;

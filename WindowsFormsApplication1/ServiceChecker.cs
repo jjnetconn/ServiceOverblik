@@ -14,6 +14,7 @@ namespace ServiceOverblik
         EmailSender sendMail;
         Thread workerThread;
         
+
         public ServiceChecker()
         {
             mainApp = new ServiceManager();

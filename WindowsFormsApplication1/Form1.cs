@@ -32,21 +32,33 @@ namespace ServiceOverblik
         private static string activeSalesRep;
         private int selUserId;
         private string selectedService;
-       
+        string[] _invItems = null;
+        private bool multiInverter = false;
+        private bool isLoggedIn = false;
+
         public Form1()
         {
             InitializeComponent();
             createTMPFolder();
             createEditGroupBox();
             this.editGrpBx.Hide();
-            
-            ServiceChecker scs = new ServiceChecker();
-
             runstate = new ServiceManager();
+
             Form2 loginForm = new Form2();
-
+            DialogResult loginDialog = loginForm.ShowDialog();
+            if (loginDialog == DialogResult.OK)
+            {
+                ActiveSalesRep = loginForm.SelSalesRep;
+                createSalesRep.Text = loginForm.SelSalesRep;
+                isLoggedIn = true;
+            }
+            else
+            {
+                MessageBox.Show("Der skal vælges en sælger for at benytte programmet!, Progammet lukker...", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                isLoggedIn = false;               
+            }
             //loginForm.ShowDialog();
-
+            /*
             while (ActiveSalesRep == null)
             {
                 //loginForm = new Form2();
@@ -55,7 +67,15 @@ namespace ServiceOverblik
 
             loginForm.Dispose();
             createSalesRep.Text = ActiveSalesRep;
-
+             * 
+             * 
+             */
+            if (!isLoggedIn)
+            {
+                //using Evnironment.Exit(0) to kill all processes in application  with exitcode 0 includeing underlying unmanagede code
+                Environment.Exit(0);
+            }
+            ServiceChecker scs = new ServiceChecker();
             CustomerView = new DataTable();
 
             CustomerView.Columns.Add("UID", typeof(int));
@@ -91,6 +111,13 @@ namespace ServiceOverblik
             foreach (salesreps srp in runstate.getSalesReps())
             {
                 searchSalesReps.Items.Add(srp.init);
+                for (int i = 0; i < searchSalesReps.Items.Count; i++)
+                {
+                    if (searchSalesReps.Items[i].ToString().Equals(ActiveSalesRep))
+                    {
+                        searchSalesReps.SelectedIndex = i;
+                    }
+                }
             }
 
             foreach (paneltypes ptp in runstate.getPaneltypes())
@@ -300,24 +327,24 @@ namespace ServiceOverblik
                  searchresults.Add(runstate.searchCustomerByName(textBox1.Text));
              }
 
-             if (textBox2.TextLength != 0)
+             else if (textBox2.TextLength != 0)
              {
                  searchresults.Add(runstate.searchCustomerByStreet(textBox2.Text));
              }
 
-             if (textBox5.TextLength != 0)
+             else if (textBox5.TextLength != 0)
              {
                  searchresults.Add(runstate.searchCustomerByCity(textBox5.Text));
              }
 
-             if (textBox4.TextLength != 0)
+             else if (textBox4.TextLength != 0)
              {
                  searchresults.Add(runstate.searchCustomerByPostcode(textBox4.Text));
              }
-            if (searchSalesReps.SelectedIndex >= 0)
-            {
+             else if(searchSalesReps.SelectedIndex >= 0)
+             {
                 searchresults.Add(runstate.searchCustomerBySalesRep(searchSalesReps.SelectedItem.ToString()));
-            }
+             }
 
              var lengths = from element in searchresults
                            orderby element.Count
@@ -436,7 +463,26 @@ namespace ServiceOverblik
                     editPaneltype.Text = query.paneltype;
                     editServiceDate.Value = query.servicecontracts.startdate;
                     editServiceEndDate.Value = query.servicecontracts.enddate;
-                    editInverter.SelectedIndex = runstate.customerInverter(runstate.listInverters(), query.inverter);
+
+                    if (query.inverter.ToString().Split(',').Length > 1)
+                    {
+                        editInverterListLbl.Visible = true;
+                        editInverterLbx1.Visible = true;
+
+                        editInverter.SelectedText = "Flere inv.";
+
+                        string[] inverters = query.inverter.ToString().Split(',');
+                        foreach (string str in inverters)
+                        {
+                            editInverterLbx1.Items.Add(str);
+                        }
+
+                    }
+                    else
+                    {
+                        editInverter.SelectedIndex = runstate.customerInverter(runstate.listInverters(), query.inverter);
+                    }
+                    
                     servicetypeID = (int)query.servicecontracts.servicetype;
                     editService.SelectedIndex = (int)query.servicecontracts.servicetype - 1;
                     selectedService = editService.SelectedItem.ToString();
@@ -546,6 +592,25 @@ namespace ServiceOverblik
         private void createCustomer_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+            StringBuilder str = new StringBuilder();
+
+            if (multiInverter && _invItems != null)
+            {
+                
+                int i = 0;
+
+                foreach (string _str in _invItems)
+                {
+                    if (i == _invItems.Length -2)
+                    {
+                        str.Append(_str);
+                    }
+                    else
+                    {
+                        str.Append(_str + ",");
+                    }
+                }
+            }
 
                 object[] inData = new object[16];
                 inData[0] = createName.Text;
@@ -556,7 +621,16 @@ namespace ServiceOverblik
                 inData[5] = createPhone.Text;
                 inData[6] = Convert.ToInt32(createPanelcount.Text);
                 inData[7] = createColor.Text;
-                inData[8] = (string)createInverter.SelectedItem;
+
+                if (multiInverter)
+                {
+                    inData[8] = (string)str.ToString();
+                }
+                else
+                {
+                    inData[8] = (string)createInverter.SelectedItem;
+                }
+
                 inData[9] = createService.SelectedIndex + 1;
                 inData[10] = createServiceDate.Value.Date;
                 inData[11] = "";
@@ -863,6 +937,24 @@ namespace ServiceOverblik
         {
             SalesReportGenerator salesReport = new SalesReportGenerator();
             salesReport.ShowDialog();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MultipleInverters multiInvters = new MultipleInverters();
+            DialogResult dr = multiInvters.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                _invItems = multiInvters.Items;
+            
+                createInverter.SelectedText = "....";
+                multiInverter = true;   
+            }
+            if (dr == DialogResult.Cancel)
+            {
+                MessageBox.Show("Der er ikke tilføjet flere invertere!");
+            }
         }
     }
 }

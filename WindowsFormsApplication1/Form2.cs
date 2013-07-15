@@ -11,6 +11,13 @@ namespace ServiceOverblik
 {
     public partial class Form2 : Form
     {
+        private string _selSalesRep = null;
+        public string SelSalesRep
+        {
+            get { return _selSalesRep; }
+            set { _selSalesRep = value; }
+        }
+
         public Form2()
         {
             InitializeComponent();
@@ -21,15 +28,18 @@ namespace ServiceOverblik
             ServiceManager mainApp = new ServiceManager();
             foreach (salesreps srp in mainApp.getSalesReps())
             {
-                this.loginSalesRep.Items.Add(srp.init);
+                loginSalesRep.Items.Add(srp.init);
+                loginSalesRep.SelectedIndex = 0;
             }
             
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1.ActiveSalesRep = loginSalesRep.SelectedItem.ToString();
-            this.Hide();
+            SelSalesRep = loginSalesRep.SelectedItem.ToString();
+            //Form1.ActiveSalesRep = loginSalesRep.SelectedItem.ToString();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

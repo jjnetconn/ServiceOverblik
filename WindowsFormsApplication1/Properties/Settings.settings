@@ -17,7 +17,7 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="fakturaEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">st@solcellespecialisten.dk</Value>
+      <Value Profile="(Default)">ej@solcellespecialisten.dk</Value>
     </Setting>
     <Setting Name="fraEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)">support@solcellespecialisten.dk</Value>
@@ -26,19 +26,19 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="smptServer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">mail.netconn.dk </Value>
+      <Value Profile="(Default)">smtp.office365.com</Value>
     </Setting>
     <Setting Name="smtpPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">26</Value>
+      <Value Profile="(Default)">576</Value>
     </Setting>
     <Setting Name="smptUser" Type="System.String" Scope="User">
       <Value Profile="(Default)">jj@netconn.dk</Value>
     </Setting>
     <Setting Name="smtpPass" Type="System.String" Scope="User">
-      <Value Profile="(Default)">buDs76Cs!</Value>
+      <Value Profile="(Default)">buDs09Cs!</Value>
     </Setting>
     <Setting Name="smtpSSL" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="salesTax" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1.25</Value>
@@ -65,7 +65,7 @@
       <Value Profile="(Default)">Application</Value>
     </Setting>
     <Setting Name="salgsRapportEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pmp@solcellespecialisten.dk</Value>
+      <Value Profile="(Default)">ej@solcellespecialisten.dk</Value>
     </Setting>
   </Settings>
 </SettingsFile>

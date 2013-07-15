@@ -18,6 +18,13 @@ namespace ServiceOverblik
     {
         private servicebaseEntities serviceDB = new servicebaseEntities();
         public EventlogAppender eventlog = new EventlogAppender();
+        private string[] multiInverters;
+
+        public string[] MultiInverters
+        {
+            get { return multiInverters; }
+            set { multiInverters = value; }
+        }
 
         public ServiceManager()
         {
@@ -32,7 +39,7 @@ namespace ServiceOverblik
                 try
                 {
                     var query = from c in sdb.customers
-                                where c.cname.Contains(searchFilter)
+                                where c.cname.StartsWith(searchFilter) && c.servicecontracts.sid == c.serviceno
                                 select c;
                     tmp1 = query.ToList();
                 }
@@ -41,7 +48,7 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
                 return tmp1;
             }
@@ -53,7 +60,7 @@ namespace ServiceOverblik
             {
                 try
                 {   var query = from c in serviceDB.customers
-                             where c.street.Contains(searchFilter)
+                                where c.street.StartsWith(searchFilter) && c.servicecontracts.sid == c.serviceno
                                 select c;
                      tmp2 = query.ToList();
                 }
@@ -62,7 +69,7 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
                 return tmp2;
             }
@@ -75,7 +82,7 @@ namespace ServiceOverblik
                 try
                 {
                     var query = from c in sdb.customers
-                                where c.city.Contains(searchFilter)
+                                where c.city.StartsWith(searchFilter) && c.servicecontracts.sid == c.serviceno
                                 select c;
                     tmp3 = query.ToList();
                 }
@@ -84,7 +91,7 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
                 return tmp3;
             }
@@ -98,7 +105,7 @@ namespace ServiceOverblik
                 {
                     int tmp = Int32.Parse(searchFilter);
                     var query = from c in serviceDB.customers
-                                where c.postcode == tmp
+                                where c.postcode == tmp && c.servicecontracts.sid == c.serviceno
                                 select c;
                     tmp4 = query.ToList();
                 }
@@ -107,7 +114,7 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
                 return tmp4;
             }
@@ -121,7 +128,7 @@ namespace ServiceOverblik
                 {
                     bool tmp = Boolean.Parse(searchFilter);
                     var query = from c in serviceDB.customers
-                                where c.hasservice == tmp
+                                where c.hasservice == tmp 
                                 select c;
                     tmp5 = query.ToList();
                 }
@@ -130,7 +137,7 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
                 return tmp5;
             }
@@ -153,7 +160,7 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
             return tmp6;
         }
@@ -175,13 +182,11 @@ namespace ServiceOverblik
                 }
                 finally
                 {
-                    sdb.Dispose();
+                    //sdb.Dispose();
                 }
                 return tmp7;
             }
         }
-
-        //tilføj searchCustomerBySalesRep(string searchFilter)
 
         public List<servicetypes> getServicetypes()
         {
