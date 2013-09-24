@@ -132,7 +132,7 @@ namespace ServiceOverblik
 
             // Create footer
             Paragraph paragraph = section.Footers.Primary.AddParagraph();
-            paragraph.AddText("Solcelle Specialisten A/S - Nordre Strandvej 119E - DK-3150 Hellebæk");
+            paragraph.AddText(Properties.Settings.Default.companyAddress);
             paragraph.Format.Font.Size = 9;
             paragraph.Format.Alignment = ParagraphAlignment.Center;
 

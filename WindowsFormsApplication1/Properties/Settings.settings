@@ -25,20 +25,8 @@
     <Setting Name="isMailTest" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="smptServer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">smtp.office365.com</Value>
-    </Setting>
-    <Setting Name="smtpPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">576</Value>
-    </Setting>
     <Setting Name="smptUser" Type="System.String" Scope="User">
       <Value Profile="(Default)">jj@netconn.dk</Value>
-    </Setting>
-    <Setting Name="smtpPass" Type="System.String" Scope="User">
-      <Value Profile="(Default)">buDs09Cs!</Value>
-    </Setting>
-    <Setting Name="smtpSSL" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="salesTax" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1.25</Value>
@@ -66,6 +54,21 @@
     </Setting>
     <Setting Name="salgsRapportEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)">ej@solcellespecialisten.dk</Value>
+    </Setting>
+    <Setting Name="smptServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mail.netconn.dk</Value>
+    </Setting>
+    <Setting Name="smtpPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">26</Value>
+    </Setting>
+    <Setting Name="smtpPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">buDs76Cs!</Value>
+    </Setting>
+    <Setting Name="smtpSSL" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="companyAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Solcelle Specialisten A/S - Fredensborgvej 14D - DK-3080 Tikøb</Value>
     </Setting>
   </Settings>
 </SettingsFile>
